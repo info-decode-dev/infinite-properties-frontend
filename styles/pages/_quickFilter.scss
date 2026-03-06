@@ -1,0 +1,340 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+@use "../abstracts/utils" as u;
+
+// Quick Filter Styles
+// Scoped to exclude admin routes to avoid conflicts with Tailwind
+html:not([data-admin]) {
+  .quick-filter {
+    width: 100%;
+    margin-bottom: map-get(v.$spacing, 8);        
+
+    @include bp.breakpoint-up(xlarge) {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+    }
+
+    &__container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background-color: map-get(v.$colors, primary-light);
+      flex-direction: column;
+      border-radius: map-get(v.$border-radius, xl);
+      padding: map-get(v.$spacing, 1);    
+      box-shadow: map-get(v.$shadows, md);
+      gap: map-get(v.$spacing, 2);
+      flex-wrap: wrap;
+
+      @include bp.breakpoint-up(xlarge) {
+        border-radius: map-get(v.$border-radius, full);
+        flex-direction: row;
+        padding: 0;
+      }
+     
+    }
+
+    &__field {
+      width: 100%;
+      min-width: 100%;
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 2);
+      flex: 1;
+      min-width: 150px;
+      font-family: map-get(v.$font-families, primary);
+      padding: map-get(v.$spacing, 1) map-get(v.$spacing, 4);  
+      border-bottom: 1px solid map-get(v.$colors, silver-gray); 
+
+      &:last-child {
+        border-bottom: none;
+      }
+      
+
+
+      &--price {
+        min-width: 200px;
+
+        @include bp.breakpoint-down(medium) {
+          min-width: 100%;
+        }
+      }
+
+      @include bp.breakpoint-up(xlarge) {
+        border-bottom: none;
+        border-right: 1px solid map-get(v.$colors, silver-gray);       
+        
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+      color: map-get(v.$colors, primary);
+      flex-shrink: 0;
+    }
+
+    &__select {
+      flex: 1;
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4);
+      border: none;
+      background: transparent;
+      color: map-get(v.$colors, black);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+
+      &:focus {
+        outline: none;
+      }
+
+      option {
+        background-color: map-get(v.$colors, white);
+        color: map-get(v.$colors, black);
+        padding: map-get(v.$spacing, 2);
+      }
+    }
+
+    &__price-inputs {
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 2);
+      flex: 1;
+    }
+
+    &__input {
+      flex: 1;
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4);
+      border: none;
+      background: transparent;
+      color: map-get(v.$colors, black);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      outline: none;
+      min-width: 0;
+
+      &::placeholder {
+        color: map-get(v.$colors, gray-500);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &__price-separator {
+      color: map-get(v.$colors, gray-500);
+      font-size: f.rem(14);
+      flex-shrink: 0;
+    }
+
+    &__divider {
+      width: 1px;
+      height: 30px;
+      background-color: map-get(v.$colors, border-color-light);
+      flex-shrink: 0;
+
+      @include bp.breakpoint-down(medium) {
+        display: none;
+      }
+    }
+
+    &__button {
+      width: 100%;   
+      gap: map-get(v.$spacing, 2);
+      padding: map-get(v.$spacing, 4) map-get(v.$spacing, 6);
+      margin-top: map-get(v.$spacing, 2);
+      background: map-get(v.$colors, primary);
+      color: map-get(v.$colors, white);
+      border: none;
+      border-radius: map-get(v.$border-radius, md);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, medium);
+      cursor: pointer;
+      transition: all map-get(v.$transitions, base);
+      white-space: nowrap;
+      flex-shrink: 0;      
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+        box-shadow: map-get(v.$shadows, lg);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      @include bp.breakpoint-up(xlarge) {
+        width: auto;
+        margin-top: 0;
+        border-radius: map-get(v.$border-radius, full);
+        margin-left: map-get(v.$spacing, 1);
+      }
+    }
+
+    &__button-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    &__tags-container {
+      margin-top: map-get(v.$spacing, 4);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: map-get(v.$spacing, 2) map-get(v.$spacing, 2) map-get(v.$spacing, 2);
+      -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+      
+      // Show scrollbar on smaller devices for better UX
+      scrollbar-width: thin; // Firefox
+      scrollbar-color: map-get(v.$colors, primary-light) transparent;
+      
+      &::-webkit-scrollbar {
+        height: 6px; // Chrome, Safari, Opera
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: map-get(v.$colors, primary-light);
+        border-radius: map-get(v.$border-radius, full);
+        
+        &:hover {
+          background: map-get(v.$colors, primary);
+        }
+      }
+
+      @include bp.breakpoint-up(medium) {
+        // Hide scrollbar on larger devices
+        scrollbar-width: none;
+        
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+    }
+
+    &__tags {
+      display: flex;
+      flex-wrap: nowrap; // Prevent wrapping on smaller devices
+      gap: map-get(v.$spacing, 2);
+      justify-content: flex-start; // Start from left for scrolling
+      align-items: center;
+      overflow: visible;
+      min-width: min-content; // Allow content to determine width
+
+      @include bp.breakpoint-up(medium) {
+        flex-wrap: wrap; // Allow wrapping on larger devices
+        justify-content: center; // Center align on larger screens
+      }
+    }
+
+    &__tag {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 1);
+      background: transparent;
+      border: none;
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4);
+      margin: map-get(v.$spacing, 2);
+      cursor: pointer;
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      color: map-get(v.$colors, primary);
+      
+      text-decoration-color: map-get(v.$colors, primary);
+      transition: all map-get(v.$transitions, base);
+      white-space: nowrap;
+      flex-shrink: 0;
+      overflow: visible;
+
+      &:hover {
+        opacity: 0.8;
+        text-decoration-thickness: 2px;
+        text-decoration: underline;
+      text-underline-offset: 4px;
+      }
+
+      &:active {
+        opacity: 0.6;
+      }
+    }
+
+    &__tag-icon {
+      width: 16px;
+      height: 16px;
+      color: map-get(v.$colors, primary);
+      flex-shrink: 0;
+    }
+
+    &__tag-text {
+      color: map-get(v.$colors, primary);
+    }
+
+    &__tag-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 map-get(v.$spacing, 1);
+      background: map-get(v.$colors, primary);
+      color: map-get(v.$colors, white);
+      font-size: f.rem(11);
+      font-weight: map-get(v.$font-weights, semi-bold);
+      border-radius: map-get(v.$border-radius, full);
+      line-height: 1;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+
+    &__clear-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: map-get(v.$spacing, 4);
+      width: 100%;
+    }
+
+    &__clear-link {
+      background: transparent;
+      border: none;
+      padding: map-get(v.$spacing, 2) 0;
+      cursor: pointer;
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      color: map-get(v.$colors, secondary);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: map-get(v.$colors, secondary);
+      transition: all map-get(v.$transitions, base);
+
+      &:hover {
+        opacity: 0.8;
+        text-decoration-thickness: 2px;
+      }
+
+      &:active {
+        opacity: 0.6;
+      }
+    }
+  }
+}

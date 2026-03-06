@@ -1,0 +1,506 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+@use "../abstracts/utils" as u;
+
+// Property Map Component Styles
+.property-map-container {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: transparent;
+    transition: all 0.3s ease;
+    padding: 0;
+
+    @include bp.breakpoint-down(small) {
+        padding: 0;
+        margin: 0;
+    }
+
+
+    // States Marquee
+    .states-marquee-container {
+        width: 100%;
+        overflow: hidden;
+        padding: map-get(v.$spacing, 4) 0;
+        margin: map-get(v.$spacing, 2) 0 map-get(v.$spacing, 6) 0;
+        position: relative;
+
+        @include bp.breakpoint-down(small) {
+            padding: map-get(v.$spacing, 2) 0;
+            margin: map-get(v.$spacing, 1) 0 map-get(v.$spacing, 2) 0;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+
+            @include bp.breakpoint-down(small) {
+                width: 50px;
+            }
+        }
+
+        &::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+        }
+
+        &::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+        }
+    }
+
+    .states-marquee {
+        display: flex;
+        gap: map-get(v.$spacing, 3);
+        animation: marquee 60s linear infinite;
+        width: fit-content;
+
+        @include bp.breakpoint-down(small) {
+            gap: map-get(v.$spacing, 2);
+            animation-duration: 80s;
+        }
+
+        &:hover {
+            animation-play-state: paused;
+        }
+    }
+
+    .state-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: map-get(v.$spacing, 2);
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+        border-radius: map-get(v.$border-radius, full);
+        background: #f1f5f9;
+        color: #64748b;
+        font-size: f.rem(13);
+        font-weight: map-get(v.$font-weights, medium);
+        font-family: map-get(v.$font-families, primary);
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        position: relative;
+        border: 2px solid transparent;
+
+        @include bp.breakpoint-down(small) {
+            padding: map-get(v.$spacing, 1.5) map-get(v.$spacing, 3);
+            font-size: f.rem(11);
+        }
+
+        // States with properties
+        &.has-properties {
+            background: rgba(0, 91, 92, 0.1);
+            color: #005B5C;
+            border-color: rgba(0, 91, 92, 0.3);
+            font-weight: map-get(v.$font-weights, semibold);
+            box-shadow: 0 2px 8px rgba(0, 91, 92, 0.15);
+
+            .chip-indicator {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #005B5C;
+                animation: chipPulse 2s ease-in-out infinite;
+
+                @include bp.breakpoint-down(small) {
+                    width: 6px;
+                    height: 6px;
+                }
+            }
+        }
+
+        // Newly added states
+        &.newly-added {
+            background: rgba(0, 91, 92, 0.2);
+            color: #005B5C;
+            border-color: #005B5C;
+            font-weight: map-get(v.$font-weights, bold);
+            box-shadow: 0 4px 12px rgba(0, 91, 92, 0.3);
+            animation: newStateHighlight 0.5s ease-in-out;
+            transform: scale(1.05);
+
+            .chip-indicator {
+                background: #005B5C;
+                box-shadow: 0 0 8px rgba(0, 91, 92, 0.6);
+            }
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+            &.has-properties {
+                box-shadow: 0 4px 12px rgba(0, 91, 92, 0.25);
+            }
+        }
+    }
+
+    // Map Container
+    .map-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        background: transparent;
+        border-radius: 16px;
+        margin: 0;
+
+        @include bp.breakpoint-down(small) {
+            border-radius: 12px;
+            margin: 0;
+        }
+
+        .map-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        // Dotted Map SVG - Full world map
+        .dotted-map-svg {
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        // India Highlight Overlay
+        .india-highlight {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+
+            .india-outline {
+                width: 100%;
+                height: 100%;
+                opacity: 0.6;
+            }
+        }
+    }
+
+
+    // State Area Highlights
+    .state-area-highlight {
+        position: absolute;
+        background: rgba(0, 91, 92, 0.1);
+        border: 2px solid rgba(0, 91, 92, 0.4);
+        border-radius: 4px;
+        z-index: 2;
+        pointer-events: none;
+        animation: stateAreaPulse 3s ease-in-out infinite;
+    }
+
+    // State Highlights
+    .state-highlight {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        z-index: 4;
+        pointer-events: none;
+
+        .state-marker {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 91, 92, 0.3);
+            border: 2px solid #005B5C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: statePulse 2s ease-in-out infinite;
+            box-shadow: 0 0 12px rgba(0, 91, 92, 0.5);
+        }
+
+        .state-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #005B5C;
+            opacity: 0.6;
+            animation: statePulseRing 2s ease-in-out infinite;
+        }
+
+        .state-label {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 8px;
+            padding: 4px 8px;
+            background: rgba(0, 91, 92, 0.95);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+            white-space: nowrap;
+            font-family: map-get(v.$font-families, primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            @include bp.breakpoint-down(small) {
+                font-size: 10px;
+                padding: 3px 6px;
+            }
+        }
+    }
+
+    // Property Markers
+    .property-marker {
+        position: absolute;
+        transform: translate(-50%, -100%);
+        cursor: pointer;
+        z-index: 5;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        .marker-pin {
+            color: var(--marker-color, #3b82f6);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: markerPulse 2s ease-in-out infinite;
+        }
+
+        &.hovered {
+            z-index: 20;
+
+            .marker-pin {
+                transform: scale(1.3) translateY(-5px);
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            }
+        }
+
+        &.selected {
+            z-index: 25;
+
+            .marker-pin {
+                transform: scale(1.5) translateY(-8px);
+                filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+            }
+        }
+
+        // Tooltip
+        .marker-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            min-width: 220px;
+            margin-bottom: 8px;
+            animation: tooltipFadeIn 0.3s ease-out;
+            pointer-events: none;
+            z-index: 30;
+
+            @include bp.breakpoint-down(small) {
+                min-width: 180px;
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                border: 6px solid transparent;
+                border-top-color: #ffffff;
+            }
+
+            .tooltip-title {
+                font-weight: 600;
+                font-size: 14px;
+                color: #1e293b;
+                margin-bottom: 6px;
+                line-height: 1.3;
+
+                @include bp.breakpoint-down(small) {
+                    font-size: 12px;
+                    margin-bottom: 4px;
+                }
+            }
+
+            .tooltip-location {
+                font-size: 12px;
+                color: #64748b;
+                margin-bottom: 8px;
+
+                @include bp.breakpoint-down(small) {
+                    font-size: 11px;
+                    margin-bottom: 6px;
+                }
+            }
+
+            .tooltip-status {
+                margin-bottom: 8px;
+
+                @include bp.breakpoint-down(small) {
+                    margin-bottom: 6px;
+                }
+
+                .status-badge {
+                    display: inline-block;
+                    padding: 4px 10px;
+                    border-radius: 6px;
+                    font-size: 11px;
+                    font-weight: 500;
+                    color: #ffffff;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+
+                    @include bp.breakpoint-down(small) {
+                        font-size: 10px;
+                        padding: 3px 8px;
+                    }
+                }
+            }
+
+            .tooltip-price {
+                font-weight: 700;
+                font-size: 16px;
+                color: #059669;
+
+                @include bp.breakpoint-down(small) {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+}
+
+// Animations
+@keyframes markerPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes statePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes statePulseRing {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes stateAreaPulse {
+    0%, 100% {
+        opacity: 0.1;
+        border-color: rgba(0, 91, 92, 0.4);
+    }
+    50% {
+        opacity: 0.2;
+        border-color: rgba(0, 91, 92, 0.6);
+    }
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes chipPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes newStateHighlight {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(0, 91, 92, 0.15);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 91, 92, 0.4);
+    }
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 91, 92, 0.3);
+    }
+}
+
+// Dark mode support (if needed)
+@media (prefers-color-scheme: dark) {
+    .property-map-container {
+        background: transparent;
+
+        .map-container {
+            background: transparent;
+        }
+
+        .map-controls {
+            background: rgba(30, 41, 59, 0.95);
+            color: #f1f5f9;
+        }
+
+        .marker-tooltip {
+            background: #1e293b;
+            color: #f1f5f9;
+
+            &::after {
+                border-top-color: #1e293b;
+            }
+
+            .tooltip-title {
+                color: #f1f5f9;
+            }
+
+            .tooltip-location {
+                color: #94a3b8;
+            }
+        }
+    }
+}

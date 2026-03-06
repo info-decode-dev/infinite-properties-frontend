@@ -1,0 +1,124 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/breakpoints" as bp;
+@use "../abstracts/functions" as f;
+
+// Container - scoped to exclude admin routes
+html:not([data-admin]) .container {
+  @include bp.container;
+}
+
+html:not([data-admin]) .container-fluid {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-left: map-get(v.$spacing, 4);
+  padding-right: map-get(v.$spacing, 4);
+}
+
+// Grid System - scoped to exclude admin routes
+html:not([data-admin]) .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(#{map-get(v.$spacing, 3)} * -1);
+  margin-right: calc(#{map-get(v.$spacing, 3)} * -1);
+}
+
+.col {
+  flex: 1 0 0%;
+  padding-left: map-get(v.$spacing, 3);
+  padding-right: map-get(v.$spacing, 3);
+}
+
+// Auto-sizing columns
+.col-auto {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
+  padding-left: map-get(v.$spacing, 3);
+  padding-right: map-get(v.$spacing, 3);
+}
+
+// Generate column classes
+@for $i from 1 through v.$grid-columns {
+  .col-#{$i} {
+    flex: 0 0 percentage(calc($i / v.$grid-columns));
+    max-width: percentage(calc($i / v.$grid-columns));
+    padding-left: map-get(v.$spacing, 3);
+    padding-right: map-get(v.$spacing, 3);
+  }
+}
+
+// Responsive columns
+@each $breakpoint, $value in bp.$breakpoints-up {
+  @include bp.breakpoint($breakpoint) {
+    .col-#{$breakpoint} {
+      flex: 1 0 0%;
+      padding-left: map-get(v.$spacing, 3);
+      padding-right: map-get(v.$spacing, 3);
+    }
+    
+    .col-#{$breakpoint}-auto {
+      flex: 0 0 auto;
+      width: auto;
+      max-width: 100%;
+      padding-left: map-get(v.$spacing, 3);
+      padding-right: map-get(v.$spacing, 3);
+    }
+    
+    @for $i from 1 through v.$grid-columns {
+      .col-#{$breakpoint}-#{$i} {
+        flex: 0 0 percentage(calc($i / v.$grid-columns));
+        max-width: percentage(calc($i / v.$grid-columns));
+        padding-left: map-get(v.$spacing, 3);
+        padding-right: map-get(v.$spacing, 3);
+      }
+    }
+  }
+}
+
+// Property-specific grid layouts
+.property-grid {
+  display: grid;
+  gap: map-get(v.$spacing, 6);
+  
+  &--2-col {
+    grid-template-columns: 1fr 1fr;
+    
+    @include bp.breakpoint-down(medium) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--3-col {
+    grid-template-columns: repeat(3, 1fr);
+    
+    @include bp.breakpoint-down(large) {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    @include bp.breakpoint-down(medium) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--4-col {
+    grid-template-columns: repeat(4, 1fr);
+    
+    @include bp.breakpoint-down(large) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include bp.breakpoint-down(medium) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--sidebar {
+    grid-template-columns: 300px 1fr;
+    
+    @include bp.breakpoint-down(large) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+

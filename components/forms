@@ -1,0 +1,142 @@
+"use client";
+
+import { useState } from "react";
+import { Plus, X } from "lucide-react";
+import { Amenity } from "@/types/property";
+
+interface AmenitiesSectionProps {
+  amenities: Amenity[];
+  onChange: (amenities: Amenity[]) => void;
+}
+
+const commonAmenities = [
+  "Swimming Pool",
+  "Gym",
+  "Parking",
+  "Security",
+  "Elevator",
+  "Garden",
+  "Clubhouse",
+  "Power Backup",
+  "Water Supply",
+  "Park",
+  "Shopping Mall",
+  "Hospital",
+  "School",
+  "Metro Station",
+];
+
+export default function AmenitiesSection({
+  amenities,
+  onChange,
+}: AmenitiesSectionProps) {
+  const [newAmenity, setNewAmenity] = useState("");
+
+  const addAmenity = () => {
+    if (newAmenity.trim() && !amenities.some((a) => a.name === newAmenity.trim())) {
+      onChange([
+        ...amenities,
+        {
+          id: Date.now().toString(),
+          name: newAmenity.trim(),
+        },
+      ]);
+      setNewAmenity("");
+    }
+  };
+
+  const removeAmenity = (id: string) => {
+    onChange(amenities.filter((a) => a.id !== id));
+  };
+
+  const addCommonAmenity = (name: string) => {
+    if (!amenities.some((a) => a.name === name)) {
+      onChange([
+        ...amenities,
+        {
+          id: Date.now().toString(),
+          name,
+        },
+      ]);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Amenities
+        </label>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+          Add amenities available in this property
+        </p>
+      </div>
+
+      {/* Common Amenities */}
+      <div>
+        <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
+          Quick Add:
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {commonAmenities.map((amenity) => (
+            <button
+              key={amenity}
+              type="button"
+              onClick={() => addCommonAmenity(amenity)}
+              disabled={amenities.some((a) => a.name === amenity)}
+              className="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {amenity}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Custom Amenity Input */}
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={newAmenity}
+          onChange={(e) => setNewAmenity(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              addAmenity();
+            }
+          }}
+          placeholder="Add custom amenity..."
+          className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          type="button"
+          onClick={addAmenity}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          <Plus className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Selected Amenities */}
+      {amenities.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {amenities.map((amenity) => (
+            <span
+              key={amenity.id}
+              className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm"
+            >
+              {amenity.name}
+              <button
+                type="button"
+                onClick={() => removeAmenity(amenity.id)}
+                className="hover:text-blue-900 dark:hover:text-blue-100"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+

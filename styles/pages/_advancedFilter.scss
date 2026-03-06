@@ -1,0 +1,222 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+
+// Advanced Filter Styles
+
+html:not([data-admin]) {
+  .advanced-filter {
+    display: flex;
+    flex-direction: column;
+    gap: map-get(v.$spacing, 6);
+
+    &__section {
+      display: flex;
+      flex-direction: column;
+      gap: map-get(v.$spacing, 3);
+    }
+
+    &__label {
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 2);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, semibold);
+      color: map-get(v.$colors, gray-700);
+      margin: 0;
+    }
+
+    &__input {
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4);
+      border: 1px solid map-get(v.$colors, gray-300);
+      border-radius: map-get(v.$border-radius, md);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      color: map-get(v.$colors, gray-700);
+      background: map-get(v.$colors, white);
+      transition: all map-get(v.$transitions, default);
+
+      &:focus {
+        outline: none;
+        border-color: map-get(v.$colors, primary);
+        box-shadow: 0 0 0 3px rgba(6, 26, 47, 0.1);
+      }
+
+      &::placeholder {
+        color: map-get(v.$colors, gray-400);
+      }
+
+      @include bp.breakpoint-down(small) {
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3);
+        font-size: f.rem(13);
+      }
+    }
+
+    &__select {
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4);
+      border: 1px solid map-get(v.$colors, gray-300);
+      border-radius: map-get(v.$border-radius, md);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      color: map-get(v.$colors, gray-700);
+      background: map-get(v.$colors, white);
+      cursor: pointer;
+      transition: all map-get(v.$transitions, default);
+
+      &:focus {
+        outline: none;
+        border-color: map-get(v.$colors, primary);
+        box-shadow: 0 0 0 3px rgba(6, 26, 47, 0.1);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: map-get(v.$colors, gray-50);
+      }
+
+      @include bp.breakpoint-down(small) {
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3);
+        font-size: f.rem(13);
+      }
+    }
+
+    &__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: map-get(v.$spacing, 3);
+
+      @include bp.breakpoint-down(small) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    &__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: map-get(v.$spacing, 2);
+    }
+
+    &__chip {
+      padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+      border: 1px solid map-get(v.$colors, gray-300);
+      border-radius: map-get(v.$border-radius, full);
+      background: map-get(v.$colors, white);
+      color: map-get(v.$colors, gray-700);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(13);
+      font-weight: map-get(v.$font-weights, medium);
+      cursor: pointer;
+      transition: all map-get(v.$transitions, default);
+      white-space: nowrap;
+
+      &:hover {
+        border-color: map-get(v.$colors, primary);
+        color: map-get(v.$colors, primary);
+      }
+
+      &.active {
+        background: map-get(v.$colors, primary);
+        color: map-get(v.$colors, white);
+        border-color: map-get(v.$colors, primary);
+      }
+
+      @include bp.breakpoint-down(small) {
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3);
+        font-size: f.rem(12);
+      }
+    }
+
+    &__amenities {
+      display: flex;
+      flex-direction: column;
+      gap: map-get(v.$spacing, 2);
+      max-height: 300px;
+      overflow-y: auto;
+      padding: map-get(v.$spacing, 2);
+      border: 1px solid map-get(v.$colors, gray-200);
+      border-radius: map-get(v.$border-radius, md);
+      background: map-get(v.$colors, gray-50);
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: map-get(v.$colors, gray-100);
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: map-get(v.$colors, gray-400);
+        border-radius: 3px;
+
+        &:hover {
+          background: map-get(v.$colors, gray-500);
+        }
+      }
+    }
+
+    &__amenity {
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 2);
+      padding: map-get(v.$spacing, 2);
+      border-radius: map-get(v.$border-radius, sm);
+      cursor: pointer;
+      transition: background-color map-get(v.$transitions, default);
+
+      &:hover {
+        background: map-get(v.$colors, white);
+      }
+
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        accent-color: map-get(v.$colors, primary);
+      }
+
+      span {
+        font-family: map-get(v.$font-families, primary);
+        font-size: f.rem(14);
+        color: map-get(v.$colors, gray-700);
+        user-select: none;
+      }
+    }
+
+    &__actions {
+      padding-top: map-get(v.$spacing, 4);
+      border-top: 1px solid map-get(v.$colors, gray-200);
+    }
+
+    &__clear-btn {
+      width: 100%;
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4);
+      border: 1px solid map-get(v.$colors, error);
+      border-radius: map-get(v.$border-radius, md);
+      background: map-get(v.$colors, white);
+      color: map-get(v.$colors, error);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, medium);
+      cursor: pointer;
+      transition: all map-get(v.$transitions, default);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: map-get(v.$spacing, 2);
+
+      &:hover {
+        background: map-get(v.$colors, error);
+        color: map-get(v.$colors, white);
+      }
+
+      @include bp.breakpoint-down(small) {
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3);
+        font-size: f.rem(13);
+      }
+    }
+  }
+}

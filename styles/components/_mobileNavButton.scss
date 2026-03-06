@@ -1,0 +1,143 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/breakpoints" as bp;
+@use "../abstracts/utils" as u;
+
+// Mobile Navigation Button Component
+// Only visible on mobile screens (below 700px) and on home page
+
+.mobile-nav-button {
+  position: fixed;
+  bottom: map-get(v.$spacing, 6);
+  right: map-get(v.$spacing, 6);
+  z-index: 1000;
+  display: none; // Hidden by default, shown only on mobile
+
+  @include bp.breakpoint-down(small) {
+    display: block;
+  }
+
+  // Main Settings Button
+  &__main {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: map-get(v.$colors, secondary) !important;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: map-get(v.$colors, white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 10;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &--expanded {
+      background-color: map-get(v.$colors, secondary);
+      transform: rotate(180deg);
+    }
+
+    svg {
+      transition: transform 0.3s ease;
+    }
+
+    .rotate {
+      transform: rotate(180deg);
+    }
+  }
+
+  // Expanded Navigation Items
+  &__item {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    min-width: 120px;
+    height: 56px;
+    border-radius: 28px;
+    background-color: map-get(v.$colors, primary) !important;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: map-get(v.$colors, white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 14px;
+    font-weight: map-get(v.$font-weights, semibold);
+    text-align: center;
+    padding: 0 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: auto;
+
+    &:hover {
+      transform: scale(1.05) translateX(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      background-color: map-get(v.$colors, primary) !important;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    svg {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    span {
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: map-get(v.$font-weights, semibold);
+    }
+
+    // Individual button spacing and positioning with separate spacings
+    &--filter {
+      // First button - closest to main button
+      transform: translateY(-60px);
+    }
+
+    &--properties {
+      // Second button - more spacing
+      transform: translateY(-120px);
+    }
+
+    &--about {
+      // Third button - even more spacing
+      transform: translateY(-180px);
+    }
+
+    &--contact {
+      // Fourth button - furthest from main button with maximum spacing
+      transform: translateY(-240px);
+    }
+
+    // Hidden state for collapsed buttons
+    &--hidden {
+      pointer-events: none;
+      opacity: 0;
+    }
+  }
+}
+
+// Hide on larger screens
+@include bp.breakpoint(medium) {
+  .mobile-nav-button {
+    display: none !important;
+  }
+}

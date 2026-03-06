@@ -1,0 +1,536 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+
+// Property Listing Page Styles
+
+html:not([data-admin]) {
+  .property-listing {
+    padding: map-get(v.$spacing, 8) 0;
+    min-height: 60vh;
+
+    // Breadcrumbs
+    &__breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 2);
+      margin-bottom: map-get(v.$spacing, 6);
+      font-size: f.rem(14);
+      color: map-get(v.$colors, gray-500);
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: map-get(v.$spacing, 1);
+      
+      // Hide scrollbar
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    &__breadcrumb-link {
+      color: map-get(v.$colors, gray-500);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-weight: map-get(v.$font-weights, medium);
+
+      &:hover {
+        color: map-get(v.$colors, primary);
+      }
+    }
+
+    &__breadcrumb-icon {
+      width: 14px;
+      height: 14px;
+      color: map-get(v.$colors, gray-400);
+      flex-shrink: 0;
+    }
+
+    &__breadcrumb-current {
+      color: map-get(v.$colors, gray-900);
+      font-weight: map-get(v.$font-weights, semibold);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-text-container {
+      margin-bottom: map-get(v.$spacing, 6);
+    }
+
+    &__header-actions {
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 3);
+      flex-wrap: wrap;
+
+      @include bp.breakpoint-down(small) {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    &__filter-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: map-get(v.$spacing, 2);
+        margin-bottom: map-get(v.$spacing, 4);
+        padding: map-get(v.$spacing, 3) 0;
+        align-items: center;
+    }
+
+    &__filter-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: map-get(v.$spacing, 2);
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3);
+        background: map-get(v.$colors, primary);
+        color: map-get(v.$colors, white);
+        border-radius: f.rem(20);
+        font-family: map-get(v.$font-families, primary);
+        font-size: f.rem(13);
+        font-weight: map-get(v.$font-weights, medium);
+        white-space: nowrap;
+        transition: all 0.2s ease;
+        
+        &:hover {
+            background: map-get(v.$colors, primary-dark);
+        }
+    }
+
+    &__filter-chip-label {
+        display: flex;
+        align-items: center;
+    }
+
+    &__filter-chip-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: map-get(v.$colors, white);
+        cursor: pointer;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    &__filter-chip-clear {
+        display: inline-flex;
+        align-items: center;
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+        background: transparent;
+        color: map-get(v.$colors, primary);
+        border: 1px solid map-get(v.$colors, primary);
+        border-radius: f.rem(20);
+        font-family: map-get(v.$font-families, primary);
+        font-size: f.rem(13);
+        font-weight: map-get(v.$font-weights, medium);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        
+        &:hover {
+            background: map-get(v.$colors, primary);
+            color: map-get(v.$colors, white);
+        }
+        
+        @include bp.breakpoint-down(small) {
+            padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3);
+            font-size: f.rem(12);
+        }
+    }
+
+    &__results-count {
+      margin-bottom: map-get(v.$spacing, 6);
+    }
+
+    &__subtitle {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(16);
+      color: map-get(v.$colors, gray-600);
+      margin: 0;
+
+      @include bp.breakpoint-down(small) {
+        font-size: f.rem(14);
+      }
+    }
+
+    &__sort {
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+      border: 1px solid map-get(v.$colors, gray-300);
+      border-radius: map-get(v.$border-radius, md);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      color: map-get(v.$colors, gray-700);
+      background: map-get(v.$colors, white);
+      cursor: pointer;
+      transition: all map-get(v.$transitions, default);
+
+      &:hover {
+        border-color: map-get(v.$colors, primary);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: map-get(v.$colors, primary);
+        box-shadow: 0 0 0 3px rgba(6, 26, 47, 0.1);
+      }
+
+      @include bp.breakpoint-down(small) {
+        flex: 1;
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+        font-size: f.rem(13);
+      }
+    }
+
+    &__view-toggle {
+      display: flex;
+      border: 1px solid map-get(v.$colors, gray-300);
+      border-radius: map-get(v.$border-radius, md);
+      overflow: hidden;
+      background: map-get(v.$colors, white);
+    }
+
+    &__view-btn {
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4);
+      border: none;
+      background: transparent;
+      color: map-get(v.$colors, gray-600);
+      cursor: pointer;
+      transition: all map-get(v.$transitions, default);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: map-get(v.$colors, gray-50);
+        color: map-get(v.$colors, primary);
+      }
+
+      &.active {
+        background: map-get(v.$colors, primary);
+        color: map-get(v.$colors, white);
+      }
+
+      @include bp.breakpoint-down(small) {
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3);
+      }
+    }
+
+    &__filter-toggle {
+      position: relative;
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+      border: 1px solid map-get(v.$colors, primary);
+      border-radius: map-get(v.$border-radius, md);
+      background: map-get(v.$colors, white);
+      color: map-get(v.$colors, primary);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, medium);
+      cursor: pointer;
+      transition: all map-get(v.$transitions, default);
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 2);
+
+      &:hover {
+        background: map-get(v.$colors, primary);
+        color: map-get(v.$colors, white);
+      }
+
+      @include bp.breakpoint-down(small) {
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+        font-size: f.rem(13);
+      }
+    }
+
+    &__filter-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 8px;
+      height: 8px;
+      background: map-get(v.$colors, error);
+      border-radius: 50%;
+      border: 2px solid map-get(v.$colors, white);
+    }
+
+    &__filters-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      display: flex;
+
+      @include bp.breakpoint(medium) {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        z-index: auto;
+      }
+    }
+
+    &__filters-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+
+      @include bp.breakpoint(medium) {
+        display: none;
+      }
+    }
+
+    &__filters-sidebar {
+      position: relative;
+      z-index: 2;
+      background: map-get(v.$colors, white);
+      width: 100%;
+      max-width: 400px;
+      height: 100%;
+      overflow-y: auto;
+      box-shadow: map-get(v.$shadows, lg);
+      padding: map-get(v.$spacing, 6);
+
+      @include bp.breakpoint(medium) {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        box-shadow: none;
+        padding: 0;
+        margin-bottom: map-get(v.$spacing, 8);
+      }
+    }
+
+    &__filters-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: map-get(v.$spacing, 6);
+      padding-bottom: map-get(v.$spacing, 4);
+      border-bottom: 1px solid map-get(v.$colors, gray-200);
+
+      h2 {
+        font-family: map-get(v.$font-families, primary);
+        font-size: f.rem(24);
+        font-weight: map-get(v.$font-weights, bold);
+        color: map-get(v.$colors, primary);
+        margin: 0;
+      }
+
+      @include bp.breakpoint(medium) {
+        display: none;
+      }
+    }
+
+    &__filters-close {
+      padding: map-get(v.$spacing, 2);
+      border: none;
+      background: transparent;
+      color: map-get(v.$colors, gray-600);
+      cursor: pointer;
+      transition: color map-get(v.$transitions, default);
+
+      &:hover {
+        color: map-get(v.$colors, primary);
+      }
+    }
+
+    &__grid {
+      display: grid;
+      gap: map-get(v.$spacing, 6);
+      margin-bottom: map-get(v.$spacing, 8);
+
+      &--grid {
+        grid-template-columns: 1fr;
+
+        @include bp.breakpoint(medium) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include bp.breakpoint(large) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      &--list {
+        grid-template-columns: 1fr;
+        gap: map-get(v.$spacing, 4);
+
+        .property-card {
+          display: flex;
+          flex-direction: row;
+          max-width: 100%;
+
+          &__image-wrapper {
+            width: 300px;
+            min-width: 300px;
+            height: 200px;
+
+            @include bp.breakpoint-down(small) {
+              width: 100%;
+              min-width: 100%;
+              height: 250px;
+            }
+          }
+
+          &__content {
+            flex: 1;
+            padding: map-get(v.$spacing, 4);
+          }
+        }
+      }
+    }
+
+    &__loading,
+    &__error,
+    &__empty {
+      text-align: center;
+      padding: map-get(v.$spacing, 16) map-get(v.$spacing, 4);
+      color: map-get(v.$colors, gray-600);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(16);
+
+      p {
+        margin: 0 0 map-get(v.$spacing, 4) 0;
+      }
+
+      button {
+        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 6);
+        border: 1px solid map-get(v.$colors, primary);
+        border-radius: map-get(v.$border-radius, md);
+        background: map-get(v.$colors, white);
+        color: map-get(v.$colors, primary);
+        font-family: map-get(v.$font-families, primary);
+        font-size: f.rem(14);
+        font-weight: map-get(v.$font-weights, medium);
+        cursor: pointer;
+        transition: all map-get(v.$transitions, default);
+
+        &:hover {
+          background: map-get(v.$colors, primary);
+          color: map-get(v.$colors, white);
+        }
+      }
+    }
+
+    &__loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid map-get(v.$colors, gray-200);
+      border-top-color: map-get(v.$colors, primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto map-get(v.$spacing, 4);
+    }
+
+    &__pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: map-get(v.$spacing, 2);
+      margin-top: map-get(v.$spacing, 8);
+      flex-wrap: wrap;
+
+      &-btn {
+        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+        border: 1px solid map-get(v.$colors, gray-300);
+        border-radius: map-get(v.$border-radius, md);
+        background: map-get(v.$colors, white);
+        color: map-get(v.$colors, gray-700);
+        font-family: map-get(v.$font-families, primary);
+        font-size: f.rem(14);
+        font-weight: map-get(v.$font-weights, medium);
+        cursor: pointer;
+        transition: all map-get(v.$transitions, default);
+
+        &:hover:not(:disabled) {
+          border-color: map-get(v.$colors, primary);
+          color: map-get(v.$colors, primary);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        @include bp.breakpoint-down(small) {
+          padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+          font-size: f.rem(13);
+        }
+      }
+
+      &-numbers {
+        display: flex;
+        align-items: center;
+        gap: map-get(v.$spacing, 1);
+      }
+
+      &-number {
+        min-width: 40px;
+        height: 40px;
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3);
+        border: 1px solid map-get(v.$colors, gray-300);
+        border-radius: map-get(v.$border-radius, md);
+        background: map-get(v.$colors, white);
+        color: map-get(v.$colors, gray-700);
+        font-family: map-get(v.$font-families, primary);
+        font-size: f.rem(14);
+        font-weight: map-get(v.$font-weights, medium);
+        cursor: pointer;
+        transition: all map-get(v.$transitions, default);
+
+        &:hover {
+          border-color: map-get(v.$colors, primary);
+          color: map-get(v.$colors, primary);
+        }
+
+        &.active {
+          background: map-get(v.$colors, primary);
+          color: map-get(v.$colors, white);
+          border-color: map-get(v.$colors, primary);
+        }
+
+        @include bp.breakpoint-down(small) {
+          min-width: 36px;
+          height: 36px;
+          padding: map-get(v.$spacing, 1) map-get(v.$spacing, 2);
+          font-size: f.rem(13);
+        }
+      }
+
+      &-ellipsis {
+        padding: 0 map-get(v.$spacing, 2);
+        color: map-get(v.$colors, gray-500);
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

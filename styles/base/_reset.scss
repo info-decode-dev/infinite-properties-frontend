@@ -1,0 +1,139 @@
+/* CSS Reset - Modern Normalize */
+/* Scoped to exclude admin routes to avoid conflicts with Tailwind */
+
+/* Box sizing rules - safe to apply globally */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding - scoped to exclude admin */
+html:not([data-admin]) * {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults - scoped to exclude admin */
+html:not([data-admin]) {
+  scroll-behavior: smooth;
+  font-size: 100%; /* 16px base */
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html:not([data-admin]):focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults - scoped to exclude admin */
+html:not([data-admin]) body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Remove default button styles - scoped to exclude admin */
+html:not([data-admin]) button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Remove default fieldset styles */
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default legend styles */
+legend {
+  padding: 0;
+}
+
+/* Remove default table styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Remove default address styles */
+address {
+  font-style: normal;
+}
+
+/* Form elements - scoped to exclude admin */
+html:not([data-admin]) input,
+html:not([data-admin]) textarea,
+html:not([data-admin]) select {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+/* Remove default summary styles */
+summary {
+  cursor: pointer;
+}
+
+/* Ensure consistent styling for hidden attribute */
+[hidden] {
+  display: none !important;
+}
+
+/* Focus styles for better accessibility */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+

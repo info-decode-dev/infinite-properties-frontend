@@ -1,0 +1,456 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+@use "../abstracts/utils" as u;
+
+// Hero Section Styles
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 500px;
+    overflow: hidden;
+    
+    // Smaller devices - adjust height
+    @include bp.breakpoint-down(small) {
+        height: 70vh;
+        min-height: 400px;
+    }
+    
+    @include bp.breakpoint(medium) {
+        height: 85vh;
+    }
+    
+    @include bp.breakpoint(large) {
+        height: 100vh;
+    }
+    
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            rgba(6, 26, 47, 0.6) 0%,
+            rgba(6, 26, 47, 0.3) 24%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.7) 30%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.7) 30%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        z-index: 1;
+        pointer-events: none;
+        
+        // Adjust gradient stops for smaller devices
+        @include bp.breakpoint-down(small) {
+            background: linear-gradient(
+                to bottom,
+                rgba(6, 26, 47, 0.6) 0%,
+                rgba(6, 26, 47, 0.2) 40%,
+                rgba(0, 0, 0, 0) 100%
+            );
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    }
+    
+    // White-to-transparent gradient at bottom for smooth scroll transition
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.2) 40%,
+            rgba(255, 255, 255, 0.5) 70%,
+            rgba(255, 255, 255, 1) 100%
+        );
+        z-index: 2;
+        pointer-events: none;
+        
+        @include bp.breakpoint-down(small) {
+            height: 150px;
+        }
+        
+        @include bp.breakpoint(medium) {
+            height: 200px;
+        }
+        
+        @include bp.breakpoint(large) {
+            height: 250px;
+        }
+    }
+}
+
+.hero-radial-gradient {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    max-width: 90vw;
+    max-height: 90vw;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(6, 26, 47, 0.6) 0%,
+        rgba(6, 26, 47, 0.5) 12%,
+        rgba(6, 26, 47, 0.35) 25%,
+        rgba(6, 26, 47, 0.2) 38%,
+        rgba(6, 26, 47, 0.1) 48%,
+        rgba(6, 26, 47, 0.04) 58%,
+        rgba(6, 26, 47, 0.01) 65%,
+        transparent 70%
+    );
+    z-index: 2;
+    pointer-events: none;
+    
+    @include bp.breakpoint-down(small) {
+        width: 500px;
+        height: 500px;
+        max-width: 95vw;
+        max-height: 95vw;
+        background: radial-gradient(
+            circle,
+            rgba(6, 26, 47, 0.5) 0%,
+            rgba(6, 26, 47, 0.35) 18%,
+            rgba(6, 26, 47, 0.2) 32%,
+            rgba(6, 26, 47, 0.1) 45%,
+            rgba(6, 26, 47, 0.04) 55%,
+            rgba(6, 26, 47, 0.01) 62%,
+            transparent 68%
+        );
+    }
+    
+    @include bp.breakpoint(medium) {
+        width: 700px;
+        height: 700px;
+        max-width: 90vw;
+        max-height: 90vw;
+    }
+    
+    @include bp.breakpoint(large) {
+        width: 800px;
+        height: 800px;
+        max-width: 700px;
+        max-height: 700px;
+    }
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transition: opacity 1.2s ease;
+}
+
+.hero-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1.2s ease;
+}
+
+.hero-image-properties {
+    opacity: 1;
+    z-index: 1;
+}
+
+.hero-image-lands {
+    opacity: 0;
+    z-index: 0;
+    
+    // Optimize image positioning for smaller devices
+    @include bp.breakpoint-down(small) {
+        object-position: center 30%;
+    }
+    
+    @include bp.breakpoint(medium) {
+        object-position: center center;
+    }
+    
+    @include bp.breakpoint(large) {
+        object-position: center center;
+    }
+}
+
+.hero-content {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: map-get(v.$spacing, 4);
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 map-get(v.$spacing, 4);
+    
+    @include bp.breakpoint(medium) {
+        gap: map-get(v.$spacing, 6);
+        padding: 0 map-get(v.$spacing, 6);
+    }
+    
+    @include bp.breakpoint(large) {
+        gap: map-get(v.$spacing, 8);
+    }
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 6);
+    border: 0.5px solid map-get(v.$colors, white);
+    border-radius: 9999px;
+    color: map-get(v.$colors, white);
+    font-family: map-get(v.$font-families, primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: f.rem(11);
+    font-weight: map-get(v.$font-weights, light);
+    white-space: nowrap;
+    
+    @include bp.breakpoint-down(small) {
+        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 6) !important;
+    }
+    
+    @include bp.breakpoint(small) {
+        font-size: f.rem(12);
+        padding: map-get(v.$spacing, 4) map-get(v.$spacing, 7) !important;
+    }
+    
+    @include bp.breakpoint(medium) {
+        font-size: f.rem(13);
+        padding: map-get(v.$spacing, 4) map-get(v.$spacing, 8);
+    }
+    
+    @include bp.breakpoint(large) {
+        font-size: f.rem(14);
+        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 10) !important;
+    }
+}
+
+.hero-title {
+    color: map-get(v.$colors, white) !important;
+    font-family: map-get(v.$font-families, primary) !important;
+    font-weight: map-get(v.$font-weights, bold) !important;
+    font-size: f.rem(32) !important;
+    line-height: map-get(v.$line-heights, none) !important;
+    margin: 0 !important;
+    text-transform: capitalize !important;
+    max-width: 740px;
+    
+    @include bp.breakpoint(small) {
+        font-size: f.rem(42) !important;
+    }
+    
+    @include bp.breakpoint(medium) {
+        font-size: f.rem(56) !important;
+    }
+    
+    @include bp.breakpoint(large) {
+        font-size: f.rem(68) !important;
+    }
+    
+    @include bp.breakpoint(xlarge) {
+        font-size: f.rem(80) !important;
+    }
+}
+
+.hero-title-italic {
+    font-style: italic;
+    font-weight: map-get(v.$font-weights, bold);
+}
+
+.hero-filter {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: map-get(v.$spacing, 6);
+    z-index: 5;
+    
+    @include bp.breakpoint(medium) {
+        margin-top: map-get(v.$spacing, 8);
+    }
+    
+    @include bp.breakpoint(large) {
+        margin-top: map-get(v.$spacing, 10);
+    }
+}
+
+.hero-toggle-container {
+    position: absolute;
+    bottom: map-get(v.$spacing, 6);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+    @include bp.breakpoint-down(small) {
+        bottom: map-get(v.$spacing, 12);
+    }
+    
+    @include bp.breakpoint(medium) {
+        bottom: map-get(v.$spacing, 8);
+    }
+    
+    @include bp.breakpoint(large) {
+        bottom: map-get(v.$spacing, 20);
+    }
+}
+
+.hero-cloud {
+    position: absolute;
+    z-index: 3;
+    pointer-events: none;
+    
+    .cloud-image {
+        width: auto;
+        height: auto;
+        opacity: 0.8;
+        object-fit: contain;
+    }
+}
+
+.hero-cloud-left {
+    left: 0;
+    top: 100px;
+    transform: translateX(-20%);
+    
+    @include bp.breakpoint-down(small) {
+        top: 50px;
+        transform: translateX(-30%);
+        
+        .cloud-image {
+            width: 180px;
+            height: auto;
+        }
+    }
+    
+    @include bp.breakpoint(medium) {
+        top: 80px;
+        
+        .cloud-image {
+            width: 250px;
+            height: auto;
+        }
+    }
+    
+    @include bp.breakpoint(large) {
+        top: 100px;
+        
+        .cloud-image {
+            width: 650px;
+            height: auto;
+        }
+    }
+}
+
+.hero-cloud-right {
+    right: 100px;
+    bottom: 100px;
+    
+    @include bp.breakpoint-down(small) {
+        right: 20px;
+        bottom: 50px;
+        
+        .cloud-image {
+            width: 150px;
+            height: auto;
+        }
+    }
+    
+    @include bp.breakpoint(medium) {
+        right: 60px;
+        bottom: 80px;
+        
+        .cloud-image {
+            width: 250px;
+            height: auto;
+        }
+    }
+    
+    @include bp.breakpoint(large) {
+        right: 100px;
+        bottom: 100px;
+        
+        .cloud-image {
+            width: 450px;
+            height: auto;
+        }
+    }
+}
+
+.hero-cloud-top-right {
+    right: 100px;
+    top: 100px;
+    
+    @include bp.breakpoint-down(small) {
+        right: 20px;
+        top: 50px;
+        
+        .cloud-image {
+            width: 120px;
+            height: auto;
+        }
+    }
+    
+    @include bp.breakpoint(medium) {
+        right: 60px;
+        top: 80px;
+        
+        .cloud-image {
+            width: 200px;
+            height: auto;
+        }
+    }
+    
+    @include bp.breakpoint(large) {
+        right: 100px;
+        top: 100px;
+        
+        .cloud-image {
+            width: 300px;
+            height: auto;
+        }
+    }
+}

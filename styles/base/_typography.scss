@@ -1,0 +1,274 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+
+// Base Typography
+// Scoped to exclude admin routes to avoid conflicts with Tailwind
+html:not([data-admin]) {
+  font-size: 100%; // 16px base
+  color: map-get(v.$colors, white);
+}
+
+html:not([data-admin]) body {
+  font-family: map-get(v.$font-families, primary);
+  font-weight: map-get(v.$font-weights, regular);
+  line-height: map-get(v.$line-heights, normal);
+  color: map-get(v.$colors, white);
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
+// Headings - scoped to exclude admin
+html:not([data-admin]) h1, 
+html:not([data-admin]) h2, 
+html:not([data-admin]) h3, 
+html:not([data-admin]) h4, 
+html:not([data-admin]) h5, 
+html:not([data-admin]) h6 {
+  font-family: map-get(v.$font-families, secondary);
+  font-weight: map-get(v.$font-weights, regular);
+  line-height: map-get(v.$line-heights, normal);
+  margin-bottom: map-get(v.$spacing, 4);
+  letter-spacing: -0.025em;
+}
+
+// Individual heading styles - scoped to exclude admin
+html:not([data-admin]) h1 {
+  font-size: f.rem(48);
+  font-weight: map-get(v.$font-weights, bold);
+  
+  @include bp.breakpoint-down(medium) {
+    font-size: f.rem(36);
+  }
+  
+  @include bp.breakpoint-down(small) {
+    font-size: f.rem(32);
+  }
+}
+
+html:not([data-admin]) h2 {
+  font-size: f.rem(36);
+  
+  @include bp.breakpoint-down(medium) {
+    font-size: f.rem(30);
+  }
+  
+  @include bp.breakpoint-down(small) {
+    font-size: f.rem(28);
+  }
+}
+
+html:not([data-admin]) h3 {
+  font-size: f.rem(30);
+  
+  @include bp.breakpoint-down(medium) {
+    font-size: f.rem(24);
+  }
+  
+  @include bp.breakpoint-down(small) {
+    font-size: f.rem(22);
+  }
+}
+
+html:not([data-admin]) h4 {
+  font-size: f.rem(24);
+  
+  @include bp.breakpoint-down(medium) {
+    font-size: f.rem(20);
+  }
+}
+
+html:not([data-admin]) h5 {
+  font-size: f.rem(20);
+  
+  @include bp.breakpoint-down(medium) {
+    font-size: f.rem(18);
+  }
+}
+
+html:not([data-admin]) h6 {
+  font-size: f.rem(18);
+  font-weight: map-get(v.$font-weights, medium);
+}
+
+// Paragraphs and text - scoped to exclude admin
+html:not([data-admin]) p {
+  margin-bottom: map-get(v.$spacing, 4);
+  line-height: map-get(v.$line-heights, relaxed);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Lead text
+.lead {
+  font-size: f.rem(20);
+  font-weight: map-get(v.$font-weights, light);
+  line-height: map-get(v.$line-heights, relaxed);
+  color: map-get(v.$colors, light-gray);
+  
+  @include bp.breakpoint-down(small) {
+    font-size: f.rem(18);
+  }
+}
+
+// Small text
+small,
+.small {
+  font-size: f.rem(14);
+  color: map-get(v.$colors, gray-500);
+}
+
+// Links - scoped to exclude admin
+html:not([data-admin]) a {
+  color: map-get(v.$colors, primary);
+  text-decoration: underline;
+  text-decoration-color: rgba(map-get(v.$colors, primary), 0.3);
+  text-underline-offset: 0.2em;
+  transition: all map-get(v.$transitions, fast);
+  
+  &:hover,
+  &:focus {
+    color: map-get(v.$colors, primary-light);
+    text-decoration-color: map-get(v.$colors, primary-light);
+  }
+  
+  &:focus-visible {
+    outline: 2px solid map-get(v.$colors, primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+// Lists - scoped to exclude admin
+html:not([data-admin]) ul, 
+html:not([data-admin]) ol {
+  margin-bottom: map-get(v.$spacing, 4);
+  padding-left: map-get(v.$spacing, 6);
+}
+
+html:not([data-admin]) li {
+  margin-bottom: map-get(v.$spacing, 2);
+  line-height: map-get(v.$line-heights, relaxed);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Blockquotes
+blockquote {
+  font-family: map-get(v.$font-families, primary);
+  font-size: f.rem(20);
+  font-style: italic;
+  line-height: map-get(v.$line-heights, relaxed);
+  color: map-get(v.$colors, light-gray);
+  border-left: 4px solid map-get(v.$colors, primary);
+  padding-left: map-get(v.$spacing, 6);
+  margin: map-get(v.$spacing, 8) 0;
+  
+  p {
+    margin-bottom: map-get(v.$spacing, 2);
+  }
+  
+  cite {
+    display: block;
+    font-family: map-get(v.$font-families, primary);
+    font-size: f.rem(14);
+    font-style: normal;
+    color: map-get(v.$colors, gray-500);
+    margin-top: map-get(v.$spacing, 3);
+    
+    &::before {
+      content: '— ';
+    }
+  }
+}
+
+// Code
+code {
+  font-family: map-get(v.$font-families, mono);
+  font-size: 0.875em;
+  background: map-get(v.$colors, gray-800);
+  padding: 0.125em 0.375em;
+  border-radius: map-get(v.$border-radius, sm);
+  color: map-get(v.$colors, white);
+}
+
+pre {
+  font-family: map-get(v.$font-families, mono);
+  font-size: f.rem(14);
+  background: map-get(v.$colors, gray-900);
+  color: map-get(v.$colors, gray-100);
+  padding: map-get(v.$spacing, 4);
+  border-radius: map-get(v.$border-radius, md);
+  overflow-x: auto;
+  margin: map-get(v.$spacing, 6) 0;
+  
+  code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+}
+
+// Property-specific typography classes
+.property-title {
+  font-family: map-get(v.$font-families, secondary);
+  font-size: f.rem(48);
+  font-weight: map-get(v.$font-weights, bold);
+  line-height: map-get(v.$line-heights, tight);
+  color: map-get(v.$colors, white);
+  letter-spacing: -0.02em;
+  
+  @include bp.breakpoint-down(medium) {
+    font-size: f.rem(36);
+  }
+  
+  @include bp.breakpoint-down(small) {
+    font-size: f.rem(28);
+  }
+}
+
+.property-subtitle {
+  font-family: map-get(v.$font-families, primary);
+  font-size: f.rem(24);
+  font-weight: map-get(v.$font-weights, regular);
+  color: map-get(v.$colors, light-gray);
+  margin-top: map-get(v.$spacing, 2);
+  
+  @include bp.breakpoint-down(small) {
+    font-size: f.rem(20);
+  }
+}
+
+.elegant-text {
+  font-family: map-get(v.$font-families, secondary);
+  font-weight: map-get(v.$font-weights, medium);
+  letter-spacing: 0.025em;
+  line-height: map-get(v.$line-heights, relaxed);
+}
+
+// Utility classes
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.font-light { font-weight: map-get(v.$font-weights, light); }
+.font-normal { font-weight: map-get(v.$font-weights, regular); }
+.font-medium { font-weight: map-get(v.$font-weights, medium); }
+.font-semibold { font-weight: map-get(v.$font-weights, semi-bold); }
+.font-bold { font-weight: map-get(v.$font-weights, bold); }
+
+.text-primary { color: map-get(v.$colors, primary); }
+.text-secondary { color: map-get(v.$colors, secondary); }
+.text-accent { color: map-get(v.$colors, accent); }
+.text-muted { color: map-get(v.$colors, gray-500); }
+.text-white { color: map-get(v.$colors, white); }
+
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+
