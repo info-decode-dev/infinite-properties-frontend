@@ -7,6 +7,7 @@ import { ArrowLeft, Eye, Mail, Phone, Calendar, Filter, X, Users, Clock, CheckCi
 import { Enquiry } from "@/types/enquiry";
 import apiClient from "@/lib/api";
 import { Select, MenuItem, FormControl, SelectChangeEvent } from "@mui/material";
+import { getImageUrl } from "@/lib/imageUtils";
 
 export default function EnquiriesPage() {
   const router = useRouter();
@@ -291,7 +292,7 @@ export default function EnquiriesPage() {
                         >
                           {enquiry.property?.images && enquiry.property.images.length > 0 && (
                             <img
-                              src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${enquiry.property.images[0]}`}
+                              src={getImageUrl(enquiry.property.images[0])}
                               alt={enquiry.property?.title || 'Property'}
                               className="w-12 h-12 object-cover rounded-lg border border-gray-200 dark:border-gray-700 group-hover:border-blue-500 transition-colors"
                               onError={(e) => {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Plus, Edit, Trash2, Eye, Search, Building2 } from "lucide-react";
 import { Property } from "@/types/property";
 import apiClient from "@/lib/api";
+import { getImageUrl } from "@/lib/imageUtils";
 
 export default function PropertiesPage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -217,7 +218,7 @@ export default function PropertiesPage() {
                             {property.images.length > 0 ? (
                               <>
                                 <img
-                                  src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${property.images[0]}`}
+                                  src={getImageUrl(property.images[0])}
                                   alt={property.title}
                                   className="w-16 h-16 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
                                   onError={(e) => {

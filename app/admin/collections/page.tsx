@@ -8,6 +8,7 @@ import { CuratedCollection, Reel } from "@/types/collection";
 import { FeaturedProperty } from "@/types/featured";
 import { Builder } from "@/types/builder";
 import apiClient from "@/lib/api";
+import { getImageUrl } from "@/lib/imageUtils";
 
 export default function CollectionsPage() {
   const pathname = usePathname();
@@ -115,9 +116,7 @@ export default function CollectionsPage() {
         const existingProperty = propertiesData.find((p) => p.id === propertyId);
         if (existingProperty && existingProperty.images && existingProperty.images.length > 0) {
           const imagePath = existingProperty.images[0];
-          const imageUrl = imagePath.startsWith("http")
-            ? imagePath
-            : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${imagePath}`;
+          const imageUrl = getImageUrl(imagePath);
           return { propertyId, imageUrl };
         }
 
@@ -127,9 +126,7 @@ export default function CollectionsPage() {
           const property = response.data.data;
           if (property.images && property.images.length > 0) {
             const imagePath = property.images[0];
-            const imageUrl = imagePath.startsWith("http")
-              ? imagePath
-              : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${imagePath}`;
+            const imageUrl = getImageUrl(imagePath);
             return { propertyId, imageUrl };
           }
         }

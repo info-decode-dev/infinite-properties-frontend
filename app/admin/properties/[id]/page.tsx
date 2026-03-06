@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Property } from "@/types/property";
 import apiClient from "@/lib/api";
 import LocationMap from "@/components/LocationMap";
+import { getImageUrl } from "@/lib/imageUtils";
 
 export default function PropertyDetailPage() {
   const params = useParams();
@@ -176,7 +177,7 @@ export default function PropertyDetailPage() {
               {/* Main Image */}
               <div className="relative w-full h-96 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
                 <img
-                  src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${property.images[selectedImageIndex]}`}
+                  src={getImageUrl(property.images[selectedImageIndex])}
                   alt={property.title}
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -198,7 +199,7 @@ export default function PropertyDetailPage() {
                       }`}
                     >
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${img}`}
+                        src={getImageUrl(img)}
                         alt={`${property.title} ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
