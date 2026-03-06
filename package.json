@@ -30,7 +30,6 @@
     "react-dom": "19.2.0",
     "react-hook-form": "^7.67.0",
     "react-leaflet": "^5.0.0",
-    "react-simple-maps": "^3.0.0",
     "swiper": "^12.0.3",
     "tailwind-merge": "^3.4.0",
     "topojson-client": "^3.1.0",
