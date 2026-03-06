@@ -1,0 +1,223 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+@use "../abstracts/utils" as u;
+
+
+// Header Text Styles
+
+.header-text-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: map-get(v.$spacing, 4);
+    width: 100%;
+    margin-bottom: map-get(v.$spacing, 6);
+
+    // Reduce spacing in property map on mobile
+    .property-map-container & {
+        @include bp.breakpoint-down(small) {
+            margin-bottom: map-get(v.$spacing, 2);
+        }
+    }
+    
+    &--left {
+        flex-direction: row;
+        text-align: left;
+        
+        .header-text-content {
+            text-align: left;
+            flex: 1;
+        }
+        
+        .header-text-action {
+            margin-left: auto;
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            align-self: flex-end;
+            align-items: center;
+        }
+    }
+    
+    &--right {
+        flex-direction: row-reverse;
+        text-align: right;
+        
+        .header-text-content {
+            text-align: right;
+        }
+        
+        .header-text-action {
+            margin-right: auto;
+            align-self: flex-end;
+        }
+    }
+    
+    &--center {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        
+        .header-text-content {
+            text-align: center;
+        }
+        
+        .header-text-action {
+            margin-top: map-get(v.$spacing, 4);
+            align-self: center;
+        }
+    }
+    
+    @include bp.breakpoint-down(small) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        
+        .header-text-content {
+            text-align: center;
+        }
+        
+        .header-text-action {
+            margin-top: map-get(v.$spacing, 4);
+            margin-left: 0;
+            margin-right: 0;
+            align-self: center;
+        }
+    }
+}
+
+.header-text-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.header-text {
+    font-family: map-get(v.$font-families, primary) !important;
+    font-weight: map-get(v.$font-weights, bold);
+    color: map-get(v.$colors, primary);
+    line-height: 1.2;
+    margin: 0;
+    
+    // Mobile first - base size for small screens
+    font-size: f.rem(24) !important;
+    
+    // Small devices (480px and up)
+    @include bp.breakpoint(small) {
+        font-size: f.rem(32) !important;
+    }
+    
+    // Medium devices (700px and up)
+    @include bp.breakpoint(medium) {
+        font-size: f.rem(40) !important;
+    }
+    
+    // Large devices (900px and up)
+    @include bp.breakpoint(large) {
+        font-size: f.rem(48) !important;
+    }
+    
+    // Extra large devices (1440px and up)
+    @include bp.breakpoint(xlarge) {
+        font-size: f.rem(56) !important;
+    }
+}
+
+.header-text-action {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.header-text-button {
+    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 6) !important;
+    background: transparent !important;
+    color: map-get(v.$colors, primary) !important;
+    border: 1px solid map-get(v.$colors, primary) !important;
+    border-radius: map-get(v.$border-radius, full) !important;
+    font-family: map-get(v.$font-families, primary) !important;
+    font-size: f.rem(14) !important;
+    font-weight: map-get(v.$font-weights, medium) !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: inline-block;
+    visibility: visible;
+    opacity: 1;
+    
+    &:hover {
+        background: map-get(v.$colors, primary) !important;
+        color: map-get(v.$colors, white) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(6, 26, 47, 0.2);
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
+    
+    @include bp.breakpoint(medium) {
+        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 8) !important;
+        font-size: f.rem(15) !important;
+    }
+}
+
+.subtitle-header-text {
+    color: map-get(v.$colors, secondary);
+    font-family: map-get(v.$font-families, mono);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    display: inline-block;
+    position: relative;
+    margin-bottom: map-get(v.$spacing, 2);
+    padding-right: map-get(v.$spacing, 4);
+    
+    // Horizontal line from center end
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        width: 60px;
+        height: 1px;
+        background-color: map-get(v.$colors, secondary);
+        transform: translateY(-50%);
+        margin-left: map-get(v.$spacing, 2);
+    }
+    
+    // Mobile first - base size for small screens
+    font-size: f.rem(11);
+    
+    // Small devices (480px and up)
+    @include bp.breakpoint(small) {
+        font-size: f.rem(12);
+    }
+    
+    // Medium devices (700px and up)
+    @include bp.breakpoint(medium) {
+        font-size: f.rem(13);
+        
+        &::after {
+            width: 80px;
+        }
+    }
+    
+    // Large devices (900px and up)
+    @include bp.breakpoint(large) {
+        font-size: f.rem(14);
+        
+        &::after {
+            width: 100px;
+        }
+    }
+    
+    // Extra large devices (1440px and up)
+    @include bp.breakpoint(xlarge) {
+        font-size: f.rem(16);
+        
+        &::after {
+            width: 120px;
+        }
+    }
+}

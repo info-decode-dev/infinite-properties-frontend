@@ -1,0 +1,96 @@
+@use "./functions" as f;
+
+// Comprehensive breakpoints for responsive design
+// Mobile first approach with min-width breakpoints
+$breakpoints-up: (
+  "small": f.em(480),        // Small mobile devices
+  "medium": f.em(700),      // Tablets, large mobile
+  "medium-large": f.em(800), // Between tablets and smaller desktops
+  "large": f.em(900),       // Small desktops, landscape tablets
+  "xlarge": f.em(1440),    // Large desktops
+  "xxlarge": f.em(1920)     // Extra large screens
+);
+
+// Max-width breakpoints for specific adjustments
+$breakpoints-down: (
+  "xsmall": f.em(479.98),   // Extra small devices
+  "small": f.em(699.98),    // Up to tablets
+  "medium": f.em(799.98),   // Up to medium-large
+  "medium-large": f.em(899.98), // Up to desktop
+  "large": f.em(1439.98),   // Up to large desktops
+  "xlarge": f.em(1919.98)   // Up to extra large screens
+);
+
+// Standard min-width media query
+@mixin breakpoint($size) {
+  @media (min-width: map-get($breakpoints-up, $size)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-up($size) {
+  @media (min-width: map-get($breakpoints-up, $size)) {
+    @content;
+  }
+}
+// Standard max-width media query
+@mixin breakpoint-down($size) {
+  @media (max-width: map-get($breakpoints-down, $size)) {
+    @content;
+  }
+}
+
+// Range - for targeting specific device ranges
+@mixin breakpoint-range($min, $max) {
+  @media (min-width: map-get($breakpoints-up, $min)) and (max-width: map-get($breakpoints-down, $max)) {
+    @content;
+  }
+}
+
+// Orientation specific breakpoints
+@mixin orientation($direction) {
+  @media (orientation: $direction) {
+    @content;
+  }
+}
+
+// High density screens (Retina displays)
+@mixin high-density {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+// Container helper that automatically adjusts width based on breakpoint
+@mixin container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  
+  @include breakpoint(small) {
+    max-width: 450px;
+  }
+  
+  @include breakpoint(medium) {
+    max-width: 650px;
+  }
+  
+  @include breakpoint(medium-large) {
+    max-width: 750px;
+  }
+  
+  @include breakpoint(large) {
+    max-width: 850px;
+  }
+  
+  @include breakpoint(xlarge) {
+    max-width: 1200px;
+  }
+  
+  @include breakpoint(xxlarge) {
+    max-width: 1600px;
+  }
+}
+

@@ -1,0 +1,380 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+
+// Curated Collections Page Styles
+// Scoped to exclude admin routes
+html:not([data-admin]) {
+  .curated-collections {
+    width: 100%;
+    padding: map-get(v.$spacing, 12) 0;    
+    // background-color: #FAFAFA;
+
+    @include bp.breakpoint(large) {
+        margin-top: 150px;
+      }
+
+    &__header {
+      margin-bottom: map-get(v.$spacing, 10);
+      text-align: center;
+
+      @include bp.breakpoint(medium) {
+        margin-bottom: map-get(v.$spacing, 12);
+      }
+      
+    }
+
+    &__title {
+      font-family: map-get(v.$font-families, secondary);
+      font-size: f.rem(32);
+      font-weight: map-get(v.$font-weights, regular);
+      color: map-get(v.$colors, primary);
+      line-height: map-get(v.$line-heights, tight);
+      margin-bottom: map-get(v.$spacing, 3);
+
+      @include bp.breakpoint(small) {
+        font-size: f.rem(36);
+      }
+
+      @include bp.breakpoint(medium) {
+        font-size: f.rem(42);
+      }
+
+      @include bp.breakpoint(large) {
+        font-size: f.rem(48);
+      }
+
+      @include bp.breakpoint(xlarge) {
+        font-size: f.rem(56);
+      }
+    }
+
+    &__subtitle {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, regular);
+      color: map-get(v.$colors, secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: map-get(v.$spacing, 6);
+
+      @include bp.breakpoint(medium) {
+        font-size: f.rem(16);
+      }
+    }
+
+    &__grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: map-get(v.$spacing, 1);
+      margin-top: map-get(v.$spacing, 8);
+
+      @include bp.breakpoint(medium) {
+        grid-template-columns: repeat(2, 1fr);
+      }   
+
+      // Left background image
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80%;
+        height: 100%;
+        background: 
+          linear-gradient(
+            to top,
+            rgba(map-get(v.$colors, white), 1) 0%,
+            rgba(255, 255, 255, 0.8) 20%,
+            rgba(255, 255, 255, 0.5) 40%,
+            rgba(255, 255, 255, 0.2) 60%,
+            rgba(255, 255, 255, 0) 80%,
+            transparent 100%
+          ),
+          url("/assets/images/bg-buildings.png") no-repeat center center;
+        background-size: contain;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity map-get(v.$transitions, base);
+        
+        @include bp.breakpoint(large) {
+          opacity: 0.5;
+          transform: translateX(-50%) translateY(-40%);
+        }
+      }
+
+      // Right background image
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80%;
+        height: 100%;
+        background: 
+          linear-gradient(
+            to top,
+            rgba(map-get(v.$colors, white), 1) 0%,
+            rgba(255, 255, 255, 0.8) 20%,
+            rgba(255, 255, 255, 0.5) 40%,
+            rgba(255, 255, 255, 0.2) 60%,
+            rgba(255, 255, 255, 0) 80%,
+            transparent 100%
+          ),
+          url("/assets/images/bg-buildings.png") no-repeat center center;
+        background-size: contain;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity map-get(v.$transitions, base);
+        
+        @include bp.breakpoint(large) {
+          opacity: 0.5;
+          transform: translateX(30%) translateY(-40%);
+        }
+      }
+    }
+
+    &__loading,
+    &__error,
+    &__empty {
+      text-align: center;
+      padding: map-get(v.$spacing, 16);
+      color: map-get(v.$colors, gray-600);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(16);
+    }
+
+    &__error {
+      color: map-get(v.$colors, error);
+    }
+
+    &__empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: map-get(v.$spacing, 20) map-get(v.$spacing, 4);
+      min-height: 400px;
+
+      @include bp.breakpoint(medium) {
+        padding: map-get(v.$spacing, 24) map-get(v.$spacing, 6);
+        min-height: 500px;
+      }
+    }
+
+    &__empty-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(map-get(v.$colors, primary), 0.1) 0%, rgba(map-get(v.$colors, secondary), 0.1) 100%);
+      margin-bottom: map-get(v.$spacing, 6);
+      color: map-get(v.$colors, gray-400);
+      opacity: 0.6;
+
+      @include bp.breakpoint(medium) {
+        width: 140px;
+        height: 140px;
+        margin-bottom: map-get(v.$spacing, 8);
+      }
+
+      svg {
+        width: 64px;
+        height: 64px;
+
+        @include bp.breakpoint(medium) {
+          width: 80px;
+          height: 80px;
+        }
+      }
+    }
+
+    &__empty-title {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(24);
+      font-weight: map-get(v.$font-weights, semibold);
+      color: map-get(v.$colors, gray-700);
+      margin: 0 0 map-get(v.$spacing, 3) 0;
+      line-height: 1.3;
+
+      @include bp.breakpoint(medium) {
+        font-size: f.rem(28);
+        margin-bottom: map-get(v.$spacing, 4);
+      }
+    }
+
+    &__empty-message {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(16);
+      font-weight: map-get(v.$font-weights, regular);
+      color: map-get(v.$colors, gray-500);
+      margin: 0;
+      line-height: 1.6;
+      max-width: 500px;
+
+      @include bp.breakpoint(medium) {
+        font-size: f.rem(18);
+        max-width: 600px;
+      }
+    }
+
+    // Collection Card Styles
+    .curated-collection-card {
+      position: relative;
+      background-color: map-get(v.$colors, white);   
+      border-radius: map-get(v.$border-radius, xl);   
+      overflow: hidden;
+      box-shadow: map-get(v.$shadows, md);
+      transition: all map-get(v.$transitions, base);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      &:hover {      
+        .curated-collection-card__image img {
+          transform: scale(1.05);          
+        }
+      }
+
+      @include bp.breakpoint(medium) {
+        border-radius: map-get(v.$border-radius, none);
+      }
+
+      &__image {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+        background-color: map-get(v.$colors, gray-200);
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;          
+            z-index: 2;
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            background-color: #0000;
+            mask: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.99) 30% , rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%);
+        }
+
+        @include bp.breakpoint(medium) {
+          height: 280px;
+        }
+
+        @include bp.breakpoint(large) {
+          height: 300px;
+        }
+
+        @include bp.breakpoint(xlarge) {
+          height: 350px;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform map-get(v.$transitions, base);
+          display: block;
+        }
+      }
+
+      &__content {
+        position: absolute;
+        left: 20px;
+        bottom: 0px;
+        padding: map-get(v.$spacing, 5);
+        display: flex;
+        flex-direction: column;
+        gap: map-get(v.$spacing, 2);
+        flex: 1;
+        z-index: 3;
+      }
+
+      &__icon-wrapper {
+        position: absolute;
+        bottom: map-get(v.$spacing, 5);
+        right: map-get(v.$spacing, 8);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+        z-index: 3;
+      }
+
+      &__icon {
+        width: 24px;
+        height: 24px;
+        color: map-get(v.$colors, white);
+        transition: transform 0.3s ease;
+      }
+
+      &__count {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 map-get(v.$spacing, 1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: map-get(v.$colors, secondary);
+        color: map-get(v.$colors, white);
+        font-family: map-get(v.$font-families, primary);
+        font-size: f.rem(11);
+        font-weight: map-get(v.$font-weights, semibold);
+        border-radius: map-get(v.$border-radius, full);
+        border: 2px solid map-get(v.$colors, white);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        line-height: 1;
+        z-index: 4;
+      }
+
+      &__title {
+        font-family: map-get(v.$font-families, mono);
+        text-transform: uppercase;
+        font-size: f.rem(16);
+        font-weight: map-get(v.$font-weights, regular);
+        color: map-get(v.$colors, white);
+        line-height: map-get(v.$line-heights, tight);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
+        @include bp.breakpoint(medium) {
+          font-size: f.rem(16);
+        }
+      }
+
+      &:hover &__icon-wrapper {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 1);
+        transform: scale(1.05);
+      }
+
+      &:hover &__icon {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

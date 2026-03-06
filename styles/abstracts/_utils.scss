@@ -1,0 +1,248 @@
+@use "./variables" as v;
+@use "./functions" as f;
+@use "./breakpoints" as bp;
+
+// Utility Mixins
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// Grid utilities
+@mixin grid-center {
+  display: grid;
+  place-items: center;
+}
+
+@mixin grid-columns($columns, $gap: map-get(v.$spacing, 4)) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+// Positioning utilities
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Text utilities
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin elegant-text {
+  font-family: map-get(v.$font-families, secondary);
+  font-weight: map-get(v.$font-weights, medium);
+  letter-spacing: 0.025em;
+  line-height: map-get(v.$line-heights, relaxed);
+}
+
+// Visual utilities
+@mixin card-style {
+  background: map-get(v.$colors, card-bg);
+  border-radius: map-get(v.$border-radius, lg);
+  box-shadow: map-get(v.$shadows, md);
+  padding: map-get(v.$spacing, 6);
+}
+
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  color: inherit;
+}
+
+@mixin link-reset {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+// Accessibility utilities
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin focus-visible {
+  &:focus-visible {
+    outline: 2px solid map-get(v.$colors, accent);
+    outline-offset: 2px;
+  }
+}
+
+// Animation utilities
+@mixin smooth-transition(
+  $property: all,
+  $duration: map-get(v.$transitions, base)
+) {
+  transition: $property $duration;
+}
+
+@mixin hover-lift {
+  @include smooth-transition(transform);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@mixin fade-in {
+  animation: fadeIn map-get(v.$transitions, base) ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Responsive utilities
+@mixin responsive-spacing(
+  $property,
+  $mobile: 1rem,
+  $tablet: 1.5rem,
+  $desktop: 2rem
+) {
+  #{$property}: $mobile;
+
+  @include breakpoint(medium) {
+    #{$property}: $tablet;
+  }
+
+  @include breakpoint(large) {
+    #{$property}: $desktop;
+  }
+}
+
+// Property-specific utilities
+@mixin property-card {
+  @include card-style;
+  border: 1px solid map-get(v.$colors, border-color-light);
+
+  &:hover {
+    @include hover-lift;
+  }
+}
+
+@mixin transparent-background(
+  $color: map-get(v.$colors, white),
+  $transparency: 0.8
+) {
+  background-color: rgba($color, $transparency);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@mixin decorative-border {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background: map-get(v.$colors, primary);
+  }
+
+  &::before {
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &::after {
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+@mixin button-primary-gradient {
+  background: map-get(v.$colors, primary-gradient);
+  border-radius: map-get(v.$border-radius, 2xl);
+  color: map-get(v.$colors, white);
+  border: none;
+  padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+  cursor: pointer;
+  @include smooth-transition;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+@mixin button-secondary {
+  background: transparent;
+  border-radius: map-get(v.$border-radius, 2xl);
+  color: map-get(v.$colors, white);
+  border: 1.5px solid map-get(v.$colors, white);
+  padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+  cursor: pointer;
+  @include smooth-transition;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+

@@ -1,0 +1,459 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+
+// Reels Collections Carousel Styles
+// Scoped to exclude admin routes
+html:not([data-admin]) {
+  .reels-collections-carousel {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: map-get(v.$spacing, 12) map-get(v.$spacing, 4);
+    overflow: hidden;
+    position: relative;
+
+    // Remove left/right padding on larger devices
+    @include bp.breakpoint(medium) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    &__loading,
+    &__error,
+    &__empty {
+      text-align: center;
+      padding: map-get(v.$spacing, 16);
+      color: map-get(v.$colors, gray-600);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(16);
+    }
+
+    &__error {
+      color: map-get(v.$colors, error);
+    }
+
+    &__empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: map-get(v.$spacing, 20) map-get(v.$spacing, 4);
+      min-height: 400px;
+
+      @include bp.breakpoint(medium) {
+        padding: map-get(v.$spacing, 24) map-get(v.$spacing, 6);
+        min-height: 500px;
+      }
+    }
+
+    &__empty-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(map-get(v.$colors, primary), 0.1) 0%, rgba(map-get(v.$colors, secondary), 0.1) 100%);
+      margin-bottom: map-get(v.$spacing, 6);
+      color: map-get(v.$colors, gray-400);
+      opacity: 0.6;
+
+      @include bp.breakpoint(medium) {
+        width: 140px;
+        height: 140px;
+        margin-bottom: map-get(v.$spacing, 8);
+      }
+
+      svg {
+        width: 64px;
+        height: 64px;
+
+        @include bp.breakpoint(medium) {
+          width: 80px;
+          height: 80px;
+        }
+      }
+    }
+
+    &__empty-title {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(24);
+      font-weight: map-get(v.$font-weights, semibold);
+      color: map-get(v.$colors, gray-700);
+      margin: 0 0 map-get(v.$spacing, 3) 0;
+      line-height: 1.3;
+
+      @include bp.breakpoint(medium) {
+        font-size: f.rem(28);
+        margin-bottom: map-get(v.$spacing, 4);
+      }
+    }
+
+    &__empty-message {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(16);
+      font-weight: map-get(v.$font-weights, regular);
+      color: map-get(v.$colors, gray-500);
+      margin: 0;
+      line-height: 1.6;
+      max-width: 500px;
+
+      @include bp.breakpoint(medium) {
+        font-size: f.rem(18);
+        max-width: 600px;
+      }
+    }
+
+    &__content {
+      width: 100%;
+      padding: map-get(v.$spacing, 4) 0;
+      position: relative;
+
+      @include bp.breakpoint(medium) {
+        padding: map-get(v.$spacing, 6) 0;
+      }
+    }
+
+    // Swiper container styles
+    &__swiper {
+      width: 100%;
+      padding-bottom: map-get(v.$spacing, 4);
+
+      // Hide scrollbar
+      .swiper-scrollbar {
+        display: none;
+      }
+    }
+
+    // Swiper slide styles
+    &__slide {
+      width: auto;
+      height: auto;
+      flex-shrink: 0;
+      box-sizing: border-box;
+
+      // Full width on mobile
+      @include bp.breakpoint-down(small) {
+        width: 100% !important;
+        max-width: 100%;
+      }
+    }
+
+    &__item {
+      position: relative;
+      width: 290px;
+      height: 520px; 
+      border-radius: map-get(v.$border-radius, xl);
+      overflow: hidden;
+      // Removed box-shadow
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      background-color: map-get(v.$colors, card-bg);
+      flex-shrink: 0;
+      box-sizing: border-box;
+      // Removed border
+
+      // Full width on mobile devices
+      @include bp.breakpoint-down(small) {
+        width: 100%;
+        max-width: 100%;
+        height: 550px;
+      }
+
+      @include bp.breakpoint(small) {
+         width: 320px;
+         height: 550px;
+      }
+
+       @include bp.breakpoint(medium) {
+        width: 350px;
+        height: 600px;
+      }
+
+      &:hover {
+        transform: translateY(-4px); // Reduced hover lift
+      }
+    }
+
+    &__media-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      
+      // Vignette overlay
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, transparent 50%, rgba(0,0,0,0.2) 100%);
+        pointer-events: none;
+        z-index: 1;
+      }
+    }
+
+    &__main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    &__item:hover &__main-image {
+      transform: scale(1.05); 
+    }
+
+    &__link-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    &__play-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 15;
+      pointer-events: none; // Allow click through to link overlay or button itself
+    }
+
+    &__play-button {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+      }
+
+      svg {
+        width: 28px;
+        height: 28px;
+        margin-left: 2px; // Visual center correction for play icon
+        fill: currentColor;
+      }
+    }
+
+    &__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: map-get(v.$spacing, 4);
+      z-index: 20;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0) 25%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.8) 85%,
+        rgba(0, 0, 0, 0.95) 100%
+      );
+    }
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-top: map-get(v.$spacing, 2);
+    }
+
+    &__profile {
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 3);
+      // Removed background and border for cleaner look
+      padding: 0; 
+      pointer-events: auto;
+    }
+
+    &__profile-image {
+      width: 32px; // Slightly larger for standalone look
+      height: 32px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &__profile-name {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(13);
+      font-weight: 500; // Reduced font weight
+      color: map-get(v.$colors, white);
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    // Sidebar removed
+
+    &__footer {
+      display: flex;
+      flex-direction: column;
+      gap: map-get(v.$spacing, 3);
+      width: 100%;
+      pointer-events: auto; 
+    }
+
+    &__cta-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+      border: none;
+      background-color: map-get(v.$colors, secondary); 
+      color: map-get(v.$colors, white);
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(14);
+      font-weight: 500; // Reduced font weight
+      letter-spacing: 0.02em;
+      border-radius: map-get(v.$border-radius, lg);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: map-get(v.$spacing, 2);
+      // Removed box-shadow
+
+      &:hover {
+        background-color: lighten(map-get(v.$colors, secondary), 5%);
+        transform: translateY(-1px);
+        padding-right: map-get(v.$spacing, 4); 
+      }
+      
+      svg {
+        transition: transform 0.3s ease;
+      }
+      
+      &:hover svg {
+          transform: translateX(4px);
+      }
+    }
+    
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    &__title {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(18);
+      font-weight: map-get($map: v.$font-weights, $key: semibold); // As requested, semibold
+      color: white;
+      margin: 0;
+      line-height: 1.25;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      letter-spacing: -0.01em;
+    }
+
+    &__description {
+      font-family: map-get(v.$font-families, primary);
+      font-size: f.rem(13);
+      color: map-get(v.$colors, silver-gray);
+      margin: 0;
+      line-height: 1.5;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    &__thumbnails {
+      display: flex;
+      gap: map-get(v.$spacing, 2);
+      margin-top: map-get(v.$spacing, 1);
+      padding-bottom: map-get(v.$spacing, 3); // Added spacing at the bottom
+    }
+
+    &__thumbnail-item {
+      width: 50px;
+      height: 50px;
+      border-radius: map-get(v.$border-radius, md);
+      overflow: hidden;
+      flex-shrink: 0;
+      // Removed border
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    // Map Section Styles
+    &__map-section {
+      width: 100%;
+      padding: map-get(v.$spacing, 12) map-get(v.$spacing, 4);
+      margin-top: map-get(v.$spacing, 8);
+
+      @include bp.breakpoint-down(small) {
+        padding: map-get(v.$spacing, 4) map-get(v.$spacing, 2);
+        margin-top: map-get(v.$spacing, 4);
+      }
+
+      @include bp.breakpoint(medium) {
+        padding: map-get(v.$spacing, 16) map-get(v.$spacing, 6);
+        margin-top: map-get(v.$spacing, 12);
+      }
+
+      @include bp.breakpoint(large) {
+        padding: map-get(v.$spacing, 20) map-get(v.$spacing, 8);
+      }
+
+      // Ensure the map container fits within the section
+      .property-map-container {
+        max-width: 1400px;
+        margin: 0 auto;
+
+        @include bp.breakpoint-down(small) {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

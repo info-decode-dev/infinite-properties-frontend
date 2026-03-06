@@ -1,0 +1,253 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/breakpoints" as bp;
+
+// Global Footer Styles - Minimal Modern Design
+html:not([data-admin]) {
+  .global-footer {
+    width: 100%;
+    background: linear-gradient(180deg, 
+      rgba(map-get(v.$colors, white), 1) 0%, 
+      rgba(map-get(v.$colors, gray-100), 1) 100%);
+    border-top: 1px solid rgba(map-get(v.$colors, gray-200), 0.5);
+    padding: map-get(v.$spacing, 16) 0 map-get(v.$spacing, 8);
+    margin-top: map-get(v.$spacing, 20);
+
+    @include bp.breakpoint(medium) {
+      padding: map-get(v.$spacing, 20) 0 map-get(v.$spacing, 10);
+    }
+
+    @include bp.breakpoint(large) {
+      padding: map-get(v.$spacing, 24) 0 map-get(v.$spacing, 12);
+    }
+
+    &__container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 map-get(v.$spacing, 4);
+
+      @include bp.breakpoint(medium) {
+        padding: 0 map-get(v.$spacing, 6);
+      }
+
+      @include bp.breakpoint(large) {
+        padding: 0 map-get(v.$spacing, 8);
+      }
+    }
+
+    &__content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: map-get(v.$spacing, 12);
+
+      @include bp.breakpoint(medium) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: map-get(v.$spacing, 16);
+      }
+
+      @include bp.breakpoint(large) {
+        grid-template-columns: 2fr 1fr 1.5fr 1fr;
+        gap: map-get(v.$spacing, 12);
+      }
+    }
+
+    &__brand {
+      display: flex;
+      flex-direction: column;
+      gap: map-get(v.$spacing, 4);
+    }
+
+    &__logo {
+      display: inline-block;
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &__logo-image {
+      height: auto;
+      width: auto;
+      max-width: 140px;
+    }
+
+    &__tagline {
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, light);
+      color: map-get(v.$colors, gray-600);
+      line-height: 1.6;
+      margin: 0;
+      max-width: 300px;
+
+      @include bp.breakpoint(medium) {
+        font-size: f.rem(15);
+      }
+    }
+
+    &__section {
+      display: flex;
+      flex-direction: column;
+      gap: map-get(v.$spacing, 4);
+    }
+
+    &__title {
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, semibold);
+      color: map-get(v.$colors, gray-900);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0 0 map-get(v.$spacing, 2);
+    }
+
+    &__nav {
+      display: flex;
+      flex-direction: column;
+      gap: map-get(v.$spacing, 3);
+    }
+
+    &__link {
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, light);
+      color: map-get(v.$colors, gray-600);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      position: relative;
+      padding-left: 0;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 1px;
+        background: map-get(v.$colors, primary);
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: map-get(v.$colors, primary);
+        padding-left: map-get(v.$spacing, 2);
+
+        &::before {
+          width: map-get(v.$spacing, 2);
+        }
+      }
+    }
+
+    &__contact {
+      display: flex;
+      flex-direction: column;
+      gap: map-get(v.$spacing, 3);
+    }
+
+    &__contact-item {
+      display: flex;
+      align-items: center;
+      gap: map-get(v.$spacing, 2);
+      font-size: f.rem(14);
+      font-weight: map-get(v.$font-weights, light);
+      color: map-get(v.$colors, gray-600);
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      svg {
+        flex-shrink: 0;
+        color: map-get(v.$colors, gray-400);
+        transition: color 0.3s ease;
+      }
+
+      span {
+        line-height: 1.5;
+      }
+
+      &:hover {
+        color: map-get(v.$colors, primary);
+
+        svg {
+          color: map-get(v.$colors, primary);
+        }
+      }
+    }
+
+    &__social {
+      display: flex;
+      gap: map-get(v.$spacing, 3);
+      flex-wrap: wrap;
+    }
+
+    &__social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(map-get(v.$colors, gray-100), 0.8);
+      border: 1px solid rgba(map-get(v.$colors, gray-200), 0.6);
+      color: map-get(v.$colors, gray-600);
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, 
+          map-get(v.$colors, primary) 0%, 
+          map-get(v.$colors, secondary) 100%);
+        border-radius: 10px;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 0;
+      }
+
+      svg {
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease;
+      }
+
+      &:hover {
+        border-color: map-get(v.$colors, primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(map-get(v.$colors, primary), 0.2);
+
+        &::before {
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        svg {
+          color: map-get(v.$colors, white);
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &__bottom {
+      margin-top: map-get(v.$spacing, 12);
+      padding-top: map-get(v.$spacing, 8);
+      border-top: 1px solid rgba(map-get(v.$colors, gray-200), 0.5);
+      text-align: center;
+
+      @include bp.breakpoint(medium) {
+        margin-top: map-get(v.$spacing, 16);
+        padding-top: map-get(v.$spacing, 10);
+      }
+    }
+
+    &__copyright {
+      font-size: f.rem(13);
+      font-weight: map-get(v.$font-weights, light);
+      color: map-get(v.$colors, gray-500);
+      margin: 0;
+    }
+  }
+}

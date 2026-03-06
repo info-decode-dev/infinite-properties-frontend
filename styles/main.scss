@@ -1,0 +1,46 @@
+// Main SCSS Entry File
+// Import order matters - follow this structure
+// NOTE: SCSS styles are scoped to avoid conflicts with Tailwind in admin routes
+
+// 1. Abstracts (variables, functions, mixins)
+@use "abstracts/variables" as v;
+@use "abstracts/functions" as f;
+@use "abstracts/breakpoints" as bp;
+@use "abstracts/utils" as u;
+
+// 2. Base (reset, typography, fonts)
+// Fonts are safe to load globally
+@use "base/fonts";
+
+// Import reset and typography - they will be scoped in their own files
+@use "base/reset";
+@use "base/typography";
+
+// 3. Layout (grid, containers, etc.)
+@use "layout/grid";
+
+// 4. Components (import component styles here)
+@use "components/index" as components;
+
+// 5. Pages (page-specific styles)
+@use "pages/index" as pages;
+
+// 6. Themes (if needed)
+// @use "themes/dark";
+
+// Global styles - scoped to exclude admin routes
+// Admin routes will have [data-admin] attribute on html element
+html:not([data-admin]) body {
+  background-color: map-get(v.$colors, white);
+  // max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  // padding-left: map-get(v.$spacing, 4);
+  // padding-right: map-get(v.$spacing, 4);
+  
+  // @include bp.breakpoint(medium) {
+  //   padding-left: map-get(v.$spacing, 6);
+  //   padding-right: map-get(v.$spacing, 6);
+  // }
+  // color: map-get(v.$colors, white);
+}
