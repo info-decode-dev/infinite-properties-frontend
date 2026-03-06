@@ -594,7 +594,7 @@ function AboutUsForm({
             email: newTeamMember.email,
             image: newTeamMember.image ? URL.createObjectURL(newTeamMember.image) : undefined,
             imageFile: newTeamMember.image, // Store file separately for upload
-          },
+          } as any, // Type assertion for imageFile property
         ],
       });
       setNewTeamMember({ name: "", position: "", bio: "", email: "", image: null });

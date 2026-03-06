@@ -46,6 +46,7 @@ export default function PropertyDetailPage() {
             latitude: propertyData.location?.latitude,
             longitude: propertyData.location?.longitude,
           },
+          propertyType: propertyData.propertyType, // Required field
           bhkType: propertyData.bhkType,
           constructionStatus: propertyData.constructionStatus,
           tags: propertyData.tags || [],
@@ -365,16 +366,16 @@ export default function PropertyDetailPage() {
           <div className="space-y-4">
             <div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Developer Name</div>
-              <div className="text-lg font-semibold text-gray-900 dark:text-white">{property.developerInfo.name}</div>
+              <div className="text-lg font-semibold text-gray-900 dark:text-white">{property.developerInfo?.name || "N/A"}</div>
             </div>
-            {property.developerInfo.description && (
+            {property.developerInfo?.description && (
               <div>
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Description</div>
                 <div className="text-gray-900 dark:text-white">{property.developerInfo.description}</div>
               </div>
             )}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-              {property.developerInfo.email && (
+              {property.developerInfo?.email && (
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-gray-400" />
                   <a
@@ -385,7 +386,7 @@ export default function PropertyDetailPage() {
                   </a>
                 </div>
               )}
-              {property.developerInfo.phone && (
+              {property.developerInfo?.phone && (
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-gray-400" />
                   <a
@@ -396,7 +397,7 @@ export default function PropertyDetailPage() {
                   </a>
                 </div>
               )}
-              {property.developerInfo.website && (
+              {property.developerInfo?.website && (
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4 text-gray-400" />
                   <a

@@ -46,7 +46,7 @@ export default function EditTestimonialPage() {
             type: testimonial.propertyMedia.type as "image" | "video",
             url: formatImageUrl(testimonial.propertyMedia.url) || "",
           } : undefined,
-        });
+        } as any); // Type assertion for existingProfilePicture and existingPropertyMedia
       }
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to fetch testimonial");

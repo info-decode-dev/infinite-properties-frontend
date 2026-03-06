@@ -1248,7 +1248,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             {COMMON_AMENITIES.filter(
               (amenity) => !formData.amenities.some((a) => a.name === amenity.name)
             ).map((amenity) => {
-              const IconComponent = ICON_MAP[amenity.icon] || ICON_MAP[DEFAULT_ICON];
+              const IconComponent = ICON_MAP[amenity.icon || DEFAULT_ICON] || ICON_MAP[DEFAULT_ICON];
               return (
                 <option key={amenity.name} value={amenity.name}>
                   {amenity.name}
@@ -1347,7 +1347,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             </label>
             <div className="space-y-2">
               {formData.amenities.map((amenity) => {
-                const IconComponent = ICON_MAP[amenity.icon] || ICON_MAP[DEFAULT_ICON];
+                const IconComponent = ICON_MAP[amenity.icon || DEFAULT_ICON] || ICON_MAP[DEFAULT_ICON];
                 const isIconPickerOpen = iconPickerOpenFor === amenity.id;
                 return (
                   <div
@@ -1725,11 +1725,14 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
           </label>
           <input
             type="text"
-            value={formData.developerInfo.name}
+            value={formData.developerInfo?.name || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                developerInfo: { ...formData.developerInfo, name: e.target.value },
+                developerInfo: { 
+                  name: e.target.value,
+                  ...(formData.developerInfo || {}),
+                },
               })
             }
             required
@@ -1744,11 +1747,15 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             </label>
             <input
               type="email"
-              value={formData.developerInfo.email || ""}
+              value={formData.developerInfo?.email || ""}
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  developerInfo: { ...formData.developerInfo, email: e.target.value },
+                  developerInfo: { 
+                    name: formData.developerInfo?.name || "",
+                    email: e.target.value,
+                    ...(formData.developerInfo || {}),
+                  },
                 })
               }
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1763,13 +1770,18 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
               <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 font-medium">+91</span>
               <input
                 type="tel"
-                value={formData.developerInfo.phone?.replace(/^\+91\s*/, "") || ""}
+                value={formData.developerInfo?.phone?.replace(/^\+91\s*/, "") || ""}
                 onChange={(e) => {
                   let value = e.target.value.replace(/[^\d]/g, "");
                   if (value.length > 10) value = value.slice(0, 10);
                   setFormData({
                     ...formData,
-                    developerInfo: { ...formData.developerInfo, phone: value ? `+91 ${value}` : "" },
+                    developerInfo: { 
+                      name: formData.developerInfo?.name || "",
+                      email: formData.developerInfo?.email || "",
+                      phone: value ? `+91 ${value}` : "",
+                      ...(formData.developerInfo || {}),
+                    },
                   });
                 }}
                 className="w-full pl-12 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1789,11 +1801,17 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
           </label>
           <input
             type="url"
-            value={formData.developerInfo.website || ""}
+            value={formData.developerInfo?.website || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                developerInfo: { ...formData.developerInfo, website: e.target.value },
+                developerInfo: { 
+                  name: formData.developerInfo?.name || "",
+                  email: formData.developerInfo?.email || "",
+                  phone: formData.developerInfo?.phone || "",
+                  website: e.target.value,
+                  ...(formData.developerInfo || {}),
+                },
               })
             }
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1805,11 +1823,17 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             Description
           </label>
           <textarea
-            value={formData.developerInfo.description || ""}
+            value={formData.developerInfo?.description || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                developerInfo: { ...formData.developerInfo, description: e.target.value },
+                developerInfo: { 
+                  name: formData.developerInfo?.name || "",
+                  email: formData.developerInfo?.email || "",
+                  phone: formData.developerInfo?.phone || "",
+                  website: formData.developerInfo?.website || "",
+                  description: e.target.value,
+                },
               })
             }
             rows={4}

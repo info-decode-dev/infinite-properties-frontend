@@ -62,7 +62,7 @@ export default function EditPropertyPage() {
           ownership: property.ownership,
           existingImages: property.images || [], // Store existing image URLs
           collections: property.collections || [], // Store existing collections
-        });
+        } as any); // Type assertion for existingImages and collections
       }
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to fetch property");
@@ -72,7 +72,7 @@ export default function EditPropertyPage() {
     }
   };
 
-  const handleSubmit = async (data: PropertyFormData & { images: File[]; amenities: any[]; existingImages?: string[] }) => {
+  const handleSubmit = async (data: PropertyFormData & { images: File[]; amenities: any[]; existingImages?: string[]; collectionIds?: string[] }) => {
     console.log("EditPropertyPage: handleSubmit called", { data, propertyId });
     try {
       setIsSubmitting(true);
@@ -185,8 +185,8 @@ export default function EditPropertyPage() {
       }
 
       // Append collection IDs if provided
-      if (data.collectionIds && data.collectionIds.length > 0) {
-        formData.append("collectionIds", JSON.stringify(data.collectionIds));
+      if ((data as any).collectionIds && (data as any).collectionIds.length > 0) {
+        formData.append("collectionIds", JSON.stringify((data as any).collectionIds));
       }
 
       const response = await apiClient.put(`/api/properties/${propertyId}`, formData, {

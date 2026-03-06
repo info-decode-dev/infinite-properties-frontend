@@ -16,6 +16,7 @@ import {
   Clock,
   XCircle,
   Trash2,
+  Eye,
 } from "lucide-react";
 import { Enquiry } from "@/types/enquiry";
 import apiClient from "@/lib/api";
