@@ -6,6 +6,7 @@ import { Building, FolderOpen, Package } from "lucide-react";
 import HeaderText from "../website-ui-components/HeaderText";
 import { CuratedCollection } from "@/types/collection";
 import apiClient from "@/lib/api";
+import { getImageUrl } from "@/lib/imageUtils";
 import gsap from "gsap";
 
 const CuratedCollections = () => {
@@ -155,10 +156,10 @@ const CuratedCollections = () => {
               {collection.image && (
                 <div className="curated-collection-card__image">
                   <img
-                    src={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${collection.image}`}
+                    src={getImageUrl(collection.image)}
                     alt={collection.title}
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = "/placeholder-collection.jpg";
+                      (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='system-ui,-apple-system' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ECollection Image%3C/text%3E%3C/svg%3E";
                     }}
                   />
                 </div>

@@ -392,7 +392,7 @@ export default function CollectionsPage() {
                   <div className="relative h-64 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                     <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${collection.image}`}
+                      src={getImageUrl(collection.image)}
                       alt={collection.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       onError={(e) => {

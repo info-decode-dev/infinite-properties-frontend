@@ -8,6 +8,7 @@ import { Builder } from "@/types/builder";
 import { INDIAN_STATES, INDIAN_CITIES } from "@/constants/indianLocations";
 import LocationMap from "@/components/LocationMap";
 import apiClient from "@/lib/api";
+import { getImageUrl } from "@/lib/imageUtils";
 
 interface PropertyFormProps {
   onSubmit: (data: PropertyFormData & { existingImages?: string[]; collectionIds?: string[] }) => void;
@@ -1558,9 +1559,6 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {collections.map((collection) => {
                 const isSelected = formData.collectionIds?.includes(collection.id) || false;
-                const imageUrl = collection.image?.startsWith('http') 
-                  ? collection.image 
-                  : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${collection.image}`;
                 
                 return (
                   <button
@@ -1577,11 +1575,11 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
                     {collection.image && (
                       <div className="w-full h-32 mb-3 rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-600">
                         <img
-                          src={imageUrl}
+                          src={getImageUrl(collection.image)}
                           alt={collection.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).src = "/placeholder-collection.jpg";
+                            (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='system-ui,-apple-system' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ECollection Image%3C/text%3E%3C/svg%3E";
                           }}
                         />
                       </div>
