@@ -171,7 +171,7 @@ export default function NewPropertyPage() {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-5 sm:p-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           Add New Property
