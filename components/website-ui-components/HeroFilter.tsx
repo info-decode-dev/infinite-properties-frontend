@@ -69,7 +69,6 @@ export default function HeroFilter({ propertyType = "properties", onFilterChange
     plotSize: "",
   });
 
-  const [searchQuery, setSearchQuery] = useState("");
   const [locationSearch, setLocationSearch] = useState("");
   const [locations, setLocations] = useState<string[]>([]);
   const [isLoadingLocations, setIsLoadingLocations] = useState(false);
@@ -284,17 +283,40 @@ export default function HeroFilter({ propertyType = "properties", onFilterChange
   };
 
   const handleSearch = () => {
-    if (searchQuery.trim()) {
-      const params = new URLSearchParams();
-      params.append("search", searchQuery.trim());
-      router.push(`/properties?${params.toString()}`, { scroll: true });
+    // Redirect to properties page and open filter modal
+    const params = new URLSearchParams();
+    params.append("openFilters", "true");
+    if (propertyType === "lands") {
+      params.append("propertyType", "Plot");
     }
+    router.push(`/properties?${params.toString()}`, { scroll: true });
   };
 
   const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       handleSearch();
     }
+  };
+
+  const handleSearchInputClick = () => {
+    // Redirect to properties page and open filter modal
+    const params = new URLSearchParams();
+    params.append("openFilters", "true");
+    if (propertyType === "lands") {
+      params.append("propertyType", "Plot");
+    }
+    router.push(`/properties?${params.toString()}`, { scroll: true });
+  };
+
+  const handleSearchInputFocus = () => {
+    // Redirect to properties page and open filter modal
+    const params = new URLSearchParams();
+    params.append("openFilters", "true");
+    if (propertyType === "lands") {
+      params.append("propertyType", "Plot");
+    }
+    router.push(`/properties?${params.toString()}`, { scroll: true });
   };
 
   const filteredLocations = locations.filter(loc =>
@@ -308,10 +330,12 @@ export default function HeroFilter({ propertyType = "properties", onFilterChange
         <input
           type="text"
           placeholder={propertyType === "properties" ? "Search properties..." : "Search lands..."}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={handleSearchKeyPress}
+          value=""
+          readOnly
+          onClick={handleSearchInputClick}
+          onFocus={handleSearchInputFocus}
           className="hero-filter-search-input"
+          style={{ cursor: "pointer" }}
         />
         <button
           onClick={handleSearch}
