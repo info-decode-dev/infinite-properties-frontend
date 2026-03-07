@@ -111,6 +111,10 @@ export const INDIAN_CITIES: Record<string, string[]> = {
     "Kottayam",
     "Palakkad",
     "Malappuram",
+    "Wayanad",
+    "Idukki",
+    "Pathanamthitta",
+    "Kasargod",
   ],
   "Madhya Pradesh": [
     "Indore",

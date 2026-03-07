@@ -438,7 +438,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8 pb-24 sm:pb-0">
       {/* Basic Information */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 space-y-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Basic Information</h2>
@@ -641,11 +641,11 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Land Area *
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-2 min-w-0 overflow-hidden">
               <input
                 type="number"
                 value={formData.landArea || ""}
@@ -653,14 +653,14 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
                 required
                 min="0"
                 step="0.01"
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 min-w-0 px-2 sm:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="0.00"
               />
               <select
                 value={formData.landAreaUnit || "cent"}
                 onChange={(e) => setFormData({ ...formData, landAreaUnit: e.target.value as "cent" | "acre" })}
                 required
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-shrink-0 px-2 sm:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[80px]"
               >
                 <option value="cent">Cent</option>
                 <option value="acre">Acre</option>
@@ -1842,14 +1842,16 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
       )}
 
       {/* Submit Button */}
-      <div className="flex justify-end gap-4">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? "Saving..." : "Save Property"}
-        </button>
+      <div className="sticky bottom-4 sm:bottom-0 left-0 right-0 z-50  dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg py-4 mt-8 sm:mt-0 sm:static sm:border-t-0 sm:shadow-none sm:bg-transparent dark:sm:bg-transparent">
+        <div className="flex justify-end gap-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full sm:w-auto px-6 py-4 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors font-semibold sm:font-medium text-base sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+          >
+            {isSubmitting ? "Saving..." : "Save Property"}
+          </button>
+        </div>
       </div>
     </form>
   );
