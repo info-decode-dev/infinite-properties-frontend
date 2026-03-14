@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
     silenceDeprecations: ["legacy-js-api"],
     quietDeps: true,
   },
-  // Suppress build warnings
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: false,
   },
