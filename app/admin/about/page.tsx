@@ -579,7 +579,7 @@ function AboutUsForm({
       setFormData({
         ...formData,
         achievements: [
-          ...formData.achievements,
+          ...(formData.achievements || []),
           {
             id: Date.now().toString(),
             ...newAchievement,
@@ -593,7 +593,7 @@ function AboutUsForm({
   const removeAchievement = (id: string) => {
     setFormData({
       ...formData,
-      achievements: formData.achievements.filter((a) => a.id !== id),
+      achievements: (formData.achievements || []).filter((a) => a.id !== id),
     });
   };
 
