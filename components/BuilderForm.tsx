@@ -29,10 +29,13 @@ export default function BuilderForm({ onSubmit, initialData, isSubmitting = fals
 
   useEffect(() => {
     if (initialData?.profilePicture) {
-      const imageUrl = initialData.profilePicture.startsWith("http")
-        ? initialData.profilePicture
-        : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${initialData.profilePicture}`;
-      setProfilePicturePreview(imageUrl);
+      const profilePic = initialData.profilePicture;
+      if (typeof profilePic === "string") {
+        const imageUrl = profilePic.startsWith("http")
+          ? profilePic
+          : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${profilePic}`;
+        setProfilePicturePreview(imageUrl);
+      }
     }
   }, [initialData]);
 
@@ -95,12 +98,14 @@ export default function BuilderForm({ onSubmit, initialData, isSubmitting = fals
 
   const removeImage = () => {
     setProfilePictureFile(null);
-    setProfilePicturePreview(initialData?.profilePicture ? 
-      (initialData.profilePicture.startsWith("http")
+    if (initialData?.profilePicture && typeof initialData.profilePicture === "string") {
+      const imageUrl = initialData.profilePicture.startsWith("http")
         ? initialData.profilePicture
-        : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${initialData.profilePicture}`)
-      : null
-    );
+        : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${initialData.profilePicture}`;
+      setProfilePicturePreview(imageUrl);
+    } else {
+      setProfilePicturePreview(null);
+    }
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -145,12 +145,13 @@ const StickyNavbar = () => {
             >
               About
             </Link>
-            <Link 
+            {/* Contact us link hidden */}
+            {/* <Link 
               href="/contact" 
               className={`sticky-nav-link ${pathname === "/contact" ? "sticky-nav-link--active" : ""}`}
             >
               Contact us
-            </Link>
+            </Link> */}
           </nav>
         </div>
         <div className="sticky-navbar-filter">

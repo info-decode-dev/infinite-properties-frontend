@@ -158,7 +158,8 @@ export default function PropertyCardUi({ property }: PropertyCardUiProps) {
   // Get image URL - prepend API URL if it's a relative path
   const getImageUrl = () => {
     if (!property.images || property.images.length === 0) {
-      return "/placeholder-property.jpg";
+      // Use a data URI placeholder for missing images
+      return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='system-ui,-apple-system' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ENo Image%3C/text%3E%3C/svg%3E";
     }
 
     const imagePath = property.images[0];
@@ -253,8 +254,8 @@ export default function PropertyCardUi({ property }: PropertyCardUiProps) {
           src={imageUrl}
           alt={property.title}
           onError={(e) => {
-            // Fallback to placeholder on error
-            (e.target as HTMLImageElement).src = "/placeholder-property.jpg";
+            // Use a data URI placeholder when image fails to load
+            (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='system-ui,-apple-system' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3EImage Not Available%3C/text%3E%3C/svg%3E";
           }}
         />
         {/* Location at top center */}

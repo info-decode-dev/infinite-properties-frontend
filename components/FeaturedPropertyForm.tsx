@@ -14,7 +14,7 @@ export default function FeaturedPropertyForm({ onSubmit, initialData, isSubmitti
   const [formData, setFormData] = useState<FeaturedPropertyFormData>({
     title: initialData?.title || "",
     description: initialData?.description || "",
-    gallery: initialData?.gallery || [],
+    gallery: initialData?.gallery || ([] as { type: "image" | "video"; file: File; }[]),
     existingGallery: initialData?.existingGallery || [],
     clientLogos: initialData?.clientLogos || [],
     existingClientLogos: initialData?.existingClientLogos || [],
@@ -34,7 +34,7 @@ export default function FeaturedPropertyForm({ onSubmit, initialData, isSubmitti
       }));
       setFormData({
         ...formData,
-        gallery: [...formData.gallery, ...newGalleryItems],
+        gallery: [...(formData.gallery || []), ...newGalleryItems],
       });
     }
   };
@@ -42,7 +42,7 @@ export default function FeaturedPropertyForm({ onSubmit, initialData, isSubmitti
   const removeGalleryItem = (index: number) => {
     setFormData({
       ...formData,
-      gallery: formData.gallery.filter((_, i) => i !== index),
+      gallery: (formData.gallery || []).filter((_, i) => i !== index),
     });
   };
 
@@ -58,7 +58,7 @@ export default function FeaturedPropertyForm({ onSubmit, initialData, isSubmitti
       const files = Array.from(e.target.files);
       setFormData({
         ...formData,
-        clientLogos: [...formData.clientLogos, ...files],
+        clientLogos: [...(formData.clientLogos || []), ...files],
       });
     }
   };
@@ -66,7 +66,7 @@ export default function FeaturedPropertyForm({ onSubmit, initialData, isSubmitti
   const removeClientLogo = (index: number) => {
     setFormData({
       ...formData,
-      clientLogos: formData.clientLogos.filter((_, i) => i !== index),
+      clientLogos: (formData.clientLogos || []).filter((_, i) => i !== index),
     });
   };
 
@@ -146,7 +146,7 @@ export default function FeaturedPropertyForm({ onSubmit, initialData, isSubmitti
             Add Gallery Items (Images/Videos)
           </label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {formData.gallery.map((item, index) => (
+            {(formData.gallery || []).map((item, index) => (
               <div key={index} className="relative group">
                 {item.type === "image" ? (
                   <img
@@ -221,7 +221,7 @@ export default function FeaturedPropertyForm({ onSubmit, initialData, isSubmitti
             Add Client Logos
           </label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {formData.clientLogos.map((logo, index) => (
+            {(formData.clientLogos || []).map((logo, index) => (
               <div key={index} className="relative group">
                 <img
                   src={URL.createObjectURL(logo)}

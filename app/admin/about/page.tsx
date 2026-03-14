@@ -3,8 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Edit, Save, Eye } from "lucide-react";
-import { AboutUs } from "@/types/about";
+import { AboutUs, TeamMember } from "@/types/about";
 import apiClient from "@/lib/api";
+
+// Extended TeamMember type for form data that includes imageFile
+type TeamMemberWithFile = TeamMember & {
+  imageFile?: File;
+};
 
 export default function AboutUsPage() {
   // Note: This page uses AboutUsForm component which should handle its own responsiveness
@@ -477,7 +482,19 @@ function AboutUsForm({
     return `${apiUrl}${url}`;
   };
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    companyName: string;
+    tagline: string;
+    mission: string;
+    vision: string;
+    story: string;
+    values: string[];
+    statistics: AboutUs["statistics"];
+    achievements: AboutUs["achievements"];
+    teamMembers: TeamMemberWithFile[];
+    contactInfo: AboutUs["contactInfo"];
+    images: File[];
+  }>({
     companyName: initialData?.companyName || "",
     tagline: initialData?.tagline || "",
     mission: initialData?.mission || "",

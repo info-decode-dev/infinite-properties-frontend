@@ -46,7 +46,8 @@ const Footer = () => {
               <Link href="/" className="global-footer__link">Home</Link>
               <Link href="/properties" className="global-footer__link">Properties</Link>
               <Link href="/about" className="global-footer__link">About</Link>
-              <Link href="/contact" className="global-footer__link">Contact</Link>
+              {/* Contact link hidden */}
+              {/* <Link href="/contact" className="global-footer__link">Contact</Link> */}
             </nav>
           </div>
 

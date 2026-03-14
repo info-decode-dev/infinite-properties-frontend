@@ -34,7 +34,6 @@ export default function SmoothScroll() {
       gestureOrientation: "vertical" as const,
       smoothWheel: true,
       wheelMultiplier: 1,
-      smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
     });

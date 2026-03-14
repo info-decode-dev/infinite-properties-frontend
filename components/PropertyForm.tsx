@@ -8,6 +8,7 @@ import { Builder } from "@/types/builder";
 import { INDIAN_STATES, INDIAN_CITIES } from "@/constants/indianLocations";
 import LocationMap from "@/components/LocationMap";
 import apiClient from "@/lib/api";
+import { getImageUrl } from "@/lib/imageUtils";
 
 interface PropertyFormProps {
   onSubmit: (data: PropertyFormData & { existingImages?: string[]; collectionIds?: string[] }) => void;
@@ -17,13 +18,18 @@ interface PropertyFormProps {
 
 const BHK_OPTIONS: BHKType[] = ["Studio", "1 BHK", "2 BHK", "3 BHK", "4 BHK", "5+ BHK"];
 const CONSTRUCTION_STATUS_OPTIONS: ConstructionStatus[] = ["Ready to Move", "Under Construction", "Pre-Launch"];
-const PROPERTY_TYPE_OPTIONS: PropertyType[] = ["Home", "Villa", "Flat", "Apartment", "Plot", "Commercial", "Farmhouse", "Bungalow", "Resort"];
+const PROPERTY_TYPE_OPTIONS: PropertyType[] = ["Home", "Villa", "Flat", "Apartment", "Plot", "Commercial", "Farmhouse", "Bungalow", "Resort", "Warehouse", "Commercial Building", "Commercial Land"];
 const FURNISHED_STATUS_OPTIONS: FurnishedStatus[] = ["Furnished", "Semi-Furnished", "Unfurnished"];
 const NEGOTIATION_OPTIONS: Negotiation[] = ["Negotiable", "Slightly Negotiable", "Not Negotiable"];
 const PROPERTY_TAGS: PropertyTag[] = ["New", "Luxury", "Best Deal", "Featured", "Hot Deal"];
 const LAND_TYPE_OPTIONS: LandType[] = ["Residential Land", "Commercial Land", "Resort Land", "Agricultural Land", "Special Purpose Land"];
 const PLOT_SIZE_UNIT_OPTIONS: PlotSizeUnit[] = ["Cent", "Acre", "Square Feet"];
 const OWNERSHIP_OPTIONS: Ownership[] = ["Freehold", "Leasehold"];
+
+// Helper function to check if property type is a land type (Plot or Commercial Land)
+const isLandType = (propertyType: PropertyType): boolean => {
+  return propertyType === "Plot" || propertyType === "Commercial Land";
+};
 
 // Tag icons and descriptions
 const TAG_INFO: { [key: string]: { icon: any; description: string; color: string } } = {
@@ -437,7 +443,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8 pb-24 sm:pb-0">
       {/* Basic Information */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 space-y-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Basic Information</h2>
@@ -479,8 +485,8 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
               value={formData.propertyType}
               onChange={(e) => {
                 const newPropertyType = e.target.value as PropertyType;
-                // Reset plot-specific fields when switching away from Plot
-                if (newPropertyType !== "Plot") {
+                // Reset land-specific fields when switching away from land types
+                if (!isLandType(newPropertyType)) {
                   setFormData({ 
                     ...formData, 
                     propertyType: newPropertyType,
@@ -490,7 +496,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
                     ownership: undefined,
                   });
                 } else {
-                  // Reset non-plot fields when switching to Plot
+                  // Reset non-land fields when switching to land types
                   setFormData({ 
                     ...formData, 
                     propertyType: newPropertyType,
@@ -520,7 +526,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             </select>
           </div>
 
-          {formData.propertyType !== "Plot" && (
+          {!isLandType(formData.propertyType) && (
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 BHK Type *
@@ -541,7 +547,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
           )}
         </div>
 
-        {formData.propertyType !== "Plot" && (
+        {!isLandType(formData.propertyType) && (
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Construction Status *
@@ -563,8 +569,8 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
           </div>
         )}
 
-        {/* Plot-specific fields */}
-        {formData.propertyType === "Plot" && (
+        {/* Land-specific fields (Plot and Commercial Land) */}
+        {isLandType(formData.propertyType) && (
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -640,11 +646,11 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Land Area *
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-2 min-w-0 overflow-hidden">
               <input
                 type="number"
                 value={formData.landArea || ""}
@@ -652,14 +658,14 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
                 required
                 min="0"
                 step="0.01"
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 min-w-0 px-2 sm:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="0.00"
               />
               <select
                 value={formData.landAreaUnit || "cent"}
                 onChange={(e) => setFormData({ ...formData, landAreaUnit: e.target.value as "cent" | "acre" })}
                 required
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-shrink-0 px-2 sm:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[80px]"
               >
                 <option value="cent">Cent</option>
                 <option value="acre">Acre</option>
@@ -667,7 +673,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             </div>
           </div>
 
-          {formData.propertyType !== "Plot" && (
+          {!isLandType(formData.propertyType) && (
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Built Up Area (Square Feet) *
@@ -686,7 +692,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
           )}
         </div>
 
-        {formData.propertyType !== "Plot" && (
+        {!isLandType(formData.propertyType) && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -1139,8 +1145,8 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
         </div>
       </div>
 
-      {/* Tags - Hidden for Plot properties */}
-      {formData.propertyType !== "Plot" && (
+      {/* Tags - Hidden for land properties */}
+      {!isLandType(formData.propertyType) && (
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Property Tags</h2>
@@ -1248,7 +1254,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             {COMMON_AMENITIES.filter(
               (amenity) => !formData.amenities.some((a) => a.name === amenity.name)
             ).map((amenity) => {
-              const IconComponent = ICON_MAP[amenity.icon] || ICON_MAP[DEFAULT_ICON];
+              const IconComponent = ICON_MAP[amenity.icon || DEFAULT_ICON] || ICON_MAP[DEFAULT_ICON];
               return (
                 <option key={amenity.name} value={amenity.name}>
                   {amenity.name}
@@ -1347,7 +1353,7 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             </label>
             <div className="space-y-2">
               {formData.amenities.map((amenity) => {
-                const IconComponent = ICON_MAP[amenity.icon] || ICON_MAP[DEFAULT_ICON];
+                const IconComponent = ICON_MAP[amenity.icon || DEFAULT_ICON] || ICON_MAP[DEFAULT_ICON];
                 const isIconPickerOpen = iconPickerOpenFor === amenity.id;
                 return (
                   <div
@@ -1558,9 +1564,6 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {collections.map((collection) => {
                 const isSelected = formData.collectionIds?.includes(collection.id) || false;
-                const imageUrl = collection.image?.startsWith('http') 
-                  ? collection.image 
-                  : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${collection.image}`;
                 
                 return (
                   <button
@@ -1577,11 +1580,11 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
                     {collection.image && (
                       <div className="w-full h-32 mb-3 rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-600">
                         <img
-                          src={imageUrl}
+                          src={getImageUrl(collection.image)}
                           alt={collection.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).src = "/placeholder-collection.jpg";
+                            (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='system-ui,-apple-system' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ECollection Image%3C/text%3E%3C/svg%3E";
                           }}
                         />
                       </div>
@@ -1618,8 +1621,8 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
         )}
       </div>
 
-      {/* Developer Info - Hidden for Plot properties */}
-      {formData.propertyType !== "Plot" && (
+      {/* Developer Info - Hidden for land properties */}
+      {!isLandType(formData.propertyType) && (
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 space-y-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Developer Information</h2>
 
@@ -1725,11 +1728,14 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
           </label>
           <input
             type="text"
-            value={formData.developerInfo.name}
+            value={formData.developerInfo?.name || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                developerInfo: { ...formData.developerInfo, name: e.target.value },
+                developerInfo: { 
+                  name: e.target.value,
+                  ...(formData.developerInfo || {}),
+                },
               })
             }
             required
@@ -1744,11 +1750,15 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             </label>
             <input
               type="email"
-              value={formData.developerInfo.email || ""}
+              value={formData.developerInfo?.email || ""}
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  developerInfo: { ...formData.developerInfo, email: e.target.value },
+                  developerInfo: { 
+                    name: formData.developerInfo?.name || "",
+                    email: e.target.value,
+                    ...(formData.developerInfo || {}),
+                  },
                 })
               }
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1763,13 +1773,18 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
               <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 font-medium">+91</span>
               <input
                 type="tel"
-                value={formData.developerInfo.phone?.replace(/^\+91\s*/, "") || ""}
+                value={formData.developerInfo?.phone?.replace(/^\+91\s*/, "") || ""}
                 onChange={(e) => {
                   let value = e.target.value.replace(/[^\d]/g, "");
                   if (value.length > 10) value = value.slice(0, 10);
                   setFormData({
                     ...formData,
-                    developerInfo: { ...formData.developerInfo, phone: value ? `+91 ${value}` : "" },
+                    developerInfo: { 
+                      name: formData.developerInfo?.name || "",
+                      email: formData.developerInfo?.email || "",
+                      phone: value ? `+91 ${value}` : "",
+                      ...(formData.developerInfo || {}),
+                    },
                   });
                 }}
                 className="w-full pl-12 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1789,11 +1804,17 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
           </label>
           <input
             type="url"
-            value={formData.developerInfo.website || ""}
+            value={formData.developerInfo?.website || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                developerInfo: { ...formData.developerInfo, website: e.target.value },
+                developerInfo: { 
+                  name: formData.developerInfo?.name || "",
+                  email: formData.developerInfo?.email || "",
+                  phone: formData.developerInfo?.phone || "",
+                  website: e.target.value,
+                  ...(formData.developerInfo || {}),
+                },
               })
             }
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1805,11 +1826,17 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
             Description
           </label>
           <textarea
-            value={formData.developerInfo.description || ""}
+            value={formData.developerInfo?.description || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                developerInfo: { ...formData.developerInfo, description: e.target.value },
+                developerInfo: { 
+                  name: formData.developerInfo?.name || "",
+                  email: formData.developerInfo?.email || "",
+                  phone: formData.developerInfo?.phone || "",
+                  website: formData.developerInfo?.website || "",
+                  description: e.target.value,
+                },
               })
             }
             rows={4}
@@ -1820,14 +1847,16 @@ export default function PropertyForm({ onSubmit, initialData, isSubmitting = fal
       )}
 
       {/* Submit Button */}
-      <div className="flex justify-end gap-4">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? "Saving..." : "Save Property"}
-        </button>
+      <div className="sticky bottom-4 sm:bottom-0 left-0 right-0 z-50  dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg py-4 mt-8 sm:mt-0 sm:static sm:border-t-0 sm:shadow-none sm:bg-transparent dark:sm:bg-transparent">
+        <div className="flex justify-end gap-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full sm:w-auto px-6 py-4 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors font-semibold sm:font-medium text-base sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+          >
+            {isSubmitting ? "Saving..." : "Save Property"}
+          </button>
+        </div>
       </div>
     </form>
   );

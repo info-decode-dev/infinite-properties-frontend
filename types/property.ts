@@ -2,7 +2,7 @@ export type BHKType = "1 BHK" | "2 BHK" | "3 BHK" | "4 BHK" | "5+ BHK" | "Studio
 
 export type ConstructionStatus = "Ready to Move" | "Under Construction" | "Pre-Launch";
 
-export type PropertyType = "Home" | "Villa" | "Flat" | "Apartment" | "Plot" | "Commercial" | "Farmhouse" | "Bungalow" | "Resort";
+export type PropertyType = "Home" | "Villa" | "Flat" | "Apartment" | "Plot" | "Commercial" | "Farmhouse" | "Bungalow" | "Resort" | "Warehouse" | "Commercial Building" | "Commercial Land";
 
 export type PropertyTag = "New" | "Luxury" | "Best Deal" | "Featured" | "Hot Deal";
 

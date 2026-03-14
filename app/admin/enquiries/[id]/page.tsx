@@ -16,10 +16,12 @@ import {
   Clock,
   XCircle,
   Trash2,
+  Eye,
 } from "lucide-react";
 import { Enquiry } from "@/types/enquiry";
 import apiClient from "@/lib/api";
 import LocationMap from "@/components/LocationMap";
+import { getImageUrl } from "@/lib/imageUtils";
 
 export default function EnquiryDetailPage() {
   const params = useParams();
@@ -262,7 +264,7 @@ export default function EnquiryDetailPage() {
             {enquiry.property.images && enquiry.property.images.length > 0 && (
               <div>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${enquiry.property.images[0]}`}
+                  src={getImageUrl(enquiry.property.images[0])}
                   alt={enquiry.property.title}
                   className="w-full h-64 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
                 />

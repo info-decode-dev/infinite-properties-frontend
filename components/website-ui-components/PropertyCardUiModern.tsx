@@ -154,19 +154,27 @@ export default function PropertyCardUiModern({ property }: PropertyCardUiModernP
   // Get image URL - prepend API URL if it's a relative path
   const getImageUrl = () => {
     if (!property.images || property.images.length === 0) {
-      return "/placeholder-property.jpg";
+      // Use a data URI placeholder for missing images
+      return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='system-ui,-apple-system' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ENo Image%3C/text%3E%3C/svg%3E";
     }
 
     const imagePath = property.images[0];
 
-    // If it's already a full URL, use it as is
+    // If it's already a full URL (Supabase or external), use it as is
     if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
       return imagePath;
     }
 
     // If it's a relative path, prepend API URL
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-    return `${apiUrl}${imagePath}`;
+    const fullUrl = `${apiUrl}${imagePath}`;
+    
+    // Debug: Log image URL construction (remove in production)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Image URL:', { imagePath, apiUrl, fullUrl });
+    }
+    
+    return fullUrl;
   };
 
   const imageUrl = getImageUrl();
@@ -258,7 +266,8 @@ export default function PropertyCardUiModern({ property }: PropertyCardUiModernP
           src={imageUrl}
           alt={property.title}
           onError={(e) => {
-            (e.target as HTMLImageElement).src = "/placeholder-property.jpg";
+            // Use a data URI placeholder when image fails to load
+            (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='system-ui,-apple-system' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3EImage Not Available%3C/text%3E%3C/svg%3E";
           }}
         />
         

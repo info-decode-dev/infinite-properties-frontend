@@ -33,8 +33,13 @@ export default function NewPropertyPage() {
       }
       formData.append("propertyType", data.propertyType);
       
-      // Only append non-Plot fields if propertyType is not Plot
-      if (data.propertyType !== "Plot") {
+      // Helper function to check if property type is a land type
+      const isLandType = (propertyType: string) => {
+        return propertyType === "Plot" || propertyType === "Commercial Land";
+      };
+      
+      // Only append non-land fields if propertyType is not a land type
+      if (!isLandType(data.propertyType)) {
         if (data.bhkType) {
           formData.append("bhkType", data.bhkType);
         }
@@ -49,8 +54,8 @@ export default function NewPropertyPage() {
       formData.append("landArea", (data.landArea ?? 0).toString());
       formData.append("landAreaUnit", data.landAreaUnit ?? "cent");
       
-      // Append Plot-specific fields if propertyType is Plot
-      if (data.propertyType === "Plot") {
+      // Append land-specific fields if propertyType is Plot or Commercial Land
+      if (isLandType(data.propertyType)) {
         if (data.landType) {
           formData.append("landType", data.landType);
         }
@@ -94,8 +99,8 @@ export default function NewPropertyPage() {
         longitude: data.location.longitude?.toString() || "",
       }));
 
-      // Append developer info (only for non-Plot properties)
-      if (data.propertyType !== "Plot") {
+      // Append developer info (only for non-land properties)
+      if (!isLandType(data.propertyType)) {
         formData.append("developerInfo", JSON.stringify({
           name: data.developerInfo?.name || "",
           email: data.developerInfo?.email || "",
@@ -171,7 +176,7 @@ export default function NewPropertyPage() {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-5 sm:p-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           Add New Property

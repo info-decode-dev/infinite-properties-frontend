@@ -50,7 +50,7 @@ const MobileNavButton = () => {
     if (!containerRef.current) return;
 
     const buttons = buttonsRef.current.filter(Boolean);
-    const spacing = [60, 120, 180, 240]; // Different spacings for each button
+    const spacing = [60, 120, 180]; // Different spacings for each button (Contact Us hidden)
     
     if (isExpanded) {
       // Expand animation
@@ -136,7 +136,8 @@ const MobileNavButton = () => {
   return (
     <div className="mobile-nav-button" ref={containerRef}>
       {/* Expanded Buttons - Always rendered for smooth animations */}
-      <button
+      {/* Contact Us button hidden */}
+      {/* <button
         className={`mobile-nav-button__item mobile-nav-button__item--contact ${!isExpanded ? "mobile-nav-button__item--hidden" : ""}`}
         onClick={() => handleButtonClick(handleContact)}
         ref={(el) => {
@@ -148,7 +149,7 @@ const MobileNavButton = () => {
       >
         <Mail size={20} />
         <span>Contact Us</span>
-      </button>
+      </button> */}
       
       <button
         className={`mobile-nav-button__item mobile-nav-button__item--about ${!isExpanded ? "mobile-nav-button__item--hidden" : ""}`}

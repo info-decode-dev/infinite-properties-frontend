@@ -237,14 +237,14 @@ export default function AdminDashboard() {
           </div>
 
           {/* Enquiries Table */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700/50 shadow-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700/50 shadow-sm overflow-hidden">
             <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700/50">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-                <div>
+                <div className="min-w-0 flex-1">
                   <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1">
                     Recent Enquiries
                   </h2>
-                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 break-words">
                     {enquiryStats && (
                       <>
                         Total: {enquiryStats.total} | Pending: {enquiryStats.pending} | Contacted: {enquiryStats.contacted} | Closed: {enquiryStats.closed}
@@ -254,15 +254,15 @@ export default function AdminDashboard() {
                 </div>
                 <Link
                   href="/admin/enquiries"
-                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium flex-shrink-0"
                 >
                   View All
                 </Link>
               </div>
 
               {/* Filters */}
-              <div className="flex flex-wrap gap-3 items-center">
-                <div className="flex-1 min-w-[200px]">
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center overflow-hidden">
+                <div className="flex-1 min-w-0 w-full sm:w-auto">
                   <div className="relative">
                     <input
                       type="text"
@@ -271,23 +271,23 @@ export default function AdminDashboard() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                     />
-                    <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 flex-shrink-0" />
                     {searchQuery && (
                       <button
                         onClick={() => setSearchQuery("")}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 flex-shrink-0"
                       >
                         <X className="w-4 h-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" />
                       </button>
                     )}
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap items-center">
                   {["all", "pending", "contacted", "closed"].map((status) => (
                     <button
                       key={status}
                       onClick={() => setStatusFilter(status)}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
                         statusFilter === status
                           ? "bg-blue-600 text-white"
                           : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
@@ -301,101 +301,105 @@ export default function AdminDashboard() {
             </div>
 
             {/* Desktop Table View */}
-            <div className="hidden lg:block overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 dark:bg-gray-700/50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      User
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Property
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Date
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {filteredEnquiries.length === 0 ? (
-                    <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center">
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {searchQuery || statusFilter !== "all"
-                            ? "No enquiries match your filters"
-                            : "No enquiries yet"}
-                        </p>
-                      </td>
-                    </tr>
-                  ) : (
-                    filteredEnquiries.slice(0, 10).map((enquiry) => (
-                      <tr
-                        key={enquiry.id}
-                        className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors"
-                      >
-                        <td className="px-6 py-4">
-                          <div>
-                            <div className="font-medium text-gray-900 dark:text-white">
-                              {enquiry.userName}
-                            </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-1">
-                              <Mail className="w-3 h-3" />
-                              {enquiry.userEmail}
-                            </div>
-                            {enquiry.userPhone && (
-                              <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-1">
-                                <Phone className="w-3 h-3" />
-                                {enquiry.userPhone}
-                              </div>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div>
-                            <div className="font-medium text-gray-900 dark:text-white">
-                              {enquiry.property.title}
-                            </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">
-                              {enquiry.property.location.city}, {enquiry.property.location.state}
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span
-                            className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                              enquiry.status
-                            )}`}
-                          >
-                            {enquiry.status.charAt(0).toUpperCase() + enquiry.status.slice(1)}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                          {formatDate(enquiry.createdAt)}
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                          <button
-                            onClick={() => openEnquiryModal(enquiry.id)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-lg transition-colors"
-                          >
-                            <Eye className="w-4 h-4" />
-                            View
-                          </button>
-                        </td>
+            <div className="hidden lg:block overflow-x-auto -mx-4 sm:mx-0">
+              <div className="inline-block min-w-full align-middle">
+                <div className="overflow-hidden">
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead className="bg-gray-50 dark:bg-gray-700/50">
+                      <tr>
+                        <th className="px-4 xl:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          User
+                        </th>
+                        <th className="px-4 xl:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          Property
+                        </th>
+                        <th className="px-4 xl:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th className="px-4 xl:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          Date
+                        </th>
+                        <th className="px-4 xl:px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          Actions
+                        </th>
                       </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+                    </thead>
+                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                      {filteredEnquiries.length === 0 ? (
+                        <tr>
+                          <td colSpan={5} className="px-4 xl:px-6 py-12 text-center">
+                            <p className="text-gray-500 dark:text-gray-400">
+                              {searchQuery || statusFilter !== "all"
+                                ? "No enquiries match your filters"
+                                : "No enquiries yet"}
+                            </p>
+                          </td>
+                        </tr>
+                      ) : (
+                        filteredEnquiries.slice(0, 10).map((enquiry) => (
+                          <tr
+                            key={enquiry.id}
+                            className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors"
+                          >
+                            <td className="px-4 xl:px-6 py-4 whitespace-nowrap">
+                              <div className="min-w-0">
+                                <div className="font-medium text-gray-900 dark:text-white truncate">
+                                  {enquiry.userName}
+                                </div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-1 min-w-0">
+                                  <Mail className="w-3 h-3 flex-shrink-0" />
+                                  <span className="truncate">{enquiry.userEmail}</span>
+                                </div>
+                                {enquiry.userPhone && (
+                                  <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-1">
+                                    <Phone className="w-3 h-3 flex-shrink-0" />
+                                    <span className="truncate">{enquiry.userPhone}</span>
+                                  </div>
+                                )}
+                              </div>
+                            </td>
+                            <td className="px-4 xl:px-6 py-4 min-w-0">
+                              <div className="min-w-0">
+                                <div className="font-medium text-gray-900 dark:text-white truncate">
+                                  {enquiry.property.title}
+                                </div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                                  {enquiry.property.location.city}, {enquiry.property.location.state}
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-4 xl:px-6 py-4 whitespace-nowrap">
+                              <span
+                                className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                                  enquiry.status
+                                )}`}
+                              >
+                                {enquiry.status.charAt(0).toUpperCase() + enquiry.status.slice(1)}
+                              </span>
+                            </td>
+                            <td className="px-4 xl:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                              {formatDate(enquiry.createdAt)}
+                            </td>
+                            <td className="px-4 xl:px-6 py-4 whitespace-nowrap text-right">
+                              <button
+                                onClick={() => openEnquiryModal(enquiry.id)}
+                                className="inline-flex items-center gap-1 px-3 py-1.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-lg transition-colors"
+                              >
+                                <Eye className="w-4 h-4" />
+                                View
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
 
             {/* Mobile Card View */}
-            <div className="lg:hidden p-4 space-y-4">
+            <div className="lg:hidden p-4 space-y-4 overflow-x-hidden">
               {filteredEnquiries.length === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-gray-500 dark:text-gray-400">
@@ -408,41 +412,41 @@ export default function AdminDashboard() {
                 filteredEnquiries.slice(0, 10).map((enquiry) => (
                   <div
                     key={enquiry.id}
-                    className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-4 border border-gray-200 dark:border-gray-600"
+                    className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-4 border border-gray-200 dark:border-gray-600 overflow-hidden"
                   >
-                    <div className="space-y-3">
-                      <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white mb-1">
+                    <div className="space-y-3 min-w-0">
+                      <div className="min-w-0">
+                        <h3 className="font-medium text-gray-900 dark:text-white mb-1 truncate">
                           {enquiry.userName}
                         </h3>
-                        <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                          <Mail className="w-3 h-3" />
-                          <span className="break-all">{enquiry.userEmail}</span>
+                        <div className="text-sm text-gray-500 dark:text-gray-400 flex items-start gap-2 min-w-0">
+                          <Mail className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                          <span className="break-words min-w-0">{enquiry.userEmail}</span>
                         </div>
                         {enquiry.userPhone && (
                           <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-1">
-                            <Phone className="w-3 h-3" />
-                            <span>{enquiry.userPhone}</span>
+                            <Phone className="w-3 h-3 flex-shrink-0" />
+                            <span className="break-words">{enquiry.userPhone}</span>
                           </div>
                         )}
                       </div>
-                      <div className="pt-2 border-t border-gray-200 dark:border-gray-600">
-                        <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">
+                      <div className="pt-2 border-t border-gray-200 dark:border-gray-600 min-w-0">
+                        <div className="text-sm font-medium text-gray-900 dark:text-white mb-1 break-words">
                           {enquiry.property.title}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-gray-500 dark:text-gray-400 break-words">
                           {enquiry.property.location.city}, {enquiry.property.location.state}
                         </div>
                       </div>
-                      <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-600">
+                      <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-600 gap-2">
                         <span
-                          className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                          className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium flex-shrink-0 ${getStatusColor(
                             enquiry.status
                           )}`}
                         >
                           {enquiry.status.charAt(0).toUpperCase() + enquiry.status.slice(1)}
                         </span>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap flex-shrink-0">
                           {formatDate(enquiry.createdAt)}
                         </div>
                       </div>

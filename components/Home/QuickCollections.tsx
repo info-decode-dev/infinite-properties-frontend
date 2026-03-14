@@ -93,9 +93,23 @@ const QuickCollections = ({
         setProperties(filteredProperties.slice(0, 9));
       }
     } catch (err: unknown) {
-      const error = err as { response?: { data?: { message?: string } } };
-      setError(error.response?.data?.message || "Failed to fetch properties");
-      console.error("Error fetching properties:", err);
+      const error = err as { 
+        response?: { 
+          data?: { message?: string }; 
+          status?: number;
+        }; 
+        message?: string;
+        code?: string;
+      };
+      
+      console.error("Error fetching properties:", {
+        message: error.response?.data?.message || error.message,
+        status: error.response?.status,
+        code: error.code,
+        fullError: err,
+      });
+      
+      setError(error.response?.data?.message || error.message || "Failed to fetch properties");
     } finally {
       setIsLoading(false);
     }
@@ -186,14 +200,6 @@ const QuickCollections = ({
           title={title} 
           subtitle={subtitle} 
           alignment="left" 
-          actionButtonText="View All" 
-          onActionClick={() => {
-            if (propertyType === "lands") {
-              router.push("/properties?propertyType=Plot");
-            } else {
-              router.push("/properties");
-            }
-          }} 
         />
       </div>
       
@@ -217,12 +223,28 @@ const QuickCollections = ({
           <p>No properties found.</p>
         </div>
       ) : (
-        <div ref={gridRef} className="quick-collections__grid">
-          {properties.map((property) => (
-            // <PropertyCardUi key={property.id} property={property} />
-            <PropertyCardUiModern key={property.id} property={property} />
-          ))}
-        </div>
+        <>
+          <div ref={gridRef} className="quick-collections__grid">
+            {properties.map((property) => (
+              // <PropertyCardUi key={property.id} property={property} />
+              <PropertyCardUiModern key={property.id} property={property} />
+            ))}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+            <button 
+              className="header-text-button"
+              onClick={() => {
+                if (propertyType === "lands") {
+                  router.push("/properties?propertyType=Plot");
+                } else {
+                  router.push("/properties");
+                }
+              }}
+            >
+              View All
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

@@ -62,7 +62,7 @@ export default function EditPropertyPage() {
           ownership: property.ownership,
           existingImages: property.images || [], // Store existing image URLs
           collections: property.collections || [], // Store existing collections
-        });
+        } as any); // Type assertion for existingImages and collections
       }
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to fetch property");
@@ -72,7 +72,7 @@ export default function EditPropertyPage() {
     }
   };
 
-  const handleSubmit = async (data: PropertyFormData & { images: File[]; amenities: any[]; existingImages?: string[] }) => {
+  const handleSubmit = async (data: PropertyFormData & { images: File[]; amenities: any[]; existingImages?: string[]; collectionIds?: string[] }) => {
     console.log("EditPropertyPage: handleSubmit called", { data, propertyId });
     try {
       setIsSubmitting(true);
@@ -90,8 +90,13 @@ export default function EditPropertyPage() {
       }
       formData.append("propertyType", data.propertyType);
       
-      // Only append non-Plot fields if propertyType is not Plot
-      if (data.propertyType !== "Plot") {
+      // Helper function to check if property type is a land type
+      const isLandType = (propertyType: string) => {
+        return propertyType === "Plot" || propertyType === "Commercial Land";
+      };
+      
+      // Only append non-land fields if propertyType is not a land type
+      if (!isLandType(data.propertyType)) {
         if (data.bhkType) {
           formData.append("bhkType", data.bhkType);
         }
@@ -110,8 +115,8 @@ export default function EditPropertyPage() {
         formData.append("landAreaUnit", data.landAreaUnit);
       }
       
-      // Append Plot-specific fields if propertyType is Plot
-      if (data.propertyType === "Plot") {
+      // Append land-specific fields if propertyType is Plot or Commercial Land
+      if (isLandType(data.propertyType)) {
         if (data.landType) {
           formData.append("landType", data.landType);
         }
@@ -155,8 +160,8 @@ export default function EditPropertyPage() {
         longitude: data.location.longitude?.toString() || "",
       }));
 
-      // Append developer info (only for non-Plot properties)
-      if (data.propertyType !== "Plot") {
+      // Append developer info (only for non-land properties)
+      if (!isLandType(data.propertyType)) {
         formData.append("developerInfo", JSON.stringify({
           name: data.developerInfo?.name || "",
           email: data.developerInfo?.email || "",
@@ -185,8 +190,8 @@ export default function EditPropertyPage() {
       }
 
       // Append collection IDs if provided
-      if (data.collectionIds && data.collectionIds.length > 0) {
-        formData.append("collectionIds", JSON.stringify(data.collectionIds));
+      if ((data as any).collectionIds && (data as any).collectionIds.length > 0) {
+        formData.append("collectionIds", JSON.stringify((data as any).collectionIds));
       }
 
       const response = await apiClient.put(`/api/properties/${propertyId}`, formData, {

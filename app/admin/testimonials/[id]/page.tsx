@@ -11,7 +11,7 @@ export default function TestimonialDetailPage() {
   const testimonialId = params.id as string;
 
   // TODO: Fetch testimonial data from API
-  const testimonial: Testimonial | null = null;
+  const testimonial: Testimonial | null = null as Testimonial | null;
 
   const getInitials = (name: string): string => {
     return name
@@ -73,23 +73,26 @@ export default function TestimonialDetailPage() {
 
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-8">
         {/* Property Media */}
-        {testimonial.propertyMedia && (
-          <div className="mb-6">
-            {testimonial.propertyMedia.type === "image" ? (
-              <img
-                src={testimonial.propertyMedia.url}
-                alt="Property"
-                className="w-full h-96 object-cover rounded-lg"
-              />
-            ) : (
-              <video
-                src={testimonial.propertyMedia.url}
-                controls
-                className="w-full h-96 object-cover rounded-lg"
-              />
-            )}
-          </div>
-        )}
+        {testimonial && testimonial.propertyMedia && (() => {
+          const media = testimonial.propertyMedia;
+          return (
+            <div className="mb-6">
+              {media.type === "image" ? (
+                <img
+                  src={media.url}
+                  alt="Property"
+                  className="w-full h-96 object-cover rounded-lg"
+                />
+              ) : (
+                <video
+                  src={media.url}
+                  controls
+                  className="w-full h-96 object-cover rounded-lg"
+                />
+              )}
+            </div>
+          );
+        })()}
 
         {/* Client Info */}
         <div className="flex items-center gap-4 mb-6">
