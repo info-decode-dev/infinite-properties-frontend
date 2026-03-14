@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     includePaths: [path.join(process.cwd(), "styles")],
     silenceDeprecations: ["legacy-js-api"],
     quietDeps: true,
+    // Force fresh build - all Sass deprecations fixed
   },
   // Suppress build warnings
   eslint: {
