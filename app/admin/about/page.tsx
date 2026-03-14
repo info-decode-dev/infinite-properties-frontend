@@ -769,7 +769,7 @@ function AboutUsForm({
                         onClick={() =>
                           setFormData({
                             ...formData,
-                            images: formData.images.filter((_, idx) => idx !== i),
+                            images: (formData.images || []).filter((_, idx) => idx !== i),
                           })
                         }
                         className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
