@@ -1,6 +1,7 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/breakpoints" as bp;
 @use "../abstracts/functions" as f;
+@use "sass:map";
 
 // Container - scoped to exclude admin routes
 html:not([data-admin]) .container {
