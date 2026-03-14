@@ -556,7 +556,7 @@ function AboutUsForm({
       setFormData({
         ...formData,
         statistics: [
-          ...formData.statistics,
+          ...(formData.statistics || []),
           {
             id: Date.now().toString(),
             ...newStatistic,
