@@ -348,7 +348,7 @@ html:not([data-admin]) {
       // Removed box-shadow
 
       &:hover {
-        background-color: color.scale(map.get(v.$colors, secondary), $lightness: 5%);
+        background-color: color.adjust(map.get(v.$colors, secondary), $lightness: 5%);
         transform: translateY(-1px);
         padding-right: map.get(v.$spacing, 4); 
       }
