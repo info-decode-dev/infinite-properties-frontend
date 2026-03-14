@@ -1,6 +1,7 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/functions" as f;
 @use "../abstracts/breakpoints" as bp;
+@use "sass:map";
 
 // Modern Property Card Styles
 // Clean, minimalist design matching reference

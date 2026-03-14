@@ -2,6 +2,7 @@
 @use "../abstracts/functions" as f;
 @use "../abstracts/breakpoints" as bp;
 @use "../abstracts/utils" as u;
+@use "sass:map";
 
 // Quick Filter Styles
 // Scoped to exclude admin routes to avoid conflicts with Tailwind

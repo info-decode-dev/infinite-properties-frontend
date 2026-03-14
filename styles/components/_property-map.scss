@@ -2,6 +2,7 @@
 @use "../abstracts/functions" as f;
 @use "../abstracts/breakpoints" as bp;
 @use "../abstracts/utils" as u;
+@use "sass:map";
 
 // Property Map Component Styles
 .property-map-container {
