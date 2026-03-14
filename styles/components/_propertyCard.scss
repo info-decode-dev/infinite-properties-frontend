@@ -19,11 +19,11 @@ html:not([data-admin]) {
   }
 
   .property-card {
-    background-color: map-get(v.$colors, white);
-    // border-radius: map-get(v.$border-radius, xl);
+    background-color: map.get(v.$colors, white);
+    // border-radius: map.get(v.$border-radius, xl);
     overflow: hidden;
-    box-shadow: map-get(v.$shadows, md);
-    transition: all map-get(v.$transitions, base);
+    box-shadow: map.get(v.$shadows, md);
+    transition: all map.get(v.$transitions, base);
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@ html:not([data-admin]) {
     }
 
     &:hover {
-      box-shadow: map-get(v.$shadows, lg);
+      box-shadow: map.get(v.$shadows, lg);
     }
 
     &__image-img {
@@ -51,7 +51,7 @@ html:not([data-admin]) {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background-color: map-get(v.$colors, gray-200);
+      background-color: map.get(v.$colors, gray-200);
 
       // Blur effect layer (::after)
       &::after {
@@ -124,30 +124,30 @@ html:not([data-admin]) {
 
     &__location-top {
       position: absolute;
-      top: map-get(v.$spacing, 6);
+      top: map.get(v.$spacing, 6);
       left: 20px;
       display: flex;
       align-items: center;
-      gap: map-get(v.$spacing, 2);
+      gap: map.get(v.$spacing, 2);
       color: rgba(255, 255, 255, 0.9);
       font-size: f.rem(12);
-      font-family: map-get(v.$font-families, primary);
-      font-weight: map-get(v.$font-weights, medium);
+      font-family: map.get(v.$font-families, primary);
+      font-weight: map.get(v.$font-weights, medium);
       z-index: 3;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
       span {
-        font-family: map-get(v.$font-families, mono);
+        font-family: map.get(v.$font-families, mono);
       }
     }
 
     &__tags {
       position: absolute;
-      top: map-get(v.$spacing, 4);
-      right: map-get(v.$spacing, 2);
+      top: map.get(v.$spacing, 4);
+      right: map.get(v.$spacing, 2);
       display: flex;
       flex-direction: column;
-      gap: map-get(v.$spacing, 2);
+      gap: map.get(v.$spacing, 2);
       z-index: 3;
     }
 
@@ -155,24 +155,24 @@ html:not([data-admin]) {
       position: relative;
       display: flex;
       align-items: center;
-      gap: map-get(v.$spacing, 2);
-      color: map-get(v.$colors, primary);
-      font-family: map-get(v.$font-families, mono);
-      padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+      gap: map.get(v.$spacing, 2);
+      color: map.get(v.$colors, primary);
+      font-family: map.get(v.$font-families, mono);
+      padding: map.get(v.$spacing, 2) map.get(v.$spacing, 4);
       font-size: f.rem(11);
-      font-weight: map-get(v.$font-weights, semi-bold);
+      font-weight: map.get(v.$font-weights, semi-bold);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      background-color: rgba(map-get(v.$colors, accent), 0.6);
-      border: 1px solid map-get(v.$colors, accent);
-      border-radius: map-get(v.$border-radius, full);
+      background-color: rgba(map.get(v.$colors, accent), 0.6);
+      border: 1px solid map.get(v.$colors, accent);
+      border-radius: map.get(v.$border-radius, full);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       filter: blur(0);
       overflow: hidden;
-      transition: all map-get(v.$transitions, base);
+      transition: all map.get(v.$transitions, base);
       cursor: pointer;
       width: 100%;
       min-width: auto;
@@ -246,7 +246,7 @@ html:not([data-admin]) {
         transition-delay: 0.1s;
         overflow: hidden;
         white-space: nowrap;
-        transition: all map-get(v.$transitions, base);
+        transition: all map.get(v.$transitions, base);
         // transition-delay: 0s;
       }
     }
@@ -254,7 +254,7 @@ html:not([data-admin]) {
     // Show all tags text when card is hovered
     // &:hover {
     //   .property-card__tag {
-    //     padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+    //     padding: map.get(v.$spacing, 2) map.get(v.$spacing, 4);
 
     //     .property-card__tag-text {
     //       max-width: 200px;
@@ -306,10 +306,10 @@ html:not([data-admin]) {
       bottom: 0;
       left: 0;
       width: 100%;
-      padding: map-get(v.$spacing, 6);
+      padding: map.get(v.$spacing, 6);
       display: flex;
       flex-direction: column;
-      gap: map-get(v.$spacing, 3);
+      gap: map.get(v.$spacing, 3);
       z-index: 3;
     }
  
@@ -317,16 +317,16 @@ html:not([data-admin]) {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      gap: map-get(v.$spacing, 3);
+      gap: map.get(v.$spacing, 3);
       width: 100%;
     }
 
     &__title {
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(20);
-      font-weight: map-get(v.$font-weights, light);
+      font-weight: map.get(v.$font-weights, light);
       color: rgba(255, 255, 255, 0.95);
-      line-height: map-get(v.$line-heights, tight);
+      line-height: map.get(v.$line-heights, tight);
       margin: 0;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
       overflow: hidden;
@@ -358,17 +358,17 @@ html:not([data-admin]) {
     &__amenities {
       display: flex;
       align-items: center;
-      gap: map-get(v.$spacing, 2);
+      gap: map.get(v.$spacing, 2);
       flex-wrap: nowrap;
-      margin-top: map-get(v.$spacing, 2);
-      margin-bottom: map-get(v.$spacing, 1);
+      margin-top: map.get(v.$spacing, 2);
+      margin-bottom: map.get(v.$spacing, 1);
       overflow-x: auto;
       overflow-y: hidden;
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
       -webkit-overflow-scrolling: touch;
-      padding: map-get(v.$spacing, 2) 0;
-      padding-bottom: map-get(v.$spacing, 3);
+      padding: map.get(v.$spacing, 2) 0;
+      padding-bottom: map.get(v.$spacing, 3);
       width: 100%;
       max-width: 100%;
 
@@ -401,8 +401,8 @@ html:not([data-admin]) {
     &__amenity {
       display: flex;
       align-items: center;
-      gap: map-get(v.$spacing, 2);
-      padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+      gap: map.get(v.$spacing, 2);
+      padding: map.get(v.$spacing, 3) map.get(v.$spacing, 5);
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -474,9 +474,9 @@ html:not([data-admin]) {
     }
 
     &__amenity-text {
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(12);
-      font-weight: map-get(v.$font-weights, medium);
+      font-weight: map.get(v.$font-weights, medium);
       color: rgba(255, 255, 255, 0.95);
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
       white-space: nowrap;
@@ -494,15 +494,15 @@ html:not([data-admin]) {
       display: flex;
       flex-direction: row;
       align-items: baseline;
-      gap: map-get(v.$spacing, 2);
+      gap: map.get(v.$spacing, 2);
       flex-shrink: 0;
     }
 
     &__price--current {
       font-size: f.rem(28);
-      font-weight: map-get(v.$font-weights, medium);
+      font-weight: map.get(v.$font-weights, medium);
       color: rgba(255, 255, 255, 1);
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
       line-height: 1.2;
       white-space: nowrap;
@@ -520,7 +520,7 @@ html:not([data-admin]) {
       font-size: f.rem(16);
       color: rgba(255, 255, 255, 0.7);
       text-decoration: line-through;
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       white-space: nowrap;
 
@@ -536,12 +536,12 @@ html:not([data-admin]) {
     &__location {
       display: flex;
       align-items: center;
-      gap: map-get(v.$spacing, 2);
-      margin-top: map-get(v.$spacing, 2);
+      gap: map.get(v.$spacing, 2);
+      margin-top: map.get(v.$spacing, 2);
       color: rgba(255, 255, 255, 0.9);
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(13);
-      font-weight: map-get(v.$font-weights, regular);
+      font-weight: map.get(v.$font-weights, regular);
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     }
 
@@ -567,7 +567,7 @@ html:not([data-admin]) {
         );
         background-size: 200% 100%;
         animation: skeleton-loading 1.5s ease-in-out infinite;
-        border-radius: map-get(v.$border-radius, base);
+        border-radius: map.get(v.$border-radius, base);
       }
 
       .skeleton--image {
@@ -581,7 +581,7 @@ html:not([data-admin]) {
 
       .skeleton--location-top {
         position: absolute;
-        top: map-get(v.$spacing, 6);
+        top: map.get(v.$spacing, 6);
         left: 20px;
         width: 120px;
         height: 14px;
@@ -590,24 +590,24 @@ html:not([data-admin]) {
 
       .skeleton--tags {
         position: absolute;
-        top: map-get(v.$spacing, 4);
-        right: map-get(v.$spacing, 2);
+        top: map.get(v.$spacing, 4);
+        right: map.get(v.$spacing, 2);
         display: flex;
         flex-direction: column;
-        gap: map-get(v.$spacing, 2);
+        gap: map.get(v.$spacing, 2);
         z-index: 3;
       }
 
       .skeleton--tag {
         width: 70px;
         height: 28px;
-        border-radius: map-get(v.$border-radius, lg);
+        border-radius: map.get(v.$border-radius, lg);
       }
 
       .skeleton--title {
         width: 80%;
         height: 20px;
-        margin-bottom: map-get(v.$spacing, 3);
+        margin-bottom: map.get(v.$spacing, 3);
       }
 
       .skeleton--price {

@@ -7,17 +7,17 @@
     align-items: center;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 9999px;
-    padding: map-get(v.$spacing, 1) !important;
+    padding: map.get(v.$spacing, 1) !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    gap: map-get(v.$spacing, 1);
+    gap: map.get(v.$spacing, 1);
     position: relative;
     z-index: 10;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     
     @include bp.breakpoint-down(small) {
-        padding: map-get(v.$spacing, 1) !important;
-        gap: map-get(v.$spacing, 1);
+        padding: map.get(v.$spacing, 1) !important;
+        gap: map.get(v.$spacing, 1);
     }
     
     @include bp.breakpoint(medium) {
@@ -29,14 +29,14 @@
 
 .toggle-slider {
     position: absolute;
-    top: map-get(v.$spacing, 1);
-    left: map-get(v.$spacing, 1);
-    height: calc(100% - #{map-get(v.$spacing, 2)});
-    background: map-get(v.$colors, primary);
+    top: map.get(v.$spacing, 1);
+    left: map.get(v.$spacing, 1);
+    height: calc(100% - #{map.get(v.$spacing, 2)});
+    background: map.get(v.$colors, primary);
     border-radius: 9999px;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
-    width: calc(50% - #{map-get(v.$spacing, 1)});
+    width: calc(50% - #{map.get(v.$spacing, 1)});
     box-shadow: 0 2px 8px rgba(6, 26, 47, 0.2);
     
     &.slide-left {
@@ -44,17 +44,17 @@
     }
     
     &.slide-right {
-        transform: translateX(calc(100% + #{map-get(v.$spacing, 2)}));
+        transform: translateX(calc(100% + #{map.get(v.$spacing, 2)}));
     }
     
     @include bp.breakpoint-down(small) {
-        top: map-get(v.$spacing, 1);
-        left: map-get(v.$spacing, 1);
-        width: calc(50% - #{map-get(v.$spacing, 1)});
-        height: calc(100% - #{map-get(v.$spacing, 2)});
+        top: map.get(v.$spacing, 1);
+        left: map.get(v.$spacing, 1);
+        width: calc(50% - #{map.get(v.$spacing, 1)});
+        height: calc(100% - #{map.get(v.$spacing, 2)});
         
         &.slide-right {
-            transform: translateX(calc(100% + #{map-get(v.$spacing, 2)}));
+            transform: translateX(calc(100% + #{map.get(v.$spacing, 2)}));
         }
     }
 }
@@ -63,15 +63,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: map-get(v.$spacing, 2);
-    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 10) !important;
+    gap: map.get(v.$spacing, 2);
+    padding: map.get(v.$spacing, 3) map.get(v.$spacing, 10) !important;
     border: none;
     background: transparent;
     border-radius: 9999px;
-    font-family: map-get(v.$font-families, primary);
+    font-family: map.get(v.$font-families, primary);
     font-size: f.rem(14);
-    font-weight: map-get(v.$font-weights, medium);
-    color: map-get(v.$colors, primary);
+    font-weight: map.get(v.$font-weights, medium);
+    color: map.get(v.$colors, primary);
     cursor: pointer;
     transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
@@ -81,28 +81,28 @@
     flex: 1;
     
     &:hover:not(.active) {
-        color: map-get(v.$colors, primary-dark);
+        color: map.get(v.$colors, primary-dark);
     }
     
     &.active {
-        color: map-get(v.$colors, white) !important;
+        color: map.get(v.$colors, white) !important;
     }
     
     @include bp.breakpoint-down(small) {
-        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 6) !important;
+        padding: map.get(v.$spacing, 2) map.get(v.$spacing, 6) !important;
         font-size: f.rem(13);
-        gap: map-get(v.$spacing, 1);
+        gap: map.get(v.$spacing, 1);
         min-width: 140px;
     }
     
     @include bp.breakpoint(medium) {
-        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 12) !important;
+        padding: map.get(v.$spacing, 3) map.get(v.$spacing, 12) !important;
         font-size: f.rem(15);
         min-width: 180px;
     }
     
     @include bp.breakpoint(large) {
-        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 14) !important;
+        padding: map.get(v.$spacing, 3) map.get(v.$spacing, 14) !important;
         min-width: 200px;
     }
 }

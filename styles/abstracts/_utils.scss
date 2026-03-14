@@ -35,7 +35,7 @@
   place-items: center;
 }
 
-@mixin grid-columns($columns, $gap: map-get(v.$spacing, 4)) {
+@mixin grid-columns($columns, $gap: map.get(v.$spacing, 4)) {
   display: grid;
   grid-template-columns: repeat($columns, 1fr);
   gap: $gap;
@@ -72,18 +72,18 @@
 }
 
 @mixin elegant-text {
-  font-family: map-get(v.$font-families, secondary);
-  font-weight: map-get(v.$font-weights, medium);
+  font-family: map.get(v.$font-families, secondary);
+  font-weight: map.get(v.$font-weights, medium);
   letter-spacing: 0.025em;
-  line-height: map-get(v.$line-heights, relaxed);
+  line-height: map.get(v.$line-heights, relaxed);
 }
 
 // Visual utilities
 @mixin card-style {
-  background: map-get(v.$colors, card-bg);
-  border-radius: map-get(v.$border-radius, lg);
-  box-shadow: map-get(v.$shadows, md);
-  padding: map-get(v.$spacing, 6);
+  background: map.get(v.$colors, card-bg);
+  border-radius: map.get(v.$border-radius, lg);
+  box-shadow: map.get(v.$shadows, md);
+  padding: map.get(v.$spacing, 6);
 }
 
 @mixin button-reset {
@@ -123,7 +123,7 @@
 
 @mixin focus-visible {
   &:focus-visible {
-    outline: 2px solid map-get(v.$colors, accent);
+    outline: 2px solid map.get(v.$colors, accent);
     outline-offset: 2px;
   }
 }
@@ -131,7 +131,7 @@
 // Animation utilities
 @mixin smooth-transition(
   $property: all,
-  $duration: map-get(v.$transitions, base)
+  $duration: map.get(v.$transitions, base)
 ) {
   transition: $property $duration;
 }
@@ -145,7 +145,7 @@
 }
 
 @mixin fade-in {
-  animation: fadeIn map-get(v.$transitions, base) ease-in-out;
+  animation: fadeIn map.get(v.$transitions, base) ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -178,7 +178,7 @@
 // Property-specific utilities
 @mixin property-card {
   @include card-style;
-  border: 1px solid map-get(v.$colors, border-color-light);
+  border: 1px solid map.get(v.$colors, border-color-light);
 
   &:hover {
     @include hover-lift;
@@ -186,7 +186,7 @@
 }
 
 @mixin transparent-background(
-  $color: map-get(v.$colors, white),
+  $color: map.get(v.$colors, white),
   $transparency: 0.8
 ) {
   background-color: rgba($color, $transparency);
@@ -202,7 +202,7 @@
     content: "";
     position: absolute;
     height: 1px;
-    background: map-get(v.$colors, primary);
+    background: map.get(v.$colors, primary);
   }
 
   &::before {
@@ -219,11 +219,11 @@
 }
 
 @mixin button-primary-gradient {
-  background: map-get(v.$colors, primary-gradient);
-  border-radius: map-get(v.$border-radius, 2xl);
-  color: map-get(v.$colors, white);
+  background: map.get(v.$colors, primary-gradient);
+  border-radius: map.get(v.$border-radius, 2xl);
+  color: map.get(v.$colors, white);
   border: none;
-  padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+  padding: map.get(v.$spacing, 3) map.get(v.$spacing, 5);
   cursor: pointer;
   @include smooth-transition;
 
@@ -234,10 +234,10 @@
 
 @mixin button-secondary {
   background: transparent;
-  border-radius: map-get(v.$border-radius, 2xl);
-  color: map-get(v.$colors, white);
-  border: 1.5px solid map-get(v.$colors, white);
-  padding: map-get(v.$spacing, 3) map-get(v.$spacing, 5);
+  border-radius: map.get(v.$border-radius, 2xl);
+  color: map.get(v.$colors, white);
+  border: 1.5px solid map.get(v.$colors, white);
+  padding: map.get(v.$spacing, 3) map.get(v.$spacing, 5);
   cursor: pointer;
   @include smooth-transition;
 

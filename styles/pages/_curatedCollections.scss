@@ -7,7 +7,7 @@
 html:not([data-admin]) {
   .curated-collections {
     width: 100%;
-    padding: map-get(v.$spacing, 12) 0;    
+    padding: map.get(v.$spacing, 12) 0;    
     // background-color: #FAFAFA;
 
     @include bp.breakpoint(large) {
@@ -15,22 +15,22 @@ html:not([data-admin]) {
       }
 
     &__header {
-      margin-bottom: map-get(v.$spacing, 10);
+      margin-bottom: map.get(v.$spacing, 10);
       text-align: center;
 
       @include bp.breakpoint(medium) {
-        margin-bottom: map-get(v.$spacing, 12);
+        margin-bottom: map.get(v.$spacing, 12);
       }
       
     }
 
     &__title {
-      font-family: map-get(v.$font-families, secondary);
+      font-family: map.get(v.$font-families, secondary);
       font-size: f.rem(32);
-      font-weight: map-get(v.$font-weights, regular);
-      color: map-get(v.$colors, primary);
-      line-height: map-get(v.$line-heights, tight);
-      margin-bottom: map-get(v.$spacing, 3);
+      font-weight: map.get(v.$font-weights, regular);
+      color: map.get(v.$colors, primary);
+      line-height: map.get(v.$line-heights, tight);
+      margin-bottom: map.get(v.$spacing, 3);
 
       @include bp.breakpoint(small) {
         font-size: f.rem(36);
@@ -50,13 +50,13 @@ html:not([data-admin]) {
     }
 
     &__subtitle {
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(14);
-      font-weight: map-get(v.$font-weights, regular);
-      color: map-get(v.$colors, secondary);
+      font-weight: map.get(v.$font-weights, regular);
+      color: map.get(v.$colors, secondary);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: map-get(v.$spacing, 6);
+      margin-bottom: map.get(v.$spacing, 6);
 
       @include bp.breakpoint(medium) {
         font-size: f.rem(16);
@@ -67,8 +67,8 @@ html:not([data-admin]) {
       position: relative;
       display: grid;
       grid-template-columns: 1fr;
-      gap: map-get(v.$spacing, 1);
-      margin-top: map-get(v.$spacing, 8);
+      gap: map.get(v.$spacing, 1);
+      margin-top: map.get(v.$spacing, 8);
 
       @include bp.breakpoint(medium) {
         grid-template-columns: repeat(2, 1fr);
@@ -85,7 +85,7 @@ html:not([data-admin]) {
         background: 
           linear-gradient(
             to top,
-            rgba(map-get(v.$colors, white), 1) 0%,
+            rgba(map.get(v.$colors, white), 1) 0%,
             rgba(255, 255, 255, 0.8) 20%,
             rgba(255, 255, 255, 0.5) 40%,
             rgba(255, 255, 255, 0.2) 60%,
@@ -97,7 +97,7 @@ html:not([data-admin]) {
         z-index: -1;
         pointer-events: none;
         opacity: 0;
-        transition: opacity map-get(v.$transitions, base);
+        transition: opacity map.get(v.$transitions, base);
         
         @include bp.breakpoint(large) {
           opacity: 0.5;
@@ -116,7 +116,7 @@ html:not([data-admin]) {
         background: 
           linear-gradient(
             to top,
-            rgba(map-get(v.$colors, white), 1) 0%,
+            rgba(map.get(v.$colors, white), 1) 0%,
             rgba(255, 255, 255, 0.8) 20%,
             rgba(255, 255, 255, 0.5) 40%,
             rgba(255, 255, 255, 0.2) 60%,
@@ -128,7 +128,7 @@ html:not([data-admin]) {
         z-index: -1;
         pointer-events: none;
         opacity: 0;
-        transition: opacity map-get(v.$transitions, base);
+        transition: opacity map.get(v.$transitions, base);
         
         @include bp.breakpoint(large) {
           opacity: 0.5;
@@ -141,14 +141,14 @@ html:not([data-admin]) {
     &__error,
     &__empty {
       text-align: center;
-      padding: map-get(v.$spacing, 16);
-      color: map-get(v.$colors, gray-600);
-      font-family: map-get(v.$font-families, primary);
+      padding: map.get(v.$spacing, 16);
+      color: map.get(v.$colors, gray-600);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(16);
     }
 
     &__error {
-      color: map-get(v.$colors, error);
+      color: map.get(v.$colors, error);
     }
 
     &__empty {
@@ -156,11 +156,11 @@ html:not([data-admin]) {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: map-get(v.$spacing, 20) map-get(v.$spacing, 4);
+      padding: map.get(v.$spacing, 20) map.get(v.$spacing, 4);
       min-height: 400px;
 
       @include bp.breakpoint(medium) {
-        padding: map-get(v.$spacing, 24) map-get(v.$spacing, 6);
+        padding: map.get(v.$spacing, 24) map.get(v.$spacing, 6);
         min-height: 500px;
       }
     }
@@ -172,15 +172,15 @@ html:not([data-admin]) {
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(map-get(v.$colors, primary), 0.1) 0%, rgba(map-get(v.$colors, secondary), 0.1) 100%);
-      margin-bottom: map-get(v.$spacing, 6);
-      color: map-get(v.$colors, gray-400);
+      background: linear-gradient(135deg, rgba(map.get(v.$colors, primary), 0.1) 0%, rgba(map.get(v.$colors, secondary), 0.1) 100%);
+      margin-bottom: map.get(v.$spacing, 6);
+      color: map.get(v.$colors, gray-400);
       opacity: 0.6;
 
       @include bp.breakpoint(medium) {
         width: 140px;
         height: 140px;
-        margin-bottom: map-get(v.$spacing, 8);
+        margin-bottom: map.get(v.$spacing, 8);
       }
 
       svg {
@@ -195,24 +195,24 @@ html:not([data-admin]) {
     }
 
     &__empty-title {
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(24);
-      font-weight: map-get(v.$font-weights, semibold);
-      color: map-get(v.$colors, gray-700);
-      margin: 0 0 map-get(v.$spacing, 3) 0;
+      font-weight: map.get(v.$font-weights, semibold);
+      color: map.get(v.$colors, gray-700);
+      margin: 0 0 map.get(v.$spacing, 3) 0;
       line-height: 1.3;
 
       @include bp.breakpoint(medium) {
         font-size: f.rem(28);
-        margin-bottom: map-get(v.$spacing, 4);
+        margin-bottom: map.get(v.$spacing, 4);
       }
     }
 
     &__empty-message {
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(16);
-      font-weight: map-get(v.$font-weights, regular);
-      color: map-get(v.$colors, gray-500);
+      font-weight: map.get(v.$font-weights, regular);
+      color: map.get(v.$colors, gray-500);
       margin: 0;
       line-height: 1.6;
       max-width: 500px;
@@ -226,11 +226,11 @@ html:not([data-admin]) {
     // Collection Card Styles
     .curated-collection-card {
       position: relative;
-      background-color: map-get(v.$colors, white);   
-      border-radius: map-get(v.$border-radius, xl);   
+      background-color: map.get(v.$colors, white);   
+      border-radius: map.get(v.$border-radius, xl);   
       overflow: hidden;
-      box-shadow: map-get(v.$shadows, md);
-      transition: all map-get(v.$transitions, base);
+      box-shadow: map.get(v.$shadows, md);
+      transition: all map.get(v.$transitions, base);
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -243,7 +243,7 @@ html:not([data-admin]) {
       }
 
       @include bp.breakpoint(medium) {
-        border-radius: map-get(v.$border-radius, none);
+        border-radius: map.get(v.$border-radius, none);
       }
 
       &__image {
@@ -251,7 +251,7 @@ html:not([data-admin]) {
         width: 100%;
         height: 250px;
         overflow: hidden;
-        background-color: map-get(v.$colors, gray-200);
+        background-color: map.get(v.$colors, gray-200);
 
         &::after {
             content: "";
@@ -283,7 +283,7 @@ html:not([data-admin]) {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform map-get(v.$transitions, base);
+          transition: transform map.get(v.$transitions, base);
           display: block;
         }
       }
@@ -292,18 +292,18 @@ html:not([data-admin]) {
         position: absolute;
         left: 20px;
         bottom: 0px;
-        padding: map-get(v.$spacing, 5);
+        padding: map.get(v.$spacing, 5);
         display: flex;
         flex-direction: column;
-        gap: map-get(v.$spacing, 2);
+        gap: map.get(v.$spacing, 2);
         flex: 1;
         z-index: 3;
       }
 
       &__icon-wrapper {
         position: absolute;
-        bottom: map-get(v.$spacing, 5);
-        right: map-get(v.$spacing, 8);
+        bottom: map.get(v.$spacing, 5);
+        right: map.get(v.$spacing, 8);
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -322,7 +322,7 @@ html:not([data-admin]) {
       &__icon {
         width: 24px;
         height: 24px;
-        color: map-get(v.$colors, white);
+        color: map.get(v.$colors, white);
         transition: transform 0.3s ease;
       }
 
@@ -332,29 +332,29 @@ html:not([data-admin]) {
         right: -6px;
         min-width: 20px;
         height: 20px;
-        padding: 0 map-get(v.$spacing, 1);
+        padding: 0 map.get(v.$spacing, 1);
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background-color: map-get(v.$colors, secondary);
-        color: map-get(v.$colors, white);
-        font-family: map-get(v.$font-families, primary);
+        background-color: map.get(v.$colors, secondary);
+        color: map.get(v.$colors, white);
+        font-family: map.get(v.$font-families, primary);
         font-size: f.rem(11);
-        font-weight: map-get(v.$font-weights, semibold);
-        border-radius: map-get(v.$border-radius, full);
-        border: 2px solid map-get(v.$colors, white);
+        font-weight: map.get(v.$font-weights, semibold);
+        border-radius: map.get(v.$border-radius, full);
+        border: 2px solid map.get(v.$colors, white);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         line-height: 1;
         z-index: 4;
       }
 
       &__title {
-        font-family: map-get(v.$font-families, mono);
+        font-family: map.get(v.$font-families, mono);
         text-transform: uppercase;
         font-size: f.rem(16);
-        font-weight: map-get(v.$font-weights, regular);
-        color: map-get(v.$colors, white);
-        line-height: map-get(v.$line-heights, tight);
+        font-weight: map.get(v.$font-weights, regular);
+        color: map.get(v.$colors, white);
+        line-height: map.get(v.$line-heights, tight);
         margin: 0;
         display: -webkit-box;
         -webkit-line-clamp: 2;

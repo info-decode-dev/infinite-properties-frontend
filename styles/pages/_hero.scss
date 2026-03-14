@@ -219,61 +219,61 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: map-get(v.$spacing, 4);
+    gap: map.get(v.$spacing, 4);
     text-align: center;
     width: 100%;
     max-width: 1200px;
-    padding: 0 map-get(v.$spacing, 4);
+    padding: 0 map.get(v.$spacing, 4);
     
     @include bp.breakpoint(medium) {
-        gap: map-get(v.$spacing, 6);
-        padding: 0 map-get(v.$spacing, 6);
+        gap: map.get(v.$spacing, 6);
+        padding: 0 map.get(v.$spacing, 6);
     }
     
     @include bp.breakpoint(large) {
-        gap: map-get(v.$spacing, 8);
+        gap: map.get(v.$spacing, 8);
     }
 }
 
 .hero-badge {
     display: inline-block;
-    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 6);
-    border: 0.5px solid map-get(v.$colors, white);
+    padding: map.get(v.$spacing, 3) map.get(v.$spacing, 6);
+    border: 0.5px solid map.get(v.$colors, white);
     border-radius: 9999px;
-    color: map-get(v.$colors, white);
-    font-family: map-get(v.$font-families, primary) !important;
+    color: map.get(v.$colors, white);
+    font-family: map.get(v.$font-families, primary) !important;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: f.rem(11);
-    font-weight: map-get(v.$font-weights, light);
+    font-weight: map.get(v.$font-weights, light);
     white-space: nowrap;
     
     @include bp.breakpoint-down(small) {
-        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 6) !important;
+        padding: map.get(v.$spacing, 3) map.get(v.$spacing, 6) !important;
     }
     
     @include bp.breakpoint(small) {
         font-size: f.rem(12);
-        padding: map-get(v.$spacing, 4) map-get(v.$spacing, 7) !important;
+        padding: map.get(v.$spacing, 4) map.get(v.$spacing, 7) !important;
     }
     
     @include bp.breakpoint(medium) {
         font-size: f.rem(13);
-        padding: map-get(v.$spacing, 4) map-get(v.$spacing, 8);
+        padding: map.get(v.$spacing, 4) map.get(v.$spacing, 8);
     }
     
     @include bp.breakpoint(large) {
         font-size: f.rem(14);
-        padding: map-get(v.$spacing, 2) map-get(v.$spacing, 10) !important;
+        padding: map.get(v.$spacing, 2) map.get(v.$spacing, 10) !important;
     }
 }
 
 .hero-title {
-    color: map-get(v.$colors, white) !important;
-    font-family: map-get(v.$font-families, primary) !important;
-    font-weight: map-get(v.$font-weights, bold) !important;
+    color: map.get(v.$colors, white) !important;
+    font-family: map.get(v.$font-families, primary) !important;
+    font-weight: map.get(v.$font-weights, bold) !important;
     font-size: f.rem(32) !important;
-    line-height: map-get(v.$line-heights, none) !important;
+    line-height: map.get(v.$line-heights, none) !important;
     margin: 0 !important;
     text-transform: capitalize !important;
     max-width: 740px;
@@ -297,27 +297,27 @@
 
 .hero-title-italic {
     font-style: italic;
-    font-weight: map-get(v.$font-weights, bold);
+    font-weight: map.get(v.$font-weights, bold);
 }
 
 .hero-filter {
     width: 100%;
     max-width: 1000px;
-    margin-top: map-get(v.$spacing, 6);
+    margin-top: map.get(v.$spacing, 6);
     z-index: 5;
     
     @include bp.breakpoint(medium) {
-        margin-top: map-get(v.$spacing, 8);
+        margin-top: map.get(v.$spacing, 8);
     }
     
     @include bp.breakpoint(large) {
-        margin-top: map-get(v.$spacing, 10);
+        margin-top: map.get(v.$spacing, 10);
     }
 }
 
 .hero-toggle-container {
     position: absolute;
-    bottom: map-get(v.$spacing, 6);
+    bottom: map.get(v.$spacing, 6);
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -326,15 +326,15 @@
     justify-content: center;
     
     @include bp.breakpoint-down(small) {
-        bottom: map-get(v.$spacing, 12);
+        bottom: map.get(v.$spacing, 12);
     }
     
     @include bp.breakpoint(medium) {
-        bottom: map-get(v.$spacing, 8);
+        bottom: map.get(v.$spacing, 8);
     }
     
     @include bp.breakpoint(large) {
-        bottom: map-get(v.$spacing, 20);
+        bottom: map.get(v.$spacing, 20);
     }
 }
 

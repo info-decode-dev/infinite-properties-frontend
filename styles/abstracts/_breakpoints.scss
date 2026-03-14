@@ -23,26 +23,26 @@ $breakpoints-down: (
 
 // Standard min-width media query
 @mixin breakpoint($size) {
-  @media (min-width: map-get($breakpoints-up, $size)) {
+  @media (min-width: map.get($breakpoints-up, $size)) {
     @content;
   }
 }
 
 @mixin breakpoint-up($size) {
-  @media (min-width: map-get($breakpoints-up, $size)) {
+  @media (min-width: map.get($breakpoints-up, $size)) {
     @content;
   }
 }
 // Standard max-width media query
 @mixin breakpoint-down($size) {
-  @media (max-width: map-get($breakpoints-down, $size)) {
+  @media (max-width: map.get($breakpoints-down, $size)) {
     @content;
   }
 }
 
 // Range - for targeting specific device ranges
 @mixin breakpoint-range($min, $max) {
-  @media (min-width: map-get($breakpoints-up, $min)) and (max-width: map-get($breakpoints-down, $max)) {
+  @media (min-width: map.get($breakpoints-up, $min)) and (max-width: map.get($breakpoints-down, $max)) {
     @content;
   }
 }

@@ -7,6 +7,7 @@
 @use "abstracts/functions" as f;
 @use "abstracts/breakpoints" as bp;
 @use "abstracts/utils" as u;
+@use "sass:map";
 
 // 2. Base (reset, typography, fonts)
 // Fonts are safe to load globally
@@ -31,16 +32,16 @@
 // Global styles - scoped to exclude admin routes
 // Admin routes will have [data-admin] attribute on html element
 html:not([data-admin]) body {
-  background-color: map-get(v.$colors, white);
+  background-color: map.get(v.$colors, white);
   // max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  // padding-left: map-get(v.$spacing, 4);
-  // padding-right: map-get(v.$spacing, 4);
+  // padding-left: map.get(v.$spacing, 4);
+  // padding-right: map.get(v.$spacing, 4);
   
   // @include bp.breakpoint(medium) {
-  //   padding-left: map-get(v.$spacing, 6);
-  //   padding-right: map-get(v.$spacing, 6);
+  //   padding-left: map.get(v.$spacing, 6);
+  //   padding-right: map.get(v.$spacing, 6);
   // }
-  // color: map-get(v.$colors, white);
+  // color: map.get(v.$colors, white);
 }

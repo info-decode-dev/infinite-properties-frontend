@@ -20,11 +20,11 @@ html:not([data-admin]) {
   }
 
   .property-card-modern {    
-    // border-radius: map-get(v.$border-radius, lg);
+    // border-radius: map.get(v.$border-radius, lg);
     overflow: hidden;
     // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
   
-    // border: 1px solid map-get(v.$colors, gray-200);
+    // border: 1px solid map.get(v.$colors, gray-200);
     transition: all 0.3s ease;
     cursor: pointer;
     display: flex;
@@ -32,7 +32,7 @@ html:not([data-admin]) {
     width: 100%;
     height: 100%;
     min-height: 450px;
-    border-radius: map-get(v.$border-radius, xl);
+    border-radius: map.get(v.$border-radius, xl);
     box-sizing: border-box;
 
     @include bp.breakpoint(small) {
@@ -49,8 +49,8 @@ html:not([data-admin]) {
       width: 100%;
       height: 240px;
       overflow: hidden;
-      background-color: map-get(v.$colors, gray-200);
-      border-radius: map-get(v.$border-radius, xl);
+      background-color: map.get(v.$colors, gray-200);
+      border-radius: map.get(v.$border-radius, xl);
 
       @include bp.breakpoint(medium) {
         height: 280px;
@@ -75,12 +75,12 @@ html:not([data-admin]) {
 
     &__tags {
       position: absolute;
-      bottom: map-get(v.$spacing, 4);
-      left: map-get(v.$spacing, 4);
-      right: map-get(v.$spacing, 4);
+      bottom: map.get(v.$spacing, 4);
+      left: map.get(v.$spacing, 4);
+      right: map.get(v.$spacing, 4);
       display: flex;
       flex-wrap: wrap;
-      gap: map-get(v.$spacing, 2);
+      gap: map.get(v.$spacing, 2);
       z-index: 3;
       pointer-events: none;
     }
@@ -88,17 +88,17 @@ html:not([data-admin]) {
     &__tag {
       display: inline-flex;
       align-items: center;
-      gap: map-get(v.$spacing, 1);
-      padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+      gap: map.get(v.$spacing, 1);
+      padding: map.get(v.$spacing, 2) map.get(v.$spacing, 4);
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border-radius: map-get(v.$border-radius, full);
+      border-radius: map.get(v.$border-radius, full);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(11);
-      font-weight: map-get(v.$font-weights, semibold);
-      color: map-get(v.$colors, gray-900);
+      font-weight: map.get(v.$font-weights, semibold);
+      color: map.get(v.$colors, gray-900);
       letter-spacing: 0.02em;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: auto;
@@ -115,7 +115,7 @@ html:not([data-admin]) {
       width: 12px;
       height: 12px;
       flex-shrink: 0;
-      color: map-get(v.$colors, gray-700);
+      color: map.get(v.$colors, gray-700);
       transition: transform 0.3s ease;
     }
 
@@ -135,7 +135,7 @@ html:not([data-admin]) {
       transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       display: block;
       will-change: transform;  
-      border-radius: map-get(v.$border-radius, xl);      
+      border-radius: map.get(v.$border-radius, xl);      
     }
 
     &:hover &__image-img {
@@ -143,15 +143,15 @@ html:not([data-admin]) {
     }
 
     &__content {
-      padding: 0 map-get(v.$spacing, 2);
+      padding: 0 map.get(v.$spacing, 2);
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
       min-height: 170px;
-      background-color: map-get(v.$colors, white);
+      background-color: map.get(v.$colors, white);
 
       @include bp.breakpoint(medium) {
-        // padding: map-get(v.$spacing, 6) map-get(v.$spacing, 6);
+        // padding: map.get(v.$spacing, 6) map.get(v.$spacing, 6);
         min-height: 160px;
       }
     }
@@ -160,15 +160,15 @@ html:not([data-admin]) {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: map-get(v.$spacing, 4);
+      gap: map.get(v.$spacing, 4);
       margin-bottom: 0;
     }
 
     &__title {
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(20);
-      font-weight: map-get(v.$font-weights, semibold);
-      color: map-get(v.$colors, gray-900);
+      font-weight: map.get(v.$font-weights, semibold);
+      color: map.get(v.$colors, gray-900);
       line-height: 1.2;
       margin: 0;
       letter-spacing: -0.01em;
@@ -204,11 +204,11 @@ html:not([data-admin]) {
       display: flex;
       align-items: center;
       justify-content: left;
-      gap: map-get(v.$spacing, 1);
-      color: map-get(v.$colors, gray-600);
+      gap: map.get(v.$spacing, 1);
+      color: map.get(v.$colors, gray-600);
       font-size: f.rem(14);
-      font-family: map-get(v.$font-families, primary);
-      font-weight: map-get(v.$font-weights, regular);
+      font-family: map.get(v.$font-families, primary);
+      font-weight: map.get(v.$font-weights, regular);
       // margin: auto 0;
     }
 
@@ -216,14 +216,14 @@ html:not([data-admin]) {
       width: 14px;
       height: 14px;
       flex-shrink: 0;
-      color: map-get(v.$colors, gray-500);
+      color: map.get(v.$colors, gray-500);
     }
 
     &__location-text {
       font-size: f.rem(14);
-      font-family: map-get(v.$font-families, mono);
-      font-weight: map-get(v.$font-weights, regular);
-      color: map-get(v.$colors, gray-600);
+      font-family: map.get(v.$font-families, mono);
+      font-weight: map.get(v.$font-weights, regular);
+      color: map.get(v.$colors, gray-600);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -234,15 +234,15 @@ html:not([data-admin]) {
     &__price {
       display: flex;
       align-items: flex-end;
-      gap: map-get(v.$spacing, 2);
+      gap: map.get(v.$spacing, 2);
       flex-shrink: 0;
     }
 
     &__price--current {
       font-size: f.rem(20);
-      font-weight: map-get(v.$font-weights, semibold);
-      color: map-get(v.$colors, gray-900);
-      font-family: map-get(v.$font-families, primary);
+      font-weight: map.get(v.$font-weights, semibold);
+      color: map.get(v.$colors, gray-900);
+      font-family: map.get(v.$font-families, primary);
       line-height: 1;
       letter-spacing: -0.02em;
       white-space: nowrap;
@@ -254,17 +254,17 @@ html:not([data-admin]) {
 
     &__price--original {
       font-size: f.rem(14);
-      color: map-get(v.$colors, gray-600);
+      color: map.get(v.$colors, gray-600);
       text-decoration: line-through;
-      font-family: map-get(v.$font-families, primary);
-      font-weight: map-get(v.$font-weights, regular);
+      font-family: map.get(v.$font-families, primary);
+      font-weight: map.get(v.$font-weights, regular);
       line-height: 1;
     }
 
     &__amenities {
       display: flex;
       align-items: center;
-      gap: map-get(v.$spacing, 1);
+      gap: map.get(v.$spacing, 1);
       flex-wrap: nowrap;
       // margin-top: auto;
       margin-bottom: 0;
@@ -303,8 +303,8 @@ html:not([data-admin]) {
     &__amenity {
       display: flex;
       align-items: center;
-      gap: map-get(v.$spacing, 2);
-      padding: map-get(v.$spacing, 2) map-get(v.$spacing, 4);
+      gap: map.get(v.$spacing, 2);
+      padding: map.get(v.$spacing, 2) map.get(v.$spacing, 4);
       background: rgba(0, 0, 0, 0.10);
       border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 9999px;
@@ -319,7 +319,7 @@ html:not([data-admin]) {
       width: 16px;
       height: 16px;
       flex-shrink: 0;
-      color: map-get(v.$colors, gray-600);
+      color: map.get(v.$colors, gray-600);
       transition: transform 0.3s ease;
     }
 
@@ -328,10 +328,10 @@ html:not([data-admin]) {
     }
 
     &__amenity-text {
-      font-family: map-get(v.$font-families, primary);
+      font-family: map.get(v.$font-families, primary);
       font-size: f.rem(13);
-      font-weight: map-get(v.$font-weights, medium);
-      color: map-get(v.$colors, gray-700);
+      font-weight: map.get(v.$font-weights, medium);
+      color: map.get(v.$colors, gray-700);
       white-space: nowrap;
       letter-spacing: 0.01em;
     }

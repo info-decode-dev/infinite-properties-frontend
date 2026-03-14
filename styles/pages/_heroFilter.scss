@@ -2,6 +2,7 @@
 @use "../abstracts/functions" as f;
 @use "../abstracts/breakpoints" as bp;
 @use "../abstracts/utils" as u;
+@use "sass:map";
 
 // Hero Filter Styles
 
@@ -13,13 +14,13 @@
     
     // Add horizontal padding for smaller screens to avoid touching screen edges
     @include bp.breakpoint-down(medium) {
-        padding-left: map-get(v.$spacing, 4) !important;
-        padding-right: map-get(v.$spacing, 4) !important;
+        padding-left: map.get(v.$spacing, 4) !important;
+        padding-right: map.get(v.$spacing, 4) !important;
     }
     
     @include bp.breakpoint-down(small) {
-        padding-left: map-get(v.$spacing, 4) !important;
-        padding-right: map-get(v.$spacing, 4) !important;
+        padding-left: map.get(v.$spacing, 4) !important;
+        padding-right: map.get(v.$spacing, 4) !important;
     }
 }
 
@@ -36,7 +37,7 @@
         align-items: center;
         background: #E8E8E8;
         border-radius: 9999px;
-        padding: map-get(v.$spacing, 2);
+        padding: map.get(v.$spacing, 2);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         
     }
@@ -47,12 +48,12 @@
     border: none;
     background: transparent;
     outline: none;
-    font-family: map-get(v.$font-families, primary);
+    font-family: map.get(v.$font-families, primary);
     font-size: f.rem(15);
-    font-weight: map-get(v.$font-weights, regular);
+    font-weight: map.get(v.$font-weights, regular);
     color: #4A4A4A;
-    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4) !important;
-    padding-right: map-get(v.$spacing, 2) !important;
+    padding: map.get(v.$spacing, 3) map.get(v.$spacing, 4) !important;
+    padding-right: map.get(v.$spacing, 2) !important;
     
     &::placeholder {
         color: #8A8A8A;
@@ -65,8 +66,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: map-get(v.$colors, primary) !important;
-    color: map-get(v.$colors, white);
+    background: map.get(v.$colors, primary) !important;
+    color: map.get(v.$colors, white);
     border: none;
     border-radius: 9999px;
     width: 38px;
@@ -74,13 +75,13 @@
     cursor: pointer;
     transition: all 0.3s ease;
     flex-shrink: 0;
-    margin-left: map-get(v.$spacing, 2);
-    margin-right: map-get(v.$spacing, 2) !important;
-    margin-top: map-get(v.$spacing, 2) !important;
-    margin-bottom: map-get(v.$spacing, 2) !important;
+    margin-left: map.get(v.$spacing, 2);
+    margin-right: map.get(v.$spacing, 2) !important;
+    margin-top: map.get(v.$spacing, 2) !important;
+    margin-bottom: map.get(v.$spacing, 2) !important;
     
     &:hover {
-        background: map-get(v.$colors, primary-dark) !important;
+        background: map.get(v.$colors, primary-dark) !important;
     }
     
     &:active {
@@ -91,7 +92,7 @@
 .hero-filter-search-icon {
     width: 20px;
     height: 20px;
-    color: map-get(v.$colors, white);
+    color: map.get(v.$colors, white);
 }
 
 // Desktop Filter Bar - Show only on medium screens and above
@@ -100,7 +101,7 @@
     align-items: center;
     background: #E8E8E8;
     border-radius: 9999px;
-    padding: map-get(v.$spacing, 2);
+    padding: map.get(v.$spacing, 2);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     gap: 0;
     width: 100%;
@@ -129,11 +130,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 6) !important;
+    padding: map.get(v.$spacing, 3) map.get(v.$spacing, 6) !important;
     cursor: pointer;
-    font-family: map-get(v.$font-families, primary);
+    font-family: map.get(v.$font-families, primary);
     font-size: f.rem(15);
-    font-weight: map-get(v.$font-weights, regular);
+    font-weight: map.get(v.$font-weights, regular);
     color: #4A4A4A;
     transition: all 0.2s ease;
     width: 100%;
@@ -149,11 +150,11 @@
     }
     
     @include bp.breakpoint(medium) {
-        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 7) !important;
+        padding: map.get(v.$spacing, 3) map.get(v.$spacing, 7) !important;
     }
     
     @include bp.breakpoint(large) {
-        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 8) !important;
+        padding: map.get(v.$spacing, 3) map.get(v.$spacing, 8) !important;
     }
 }
 
@@ -161,7 +162,7 @@
     width: 18px;
     height: 18px;
     color: #4A4A4A;
-    margin-left: map-get(v.$spacing, 2);
+    margin-left: map.get(v.$spacing, 2);
     flex-shrink: 0;
     transition: transform 0.2s ease;
 }
@@ -174,29 +175,29 @@
     min-width: 280px;
     width: max-content;
     max-width: 400px;
-    background: map-get(v.$colors, white);
+    background: map.get(v.$colors, white);
     border-radius: f.rem(8);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     z-index: 10000;
     max-height: 350px;
     overflow-y: auto;
-    margin-top: map-get(v.$spacing, 1) !important;
+    margin-top: map.get(v.$spacing, 1) !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    padding: map-get(v.$spacing, 3) !important;
+    padding: map.get(v.$spacing, 3) !important;
     
     &--location {
         max-height: 400px;
         max-width: 450px;
-        padding: map-get(v.$spacing, 3) !important;
+        padding: map.get(v.$spacing, 3) !important;
     }
     
     &--price {
         max-height: 350px;
         max-width: 400px;
         min-width: 280px;
-        padding: map-get(v.$spacing, 3) !important;
+        padding: map.get(v.$spacing, 3) !important;
         
         @include bp.breakpoint-down(medium) {
             max-width: calc(100vw - 40px) !important;
@@ -207,15 +208,15 @@
 }
 
 .hero-filter-option {
-    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4) !important;
-    font-family: map-get(v.$font-families, primary);
+    padding: map.get(v.$spacing, 3) map.get(v.$spacing, 4) !important;
+    font-family: map.get(v.$font-families, primary);
     font-size: f.rem(14);
-    font-weight: map-get(v.$font-weights, regular);
-    color: map-get(v.$colors, primary);
+    font-weight: map.get(v.$font-weights, regular);
+    color: map.get(v.$colors, primary);
     cursor: pointer;
     transition: background-color 0.2s ease;
     border-radius: f.rem(4);
-    margin-bottom: map-get(v.$spacing, 1) !important;
+    margin-bottom: map.get(v.$spacing, 1) !important;
     
     &:last-child {
         margin-bottom: 0 !important;
@@ -225,28 +226,28 @@
 .hero-filter-search-box {
     display: flex;
     align-items: center;
-    gap: map-get(v.$spacing, 2) !important;
-    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 4) !important;
-    background: map-get(v.$colors, gray-100);
-    border: 1px solid map-get(v.$colors, gray-300);
+    gap: map.get(v.$spacing, 2) !important;
+    padding: map.get(v.$spacing, 3) map.get(v.$spacing, 4) !important;
+    background: map.get(v.$colors, gray-100);
+    border: 1px solid map.get(v.$colors, gray-300);
     border-radius: f.rem(8);
-    margin-bottom: map-get(v.$spacing, 3) !important;
+    margin-bottom: map.get(v.$spacing, 3) !important;
     position: sticky;
     top: 0;
     z-index: 10;
     transition: all 0.2s ease;
     
     &:focus-within {
-        border-color: map-get(v.$colors, primary);
-        background: map-get(v.$colors, white);
-        box-shadow: 0 0 0 3px rgba(map-get(v.$colors, primary), 0.1);
+        border-color: map.get(v.$colors, primary);
+        background: map.get(v.$colors, white);
+        box-shadow: 0 0 0 3px rgba(map.get(v.$colors, primary), 0.1);
     }
 }
 
 .hero-filter-search-icon-small {
     width: 18px;
     height: 18px;
-    color: map-get(v.$colors, primary);
+    color: map.get(v.$colors, primary);
     opacity: 0.6;
     flex-shrink: 0;
     transition: opacity 0.2s ease;
@@ -261,36 +262,36 @@
     border: none;
     background: transparent;
     outline: none;
-    font-family: map-get(v.$font-families, primary);
+    font-family: map.get(v.$font-families, primary);
     font-size: f.rem(14);
-    font-weight: map-get(v.$font-weights, regular);
-    color: map-get(v.$colors, primary);
+    font-weight: map.get(v.$font-weights, regular);
+    color: map.get(v.$colors, primary);
     padding: 0 !important;
     
     &::placeholder {
         color: rgba(0, 0, 0, 0.4);
-        font-weight: map-get(v.$font-weights, light);
+        font-weight: map.get(v.$font-weights, light);
     }
     
     &:focus {
-        color: map-get(v.$colors, primary);
+        color: map.get(v.$colors, primary);
     }
 }
 
 .hero-filter-options-list {
     max-height: 280px;
     overflow-y: auto;
-    padding: map-get(v.$spacing, 1) 0 !important;
+    padding: map.get(v.$spacing, 1) 0 !important;
 }
 
 .hero-filter-price-options {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: map-get(v.$spacing, 3) !important;
-    margin-bottom: map-get(v.$spacing, 3) !important;
+    gap: map.get(v.$spacing, 3) !important;
+    margin-bottom: map.get(v.$spacing, 3) !important;
     max-height: 280px;
     overflow-y: auto;
-    padding-right: map-get(v.$spacing, 1) !important;
+    padding-right: map.get(v.$spacing, 1) !important;
 }
 
 .hero-filter-price-section {
@@ -299,63 +300,63 @@
     gap: 0 !important;
     max-height: 250px;
     overflow-y: auto;
-    padding-right: map-get(v.$spacing, 1) !important;
+    padding-right: map.get(v.$spacing, 1) !important;
 }
 
 .hero-filter-price-title {
-    font-family: map-get(v.$font-families, primary);
+    font-family: map.get(v.$font-families, primary);
     font-size: f.rem(12);
-    font-weight: map-get(v.$font-weights, semibold);
-    color: map-get(v.$colors, primary);
+    font-weight: map.get(v.$font-weights, semibold);
+    color: map.get(v.$colors, primary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: map-get(v.$spacing, 2) !important;
+    margin-bottom: map.get(v.$spacing, 2) !important;
     padding: 0 !important;
     background: transparent;
     border-radius: 0;
 }
 
 .hero-filter-custom-price {
-    border-top: 1px solid map-get(v.$colors, gray-300);
-    padding-top: map-get(v.$spacing, 4) !important;
-    margin-top: map-get(v.$spacing, 4) !important;
+    border-top: 1px solid map.get(v.$colors, gray-300);
+    padding-top: map.get(v.$spacing, 4) !important;
+    margin-top: map.get(v.$spacing, 4) !important;
     
     .hero-filter-price-title {
-        margin-bottom: map-get(v.$spacing, 3) !important;
+        margin-bottom: map.get(v.$spacing, 3) !important;
     }
 }
 
 .hero-filter-custom-input-wrapper {
     display: flex;
-    gap: map-get(v.$spacing, 2) !important;
-    margin-top: map-get(v.$spacing, 2) !important;
+    gap: map.get(v.$spacing, 2) !important;
+    margin-top: map.get(v.$spacing, 2) !important;
 }
 
 .hero-filter-price-type-select {
     flex: 0 0 100px;
-    padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3) !important;
-    border: 1px solid map-get(v.$colors, gray-300);
+    padding: map.get(v.$spacing, 2) map.get(v.$spacing, 3) !important;
+    border: 1px solid map.get(v.$colors, gray-300);
     border-radius: f.rem(6);
-    font-family: map-get(v.$font-families, primary);
+    font-family: map.get(v.$font-families, primary);
     font-size: f.rem(14);
-    color: map-get(v.$colors, primary);
-    background: map-get(v.$colors, white);
+    color: map.get(v.$colors, primary);
+    background: map.get(v.$colors, white);
     outline: none;
     cursor: pointer;
     
     &:focus {
-        border-color: map-get(v.$colors, primary);
+        border-color: map.get(v.$colors, primary);
     }
 }
 
 .hero-filter-custom-price-input {
     flex: 1;
-    padding: map-get(v.$spacing, 2) map-get(v.$spacing, 3) !important;
-    border: 1px solid map-get(v.$colors, gray-300);
+    padding: map.get(v.$spacing, 2) map.get(v.$spacing, 3) !important;
+    border: 1px solid map.get(v.$colors, gray-300);
     border-radius: f.rem(6);
-    font-family: map-get(v.$font-families, primary);
+    font-family: map.get(v.$font-families, primary);
     font-size: f.rem(14);
-    color: map-get(v.$colors, primary);
+    color: map.get(v.$colors, primary);
     outline: none;
     
     &::placeholder {
@@ -363,7 +364,7 @@
     }
     
     &:focus {
-        border-color: map-get(v.$colors, primary);
+        border-color: map.get(v.$colors, primary);
     }
 }
 
@@ -377,13 +378,13 @@
 }
 
 .hero-filter-button {
-    padding: map-get(v.$spacing, 3) map-get(v.$spacing, 10) !important;
-    background: map-get(v.$colors, primary) !important;
-    color: map-get(v.$colors, white);
+    padding: map.get(v.$spacing, 3) map.get(v.$spacing, 10) !important;
+    background: map.get(v.$colors, primary) !important;
+    color: map.get(v.$colors, white);
     border: none;
     border-radius: 9999px;
-    font-family: map-get(v.$font-families, primary);
-    font-weight: map-get(v.$font-weights, medium);
+    font-family: map.get(v.$font-families, primary);
+    font-weight: map.get(v.$font-weights, medium);
     font-size: f.rem(15);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -395,13 +396,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: map-get(v.$spacing, 2) !important;
-    margin-right: map-get(v.$spacing, 2) !important;
-    margin-top: map-get(v.$spacing, 2) !important;
-    margin-bottom: map-get(v.$spacing, 2) !important;
+    margin-left: map.get(v.$spacing, 2) !important;
+    margin-right: map.get(v.$spacing, 2) !important;
+    margin-top: map.get(v.$spacing, 2) !important;
+    margin-bottom: map.get(v.$spacing, 2) !important;
     
     &:hover {
-        background: map-get(v.$colors, primary-dark) !important;
+        background: map.get(v.$colors, primary-dark) !important;
     }
     
     &:active {
@@ -410,17 +411,17 @@
     
     @include bp.breakpoint(medium) {
         min-width: 160px;
-        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 12) !important;
-        margin-right: map-get(v.$spacing, 2) !important;
-        margin-top: map-get(v.$spacing, 2) !important;
-        margin-bottom: map-get(v.$spacing, 2) !important;
+        padding: map.get(v.$spacing, 3) map.get(v.$spacing, 12) !important;
+        margin-right: map.get(v.$spacing, 2) !important;
+        margin-top: map.get(v.$spacing, 2) !important;
+        margin-bottom: map.get(v.$spacing, 2) !important;
     }
     
     @include bp.breakpoint(large) {
         min-width: 180px;
-        padding: map-get(v.$spacing, 3) map-get(v.$spacing, 14) !important;
-        margin-right: map-get(v.$spacing, 2) !important;
-        margin-top: map-get(v.$spacing, 2) !important;
-        margin-bottom: map-get(v.$spacing, 2) !important;
+        padding: map.get(v.$spacing, 3) map.get(v.$spacing, 14) !important;
+        margin-right: map.get(v.$spacing, 2) !important;
+        margin-top: map.get(v.$spacing, 2) !important;
+        margin-bottom: map.get(v.$spacing, 2) !important;
     }
 }

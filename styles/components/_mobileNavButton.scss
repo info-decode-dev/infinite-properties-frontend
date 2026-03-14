@@ -1,14 +1,15 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/breakpoints" as bp;
 @use "../abstracts/utils" as u;
+@use "sass:map";
 
 // Mobile Navigation Button Component
 // Only visible on mobile screens (below 700px) and on home page
 
 .mobile-nav-button {
   position: fixed;
-  bottom: map-get(v.$spacing, 6);
-  right: map-get(v.$spacing, 6);
+  bottom: map.get(v.$spacing, 6);
+  right: map.get(v.$spacing, 6);
   z-index: 1000;
   display: none; // Hidden by default, shown only on mobile
 
@@ -21,13 +22,13 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: map-get(v.$colors, secondary) !important;
+    background-color: map.get(v.$colors, secondary) !important;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: map-get(v.$colors, white);
+    color: map.get(v.$colors, white);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -43,7 +44,7 @@
     }
 
     &--expanded {
-      background-color: map-get(v.$colors, secondary);
+      background-color: map.get(v.$colors, secondary);
       transform: rotate(180deg);
     }
 
@@ -64,7 +65,7 @@
     min-width: 120px;
     height: 56px;
     border-radius: 28px;
-    background-color: map-get(v.$colors, primary) !important;
+    background-color: map.get(v.$colors, primary) !important;
     border: none;
     cursor: pointer;
     display: flex;
@@ -72,11 +73,11 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    color: map-get(v.$colors, white);
+    color: map.get(v.$colors, white);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 14px;
-    font-weight: map-get(v.$font-weights, semibold);
+    font-weight: map.get(v.$font-weights, semibold);
     text-align: center;
     padding: 0 16px;
     white-space: nowrap;
@@ -87,7 +88,7 @@
     &:hover {
       transform: scale(1.05) translateX(-4px);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-      background-color: map-get(v.$colors, primary) !important;
+      background-color: map.get(v.$colors, primary) !important;
     }
 
     &:active {
@@ -103,7 +104,7 @@
     span {
       font-size: 13px;
       line-height: 1.2;
-      font-weight: map-get(v.$font-weights, semibold);
+      font-weight: map.get(v.$font-weights, semibold);
     }
 
     // Individual button spacing and positioning with separate spacings
