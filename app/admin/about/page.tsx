@@ -538,17 +538,17 @@ function AboutUsForm({
     if (newValue.trim()) {
       setFormData({
         ...formData,
-        values: [...formData.values, newValue.trim()],
+        values: [...(formData.values || []), newValue.trim()],
       });
       setNewValue("");
     }
   };
 
   const removeValue = (index: number) => {
-    setFormData({
-      ...formData,
-      values: formData.values.filter((_, i) => i !== index),
-    });
+      setFormData({
+        ...formData,
+        values: (formData.values || []).filter((_, i) => i !== index),
+      });
   };
 
   const addStatistic = () => {
@@ -602,7 +602,7 @@ function AboutUsForm({
       setFormData({
         ...formData,
         teamMembers: [
-          ...formData.teamMembers,
+          ...(formData.teamMembers || []),
           {
             id: Date.now().toString(),
             name: newTeamMember.name,
@@ -610,7 +610,7 @@ function AboutUsForm({
             bio: newTeamMember.bio,
             email: newTeamMember.email,
             image: newTeamMember.image ? URL.createObjectURL(newTeamMember.image) : undefined,
-            imageFile: newTeamMember.image, // Store file separately for upload
+            imageFile: newTeamMember.image || undefined, // Store file separately for upload
           },
         ],
       });
@@ -621,7 +621,7 @@ function AboutUsForm({
   const removeTeamMember = (id: string) => {
     setFormData({
       ...formData,
-      teamMembers: formData.teamMembers.filter((m) => m.id !== id),
+      teamMembers: (formData.teamMembers || []).filter((m) => m.id !== id),
     });
   };
 
@@ -673,7 +673,7 @@ function AboutUsForm({
             multiple
             onChange={(e) => {
               const files = Array.from(e.target.files || []);
-              setFormData({ ...formData, images: [...formData.images, ...files] });
+              setFormData({ ...formData, images: [...(formData.images || []), ...files] });
             }}
             className="hidden"
             id="image-upload"
@@ -703,7 +703,7 @@ function AboutUsForm({
             </span>
           </label>
         </div>
-        {(existingImages.length > 0 || formData.images.length > 0) && (
+        {(existingImages.length > 0 || (formData.images || []).length > 0) && (
           <div className="space-y-4">
             {existingImages.length > 0 && (
               <div>
@@ -749,13 +749,13 @@ function AboutUsForm({
                 </div>
               </div>
             )}
-            {formData.images.length > 0 && (
+            {(formData.images || []).length > 0 && (
               <div>
                 <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                   New Images to Upload
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {formData.images.map((img, i) => (
+                  {(formData.images || []).map((img, i) => (
                     <div key={`new-${i}`} className="relative group">
                       <div className="aspect-square rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
                         <img
@@ -858,7 +858,7 @@ function AboutUsForm({
           </button>
         </div>
         <div className="flex flex-wrap gap-2">
-          {formData.values.map((value, i) => (
+          {(formData.values || []).map((value, i) => (
             <span
               key={i}
               className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full"
@@ -922,7 +922,7 @@ function AboutUsForm({
           </button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-          {formData.statistics.map((stat) => (
+          {(formData.statistics || []).map((stat) => (
             <div
               key={stat.id}
               className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg border border-blue-200 dark:border-blue-800 relative"
@@ -945,7 +945,7 @@ function AboutUsForm({
             </div>
           ))}
         </div>
-        {formData.statistics.length === 0 && (
+        {(formData.statistics || []).length === 0 && (
           <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
             No statistics added yet. Add your first statistic above.
           </p>
@@ -996,9 +996,9 @@ function AboutUsForm({
             Add Achievement
           </button>
         </div>
-        {formData.achievements.length > 0 ? (
+        {(formData.achievements || []).length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            {formData.achievements.map((achievement) => (
+            {(formData.achievements || []).map((achievement) => (
               <div
                 key={achievement.id}
                 className="p-5 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-lg border border-purple-200 dark:border-purple-800 relative shadow-sm hover:shadow-md transition-shadow"
@@ -1134,9 +1134,9 @@ function AboutUsForm({
             Add Team Member
           </button>
         </div>
-        {formData.teamMembers.length > 0 ? (
+        {(formData.teamMembers || []).length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {formData.teamMembers.map((member) => (
+            {(formData.teamMembers || []).map((member) => (
               <div
                 key={member.id}
                 className="p-5 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg border border-blue-200 dark:border-blue-800 relative shadow-sm hover:shadow-md transition-all group"
@@ -1224,11 +1224,11 @@ function AboutUsForm({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
-            value={formData.contactInfo.address || ""}
+            value={formData.contactInfo?.address || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                contactInfo: { ...formData.contactInfo, address: e.target.value },
+                contactInfo: { ...(formData.contactInfo || {}), address: e.target.value },
               })
             }
             placeholder="Address"
@@ -1236,11 +1236,11 @@ function AboutUsForm({
           />
           <input
             type="tel"
-            value={formData.contactInfo.phone || ""}
+            value={formData.contactInfo?.phone || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                contactInfo: { ...formData.contactInfo, phone: e.target.value },
+                contactInfo: { ...(formData.contactInfo || {}), phone: e.target.value },
               })
             }
             placeholder="Phone"
@@ -1248,11 +1248,11 @@ function AboutUsForm({
           />
           <input
             type="email"
-            value={formData.contactInfo.email || ""}
+            value={formData.contactInfo?.email || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                contactInfo: { ...formData.contactInfo, email: e.target.value },
+                contactInfo: { ...(formData.contactInfo || {}), email: e.target.value },
               })
             }
             placeholder="Email"
@@ -1260,11 +1260,11 @@ function AboutUsForm({
           />
           <input
             type="url"
-            value={formData.contactInfo.website || ""}
+            value={formData.contactInfo?.website || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                contactInfo: { ...formData.contactInfo, website: e.target.value },
+                contactInfo: { ...(formData.contactInfo || {}), website: e.target.value },
               })
             }
             placeholder="Website"
