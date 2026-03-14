@@ -503,7 +503,7 @@ function AboutUsForm({
     values: initialData?.values || [],
     statistics: initialData?.statistics || [],
     achievements: initialData?.achievements || [],
-    teamMembers: (initialData?.teamMembers || []).map((member) => ({
+    teamMembers: (initialData?.teamMembers || []).map((member): TeamMemberWithFile => ({
       ...member,
       image: formatImageUrl(member.image), // Format image URLs for display
     })),
