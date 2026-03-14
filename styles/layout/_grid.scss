@@ -2,6 +2,7 @@
 @use "../abstracts/breakpoints" as bp;
 @use "../abstracts/functions" as f;
 @use "sass:map";
+@use "sass:math";
 
 // Container - scoped to exclude admin routes
 html:not([data-admin]) .container {
@@ -42,8 +43,8 @@ html:not([data-admin]) .row {
 // Generate column classes
 @for $i from 1 through v.$grid-columns {
   .col-#{$i} {
-    flex: 0 0 percentage(calc($i / v.$grid-columns));
-    max-width: percentage(calc($i / v.$grid-columns));
+    flex: 0 0 math.percentage(calc($i / v.$grid-columns));
+    max-width: math.percentage(calc($i / v.$grid-columns));
     padding-left: map.get(v.$spacing, 3);
     padding-right: map.get(v.$spacing, 3);
   }
@@ -68,8 +69,8 @@ html:not([data-admin]) .row {
     
     @for $i from 1 through v.$grid-columns {
       .col-#{$breakpoint}-#{$i} {
-        flex: 0 0 percentage(calc($i / v.$grid-columns));
-        max-width: percentage(calc($i / v.$grid-columns));
+        flex: 0 0 math.percentage(calc($i / v.$grid-columns));
+        max-width: math.percentage(calc($i / v.$grid-columns));
         padding-left: map.get(v.$spacing, 3);
         padding-right: map.get(v.$spacing, 3);
       }
