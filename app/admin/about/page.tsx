@@ -570,7 +570,7 @@ function AboutUsForm({
   const removeStatistic = (id: string) => {
     setFormData({
       ...formData,
-      statistics: formData.statistics.filter((s) => s.id !== id),
+      statistics: (formData.statistics || []).filter((s) => s.id !== id),
     });
   };
 
