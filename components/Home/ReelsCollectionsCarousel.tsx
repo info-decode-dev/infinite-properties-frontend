@@ -225,7 +225,7 @@ const ReelsCollectionsCarousel = () => {
             const images = property.images.slice(0, 3).map(imagePath => {
                // Handle relative paths by prepending API URL
                if (!imagePath.startsWith("http://") && !imagePath.startsWith("https://")) {
-                  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+                  const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "");
                   return `${apiUrl}${imagePath}`;
                 }
                 return imagePath;

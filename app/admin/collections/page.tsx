@@ -727,7 +727,7 @@ export default function CollectionsPage() {
                     <div className="relative h-48 bg-gray-100 dark:bg-gray-700">
                       {featured.media.type === "image" ? (
                         <img
-                          src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${featured.media.url}`}
+                          src={`${(process.env.NEXT_PUBLIC_API_URL || "")}${featured.media.url}`}
                           alt={featured.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
@@ -736,7 +736,7 @@ export default function CollectionsPage() {
                         />
                       ) : (
                         <video
-                          src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${featured.media.url}`}
+                          src={`${(process.env.NEXT_PUBLIC_API_URL || "")}${featured.media.url}`}
                           className="w-full h-full object-cover"
                           controls
                         />
@@ -767,7 +767,7 @@ export default function CollectionsPage() {
                           {featured.clientLogos.map((logo, index) => (
                             <img
                               key={index}
-                              src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${logo}`}
+                              src={`${(process.env.NEXT_PUBLIC_API_URL || "")}${logo}`}
                               alt={`Client logo ${index + 1}`}
                               className="h-8 w-auto object-contain"
                               onError={(e) => {
@@ -870,7 +870,7 @@ export default function CollectionsPage() {
                 const profilePictureUrl = builder.profilePicture
                   ? builder.profilePicture.startsWith("http")
                     ? builder.profilePicture
-                    : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}${builder.profilePicture}`
+                    : `${(process.env.NEXT_PUBLIC_API_URL || "")}${builder.profilePicture}`
                   : null;
 
                 return (

@@ -509,7 +509,7 @@ export default function EnquiriesPage() {
                     >
                       {enquiry.property?.images && enquiry.property.images.length > 0 && (
                         <img
-                          src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${enquiry.property.images[0]}`}
+                          src={`${(process.env.NEXT_PUBLIC_API_URL || "")}${enquiry.property.images[0]}`}
                           alt={enquiry.property?.title || 'Property'}
                           className="w-16 h-16 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
                           onError={(e) => {

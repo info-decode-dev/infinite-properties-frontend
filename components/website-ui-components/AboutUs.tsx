@@ -56,7 +56,7 @@ const AboutUs = () => {
     if (!imagePath) return "";
     if (imagePath.startsWith("http://") || imagePath.startsWith("https://"))
       return imagePath;
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+    const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "");
     return `${apiUrl}${imagePath}`;
   };
 

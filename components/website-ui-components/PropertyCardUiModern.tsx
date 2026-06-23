@@ -166,7 +166,7 @@ export default function PropertyCardUiModern({ property }: PropertyCardUiModernP
     }
 
     // If it's a relative path, prepend API URL
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+    const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "");
     const fullUrl = `${apiUrl}${imagePath}`;
     
     // Debug: Log image URL construction (remove in production)

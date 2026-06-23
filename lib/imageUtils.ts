@@ -1,5 +1,8 @@
+export function getApiBaseUrl(): string {
+  return process.env.NEXT_PUBLIC_API_URL || "";
+}
+
 /**
- * Utility function to get the full image URL
  * Handles both relative paths (prepends API URL) and full URLs (Supabase, external, etc.)
  */
 export function getImageUrl(imagePath: string | undefined | null): string {
@@ -22,7 +25,7 @@ export function getImageUrl(imagePath: string | undefined | null): string {
     return imagePath;
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+  const apiUrl = getApiBaseUrl();
   return apiUrl ? `${apiUrl}${imagePath}` : imagePath;
 }
 

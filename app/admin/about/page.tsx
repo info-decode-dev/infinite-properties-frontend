@@ -63,7 +63,7 @@ export default function AboutUsPage() {
       formData.append("achievements", JSON.stringify(data.achievements || []));
       
       // Process team members - extract image files and prepare data
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "");
       const teamMembersData = (data.teamMembers || []).map((member: any, index: number) => {
         const { imageFile, ...memberData } = member;
         // If there's a new image file, don't include the old image URL (backend will use uploaded file)
@@ -359,7 +359,7 @@ function AboutUsPreview({ aboutUs }: { aboutUs: AboutUs }) {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {aboutUs.teamMembers.map((member) => {
-              const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+              const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "");
               const getImageUrl = (imagePath?: string) => {
                 if (!imagePath) return null;
                 if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) return imagePath;
@@ -478,7 +478,7 @@ function AboutUsForm({
     if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("blob:")) {
       return url;
     }
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+    const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "");
     return `${apiUrl}${url}`;
   };
 
@@ -712,7 +712,7 @@ function AboutUsForm({
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {existingImages.map((imgUrl, i) => {
-                    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+                    const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "");
                     const fullUrl = imgUrl.startsWith("http") ? imgUrl : `${apiUrl}${imgUrl}`;
                     return (
                       <div key={`existing-${i}`} className="relative group">

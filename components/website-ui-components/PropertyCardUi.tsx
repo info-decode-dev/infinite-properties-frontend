@@ -170,7 +170,7 @@ export default function PropertyCardUi({ property }: PropertyCardUiProps) {
     }
 
     // If it's a relative path, prepend API URL
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+    const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "");
     return `${apiUrl}${imagePath}`;
   };
 

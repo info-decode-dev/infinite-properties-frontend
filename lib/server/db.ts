@@ -4,23 +4,37 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
+function appendQueryParam(url: string, key: string, value: string): string {
+  if (url.includes(`${key}=`)) return url;
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}${key}=${value}`;
+}
+
+/**
+ * Optimize DATABASE_URL for Supabase + Prisma on serverless (Vercel).
+ *
+ * - Transaction pooler (6543): requires pgbouncer=true for Prisma
+ * - Serverless: connection_limit=1 per lambda instance to avoid pool exhaustion
+ */
 const getOptimizedDatabaseUrl = (): string => {
   const dbUrl = process.env.DATABASE_URL || "";
   if (!dbUrl) return "";
 
-  if (dbUrl.includes(":6543") || dbUrl.includes("pooler.supabase.com")) {
-    let optimizedUrl = dbUrl;
-    if (optimizedUrl.includes("pgbouncer=true")) {
-      optimizedUrl = optimizedUrl.replace(/[?&]pgbouncer=true/g, "");
+  const isVercel = process.env.VERCEL === "1";
+  const isTransactionPooler =
+    dbUrl.includes(":6543") || dbUrl.includes("pooler.supabase.com:6543");
+
+  if (isTransactionPooler) {
+    let optimized = appendQueryParam(dbUrl, "pgbouncer", "true");
+    if (isVercel || process.env.NODE_ENV === "production") {
+      optimized = appendQueryParam(optimized, "connection_limit", "1");
     }
-    if (optimizedUrl.includes("connection_limit=")) {
-      optimizedUrl = optimizedUrl.replace(/[?&]connection_limit=\d+/g, "");
-    }
-    optimizedUrl = optimizedUrl.replace(/\?&/g, "?").replace(/&&/g, "&");
-    if (optimizedUrl.endsWith("?") || optimizedUrl.endsWith("&")) {
-      optimizedUrl = optimizedUrl.slice(0, -1);
-    }
-    return optimizedUrl;
+    return optimized;
+  }
+
+  // Session pooler (5432) — limit connections on Vercel; prefer 6543 in production
+  if (dbUrl.includes("pooler.supabase.com") && isVercel) {
+    return appendQueryParam(dbUrl, "connection_limit", "1");
   }
 
   return dbUrl;
@@ -39,8 +53,7 @@ const prisma =
     },
   });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
-}
+// Reuse client within the same serverless instance (dev + production)
+globalForPrisma.prisma = prisma;
 
 export default prisma;

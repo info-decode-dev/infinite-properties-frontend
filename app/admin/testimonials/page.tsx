@@ -166,7 +166,7 @@ export default function TestimonialsPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10"></div>
                   {testimonial.propertyMedia.type === "image" ? (
                     <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${testimonial.propertyMedia.url}`}
+                      src={`${(process.env.NEXT_PUBLIC_API_URL || "")}${testimonial.propertyMedia.url}`}
                       alt="Property"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       onError={(e) => {
@@ -175,7 +175,7 @@ export default function TestimonialsPage() {
                     />
                   ) : (
                     <video
-                      src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${testimonial.propertyMedia.url}`}
+                      src={`${(process.env.NEXT_PUBLIC_API_URL || "")}${testimonial.propertyMedia.url}`}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       controls
                       muted
@@ -206,7 +206,7 @@ export default function TestimonialsPage() {
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full blur opacity-50"></div>
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${testimonial.profilePicture}`}
+                        src={`${(process.env.NEXT_PUBLIC_API_URL || "")}${testimonial.profilePicture}`}
                         alt={testimonial.clientName}
                         className="relative w-14 h-14 rounded-full object-cover border-2 border-white dark:border-gray-800 shadow-lg"
                         onError={(e) => {
