@@ -3,11 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
-import axios from "axios";
+import apiClient from "@/lib/api";
 import { setAuthenticated, isAuthenticated } from "@/middleware/auth";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -30,7 +27,7 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      const { data } = await axios.post(`${API_BASE_URL}/api/auth/login`, {
+      const { data } = await apiClient.post("/api/auth/login", {
         email,
         password,
       });
@@ -46,8 +43,16 @@ export default function AdminLoginPage() {
       router.push("/admin");
     } catch (err: unknown) {
       const message =
-        axios.isAxiosError(err) && err.response?.data?.message
-          ? err.response.data.message
+        err &&
+        typeof err === "object" &&
+        "response" in err &&
+        err.response &&
+        typeof err.response === "object" &&
+        "data" in err.response &&
+        err.response.data &&
+        typeof err.response.data === "object" &&
+        "message" in err.response.data
+          ? String(err.response.data.message)
           : "Unable to sign in. Please try again.";
       setError(message);
     } finally {

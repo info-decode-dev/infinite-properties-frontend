@@ -17,9 +17,13 @@ export function getImageUrl(imagePath: string | undefined | null): string {
     return imagePath;
   }
 
-  // If it's a relative path, prepend API URL
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-  return `${apiUrl}${imagePath}`;
+  // If it's a relative path, use same-origin (Next.js API routes)
+  if (imagePath.startsWith("/")) {
+    return imagePath;
+  }
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+  return apiUrl ? `${apiUrl}${imagePath}` : imagePath;
 }
 
 /**
